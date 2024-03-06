@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:weather_forecast_app/app/core/services/dio_service.dart';
+import 'package:weather_forecast_app/app/core/services/dio/dio_service.dart';
 import 'package:weather_forecast_app/app/data/repositories/open_weather_map_repository.dart';
 
 void main() {

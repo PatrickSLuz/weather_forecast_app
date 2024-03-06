@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:weather_forecast_app/app/core/services/environment_service.dart';
 
 class DioInterceptor {
   static final interceptorsWrapper = InterceptorsWrapper(
@@ -14,7 +15,7 @@ class DioInterceptor {
     RequestInterceptorHandler handler,
   ) {
     options.queryParameters.addAll(
-      {'appid': ''}, // TODO add app id
+      {'appid': EnvironmentService.apiAppId},
     );
 
     log('----- REQUEST -----');
