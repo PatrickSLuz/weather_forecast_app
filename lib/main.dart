@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weather_forecast_app/app/core/services/dependency_injection_service.dart';
-import 'package:weather_forecast_app/app/data/repositories/open_weather_map_repository.dart';
+import 'package:weather_forecast_app/app/domain/repositories/weather_forecast_repository.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -21,7 +21,7 @@ class MainApp extends StatelessWidget {
           child: TextButton(
             child: const Text('Call API'),
             onPressed: () {
-              getIt<OpenWeatherMapRepository>().getForecast(-25, -49);
+              getIt<WeatherForecastRepository>().getWeatherForecast(-25, -49);
             },
           ),
         ),

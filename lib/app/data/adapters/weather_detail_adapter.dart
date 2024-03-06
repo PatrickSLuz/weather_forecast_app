@@ -1,4 +1,4 @@
-import 'package:weather_forecast_app/app/interactor/models/weather_detail_model.dart';
+import 'package:weather_forecast_app/app/domain/models/weather_detail_model.dart';
 
 class WeatherDetailAdapter {
   WeatherDetailAdapter._();

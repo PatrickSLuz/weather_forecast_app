@@ -4,7 +4,7 @@ import 'package:weather_forecast_app/app/data/adapters/rain_snow_adapter.dart';
 import 'package:weather_forecast_app/app/data/adapters/weather_condition_adapter.dart';
 import 'package:weather_forecast_app/app/data/adapters/weather_detail_adapter.dart';
 import 'package:weather_forecast_app/app/data/adapters/wind_adapter.dart';
-import 'package:weather_forecast_app/app/interactor/models/weather_model.dart';
+import 'package:weather_forecast_app/app/domain/models/weather_model.dart';
 
 class WeatherAdapter {
   WeatherAdapter._();

@@ -1,9 +1,9 @@
-import 'package:weather_forecast_app/app/interactor/models/cloudiness_model.dart';
-import 'package:weather_forecast_app/app/interactor/models/coordinate_model.dart';
-import 'package:weather_forecast_app/app/interactor/models/rain_snow_model.dart';
-import 'package:weather_forecast_app/app/interactor/models/weather_condition_model.dart';
-import 'package:weather_forecast_app/app/interactor/models/weather_detail_model.dart';
-import 'package:weather_forecast_app/app/interactor/models/wind_model.dart';
+import 'package:weather_forecast_app/app/domain/models/cloudiness_model.dart';
+import 'package:weather_forecast_app/app/domain/models/coordinate_model.dart';
+import 'package:weather_forecast_app/app/domain/models/rain_snow_model.dart';
+import 'package:weather_forecast_app/app/domain/models/weather_condition_model.dart';
+import 'package:weather_forecast_app/app/domain/models/weather_detail_model.dart';
+import 'package:weather_forecast_app/app/domain/models/wind_model.dart';
 
 class WeatherModel {
   /// (timezone) Time of data calculation, unix, UTC

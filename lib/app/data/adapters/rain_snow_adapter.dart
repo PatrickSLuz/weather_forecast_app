@@ -1,4 +1,4 @@
-import 'package:weather_forecast_app/app/interactor/models/rain_snow_model.dart';
+import 'package:weather_forecast_app/app/domain/models/rain_snow_model.dart';
 
 class RainSnowAdapter {
   RainSnowAdapter._();

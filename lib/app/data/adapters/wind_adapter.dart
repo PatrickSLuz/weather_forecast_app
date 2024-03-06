@@ -1,4 +1,4 @@
-import 'package:weather_forecast_app/app/interactor/models/wind_model.dart';
+import 'package:weather_forecast_app/app/domain/models/wind_model.dart';
 
 class WindAdapter {
   WindAdapter._();

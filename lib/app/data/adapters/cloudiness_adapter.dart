@@ -1,4 +1,4 @@
-import 'package:weather_forecast_app/app/interactor/models/cloudiness_model.dart';
+import 'package:weather_forecast_app/app/domain/models/cloudiness_model.dart';
 
 class CloudinessAdapter {
   CloudinessAdapter._();

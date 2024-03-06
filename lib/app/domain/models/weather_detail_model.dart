@@ -1,6 +1,7 @@
 class WeatherDetailModel {
   /// (temp) Temperature. Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit
   final num temperature;
+  // TODO, var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
   /// (feels_like) This temperature parameter accounts for the human perception of weather
   final num feelsLike;

@@ -15,7 +15,10 @@ class DioInterceptor {
     RequestInterceptorHandler handler,
   ) {
     options.queryParameters.addAll(
-      {'appid': EnvironmentService.apiAppId},
+      {
+        'appid': EnvironmentService.apiAppId,
+        'mode': 'json',
+      },
     );
 
     log('----- REQUEST -----');

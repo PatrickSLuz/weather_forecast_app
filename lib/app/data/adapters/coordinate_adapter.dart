@@ -1,4 +1,4 @@
-import 'package:weather_forecast_app/app/interactor/models/coordinate_model.dart';
+import 'package:weather_forecast_app/app/domain/models/coordinate_model.dart';
 
 class CoordinateAdapter {
   CoordinateAdapter._();
