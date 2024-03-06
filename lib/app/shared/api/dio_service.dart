@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:weather_forecast_app/app/core/services/dio/dio_interceptor.dart';
-import 'package:weather_forecast_app/app/core/services/environment_service.dart';
+import 'package:weather_forecast_app/app/shared/api/dio_interceptor.dart';
+import 'package:weather_forecast_app/app/shared/environment/environment.dart';
 
 class DioService {
   DioService._();
@@ -11,7 +11,7 @@ class DioService {
     log('- Dio setup');
     return Dio(
       BaseOptions(
-        baseUrl: EnvironmentService.apiUrl,
+        baseUrl: Environment.apiUrl,
         connectTimeout: const Duration(seconds: 20),
         receiveTimeout: const Duration(seconds: 20),
       ),

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:weather_forecast_app/app/core/services/environment_service.dart';
+import 'package:weather_forecast_app/app/shared/environment/environment.dart';
 
 class DioInterceptor {
   static final interceptorsWrapper = InterceptorsWrapper(
@@ -16,7 +16,7 @@ class DioInterceptor {
   ) {
     options.queryParameters.addAll(
       {
-        'appid': EnvironmentService.apiAppId,
+        'appid': Environment.apiAppId,
         'mode': 'json',
       },
     );
