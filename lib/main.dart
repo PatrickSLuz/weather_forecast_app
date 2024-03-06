@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:weather_forecast_app/app/core/services/dependency_injection_service.dart';
+import 'package:weather_forecast_app/app/data/repositories/open_weather_map_repository.dart';
 
 void main() {
+  DependencyInjectionService.register();
+
   runApp(const MainApp());
 }
 
@@ -9,10 +13,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Text('Hello World!'),
+          child: TextButton(
+            child: const Text('Call API'),
+            onPressed: () {
+              getIt<OpenWeatherMapRepository>().getForecast(-25, -49);
+            },
+          ),
         ),
       ),
     );
