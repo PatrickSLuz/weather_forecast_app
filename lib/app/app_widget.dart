@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_forecast_app/app/shared/theme/app_theme.dart';
 import 'package:weather_forecast_app/app/ui/weather_forecast_module.dart';
 
 class AppWidget extends StatelessWidget {
@@ -6,10 +7,12 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Previsão do Tempo',
       initialRoute: '/',
-      home: WeatherForecastModule(),
+      theme: AppTheme.theme,
+      home: const WeatherForecastModule(),
     );
   }
 }

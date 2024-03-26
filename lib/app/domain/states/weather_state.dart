@@ -15,6 +15,6 @@ class SuccessState implements WeatherState {
 }
 
 class ErrorState implements WeatherState {
-  final error;
+  final Failure error;
   const ErrorState(this.error);
 }

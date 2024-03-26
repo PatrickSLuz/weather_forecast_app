@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:weather_forecast_app/app/shared/environment/environment.dart';
 
 class DioInterceptor {
+  DioInterceptor._();
+
   static final interceptorsWrapper = InterceptorsWrapper(
     onRequest: _onRequest,
     onResponse: _onResponse,
@@ -18,6 +20,7 @@ class DioInterceptor {
       {
         'appid': Environment.apiAppId,
         'mode': 'json',
+        'lang': 'pt_br',
       },
     );
 

@@ -1,7 +1,6 @@
 class WeatherDetailModel {
   /// (temp) Temperature. Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit
   final num temperature;
-  // TODO, var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
   /// (feels_like) This temperature parameter accounts for the human perception of weather
   final num feelsLike;
@@ -21,10 +20,10 @@ class WeatherDetailModel {
   final num humidity;
 
   /// (sea_level) Atmospheric pressure on the sea level, hPa
-  final num seaLevel;
+  final num? seaLevel;
 
   /// (grnd_level) Atmospheric pressure on the ground level, hPa
-  final num groundLevel;
+  final num? groundLevel;
 
   WeatherDetailModel({
     required this.temperature,
@@ -33,8 +32,8 @@ class WeatherDetailModel {
     required this.tempMax,
     required this.pressure,
     required this.humidity,
-    required this.seaLevel,
-    required this.groundLevel,
+    this.seaLevel,
+    this.groundLevel,
   });
 
   WeatherDetailModel copyWith({

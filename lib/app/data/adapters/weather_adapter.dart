@@ -1,5 +1,6 @@
 import 'package:weather_forecast_app/app/data/adapters/cloudiness_adapter.dart';
 import 'package:weather_forecast_app/app/data/adapters/coordinate_adapter.dart';
+import 'package:weather_forecast_app/app/data/adapters/location_adapter.dart';
 import 'package:weather_forecast_app/app/data/adapters/rain_snow_adapter.dart';
 import 'package:weather_forecast_app/app/data/adapters/weather_condition_adapter.dart';
 import 'package:weather_forecast_app/app/data/adapters/weather_detail_adapter.dart';
@@ -17,7 +18,7 @@ class WeatherAdapter {
     List weathers = map['weather'];
     return WeatherModel(
       currentDate: map['dt'],
-      cityName: map['name'],
+      location: LocationAdapter.fromMap(map),
       visibility: map['visibility'],
       coordinate: CoordinateAdapter.fromMap(map['coord']),
       condition: WeatherConditionAdapter.fromMap(weathers.first),
