@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/domain/cubits/weather_cubit.dart';
+import 'package:weather_forecast_app/app/shared/routes/app_routes.dart';
 import 'package:weather_forecast_app/app/ui/weather/components/weather_component.dart';
 
 class WeatherPage extends StatelessWidget {
@@ -14,7 +15,9 @@ class WeatherPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.search_rounded),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.searchPage);
+            },
           )
         ],
       ),

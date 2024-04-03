@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_forecast_app/app/shared/routes/app_routes.dart';
 import 'package:weather_forecast_app/app/shared/theme/app_theme.dart';
 import 'package:weather_forecast_app/app/ui/weather/weather_module.dart';
 
@@ -10,8 +11,9 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Previsão do Tempo',
-      initialRoute: '/',
       theme: AppTheme.lightTheme,
+      initialRoute: '/',
+      onGenerateRoute: AppRoutes.generate,
       home: const WeatherModule(),
     );
   }
