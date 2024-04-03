@@ -6,30 +6,46 @@ import 'package:weather_forecast_app/app/shared/environment/environment.dart';
 class DioInterceptor {
   DioInterceptor._();
 
-  static final interceptorsWrapper = InterceptorsWrapper(
-    onRequest: _onRequest,
+  static final weatherInterceptorsWrapper = InterceptorsWrapper(
+    onRequest: _weatherOnRequest,
     onResponse: _onResponse,
     onError: _onError,
   );
 
-  static void _onRequest(
+  static final geoInterceptorsWrapper = InterceptorsWrapper(
+    onRequest: _geoOnRequest,
+    onResponse: _onResponse,
+    onError: _onError,
+  );
+
+  static void _weatherOnRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) {
     options.queryParameters.addAll(
       {
-        'appid': Environment.apiAppId,
+        'appid': Environment.weatherApiAppId,
         'mode': 'json',
         'lang': 'pt_br',
       },
     );
 
-    log('----- REQUEST -----');
-    log('Method.${options.method}');
-    log('Headers: ${options.headers}');
-    log('Parameters: ${options.queryParameters}');
-    log('Path URL: ${options.path}');
-    log('-------------------');
+    _showRequestLog(options);
+
+    return handler.next(options);
+  }
+
+  static void _geoOnRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) {
+    options.queryParameters.addAll(
+      {
+        'apiKey': Environment.geoApiKey,
+      },
+    );
+
+    _showRequestLog(options);
 
     return handler.next(options);
   }
@@ -57,5 +73,14 @@ class DioInterceptor {
     log('---------------------');
 
     return handler.next(error);
+  }
+
+  static void _showRequestLog(RequestOptions options) {
+    log('----- REQUEST -----');
+    log('Method.${options.method}');
+    log('Headers: ${options.headers}');
+    log('Parameters: ${options.queryParameters}');
+    log('Path URL: ${options.path}');
+    log('-------------------');
   }
 }

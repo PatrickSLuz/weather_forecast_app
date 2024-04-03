@@ -1,12 +1,15 @@
 import 'dart:developer';
 
-import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:weather_forecast_app/app/data/datasources/geo_datasource.dart';
+import 'package:weather_forecast_app/app/data/datasources/geoapify/geoapify_datasource.dart';
+import 'package:weather_forecast_app/app/data/repositories/geo_repository_impl.dart';
+import 'package:weather_forecast_app/app/domain/repositories/geo_repository.dart';
 import 'package:weather_forecast_app/app/shared/api/dio_service.dart';
 import 'package:weather_forecast_app/app/data/datasources/open_weather_map/open_weather_map_datasource.dart';
-import 'package:weather_forecast_app/app/data/datasources/weather_forecast_datasource.dart';
-import 'package:weather_forecast_app/app/data/repositories/weather_forecast_repository_impl.dart';
-import 'package:weather_forecast_app/app/domain/repositories/weather_forecast_repository.dart';
+import 'package:weather_forecast_app/app/data/datasources/weather_datasource.dart';
+import 'package:weather_forecast_app/app/data/repositories/weather_repository_impl.dart';
+import 'package:weather_forecast_app/app/domain/repositories/weather_repository.dart';
 
 final getIt = GetIt.instance;
 
@@ -15,12 +18,17 @@ class DependencyInjection {
 
   static void register() {
     log('- Dependency Injection register');
-    getIt.registerSingleton<Dio>(DioService.setup());
-    getIt.registerLazySingleton<WeatherForecastDatasource>(
-      () => OpenWeatherMapDatasource(getIt<Dio>()),
+    getIt.registerLazySingleton<WeatherDatasource>(
+      () => OpenWeatherMapDatasource(DioService.weatherSetup()),
     );
-    getIt.registerLazySingleton<WeatherForecastRepository>(
-      () => WeatherForecastRepositoryImpl(getIt<WeatherForecastDatasource>()),
+    getIt.registerLazySingleton<WeatherRepository>(
+      () => WeatherRepositoryImpl(getIt<WeatherDatasource>()),
+    );
+    getIt.registerLazySingleton<GeoDatasource>(
+      () => GeoApiFyDatasource(DioService.geoSetup()),
+    );
+    getIt.registerLazySingleton<GeoRepository>(
+      () => GeoRepositoryImpl(getIt<GeoDatasource>()),
     );
   }
 }

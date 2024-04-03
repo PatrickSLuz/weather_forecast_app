@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:weather_forecast_app/app/ui/search/search_page.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:weather_forecast_app/app/ui/search/search_module.dart';
 import 'package:weather_forecast_app/app/ui/unknown/unknown_page.dart';
-import 'package:weather_forecast_app/app/ui/weather/weather_page.dart';
+import 'package:weather_forecast_app/app/ui/weather/weather_module.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -13,11 +13,11 @@ class AppRoutes {
     switch (settings.name) {
       case '/':
       case weatherPage:
-        return MaterialPageRoute(builder: (_) => const WeatherPage());
+        return CupertinoPageRoute(builder: (_) => const WeatherModule());
       case searchPage:
-        return MaterialPageRoute(builder: (_) => const SearchPage());
+        return CupertinoPageRoute(builder: (_) => const SearchModule());
       default:
-        return MaterialPageRoute(builder: (_) => const UnknownPage());
+        return CupertinoPageRoute(builder: (_) => const UnknownPage());
     }
   }
 }

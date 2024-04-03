@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:weather_forecast_app/app/data/adapters/weather_adapter.dart';
-import 'package:weather_forecast_app/app/data/datasources/weather_forecast_datasource.dart';
+import 'package:weather_forecast_app/app/data/datasources/weather_datasource.dart';
 import 'package:weather_forecast_app/app/domain/models/weather_model.dart';
 
-class OpenWeatherMapDatasource implements WeatherForecastDatasource {
+class OpenWeatherMapDatasource implements WeatherDatasource {
   final Dio dio;
 
   OpenWeatherMapDatasource(this.dio);
