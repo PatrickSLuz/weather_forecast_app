@@ -11,7 +11,7 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Previsão do Tempo',
       initialRoute: '/',
-      theme: AppTheme.theme,
+      theme: AppTheme.lightTheme,
       home: const WeatherForecastModule(),
     );
   }

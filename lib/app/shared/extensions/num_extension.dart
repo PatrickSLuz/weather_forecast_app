@@ -1,7 +1,13 @@
+import 'dart:math';
+
+import 'package:intl/intl.dart';
+
 extension NumExtension on num {
+  double toRadians() => this * pi / 180;
+
   String inKmPerHour() => (this * 3.6).toStringAsFixed(2);
 
-  String convertToDate(num timezone) {
+  String convertToDate(num timezone, [String pattern = 'dd/MM/yy HH:mm']) {
     DateTime date = DateTime.fromMillisecondsSinceEpoch(toInt() * 1000);
 
     final tz = timezone ~/ 3600;
@@ -12,12 +18,6 @@ extension NumExtension on num {
       date = date.add(Duration(hours: tz));
     }
 
-    final day = date.day < 10 ? '0${date.day}' : date.day;
-    final month = date.month < 10 ? '0${date.month}' : date.month;
-    final year = date.year.toString().substring(2);
-    final hour = date.hour < 10 ? '0${date.hour}' : date.hour;
-    final minute = date.minute < 10 ? '0${date.minute}' : date.minute;
-
-    return '$day/$month/$year $hour:$minute';
+    return DateFormat(pattern).format(date);
   }
 }

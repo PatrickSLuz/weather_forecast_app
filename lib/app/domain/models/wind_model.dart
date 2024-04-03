@@ -18,35 +18,35 @@ class WindModel {
 
   String get compassDirection {
     if (degrees >= 20 && degrees < 40) {
-      return 'Norte/Nordeste';
+      return 'N/NE';
     } else if (degrees >= 40 && degrees < 60) {
       return 'Nordeste';
     } else if (degrees >= 60 && degrees < 80) {
-      return 'Leste/Nordeste';
+      return 'L/NE';
     } else if (degrees >= 80 && degrees < 110) {
       return 'Leste';
     } else if (degrees >= 110 && degrees < 130) {
-      return 'Leste/Sudeste';
+      return 'L/SE';
     } else if (degrees >= 130 && degrees < 150) {
       return 'Sudeste';
     } else if (degrees >= 150 && degrees < 170) {
-      return 'Sul/Sudeste';
+      return 'S/SE';
     } else if (degrees >= 170 && degrees < 200) {
       return 'Sul';
     } else if (degrees >= 200 && degrees < 220) {
-      return 'Sul/Sudoeste';
+      return 'S/SO';
     } else if (degrees >= 220 && degrees < 240) {
       return 'Sudoeste';
     } else if (degrees >= 240 && degrees < 260) {
-      return 'Oeste/Sudoeste';
+      return 'O/SO';
     } else if (degrees >= 260 && degrees < 290) {
       return 'Oeste';
     } else if (degrees >= 290 && degrees < 310) {
-      return 'Oeste/Noroeste';
+      return 'O/NO';
     } else if (degrees >= 310 && degrees < 330) {
       return 'Noroeste';
     } else if (degrees >= 330 && degrees < 350) {
-      return 'Norte/Noroeste';
+      return 'N/NO';
     } else {
       return 'Norte';
     }

@@ -17,7 +17,6 @@ class WeatherAdapter {
   static WeatherModel fromMap(Map<String, dynamic> map) {
     List weathers = map['weather'];
     return WeatherModel(
-      currentDate: map['dt'],
       location: LocationAdapter.fromMap(map),
       visibility: map['visibility'],
       coordinate: CoordinateAdapter.fromMap(map['coord']),

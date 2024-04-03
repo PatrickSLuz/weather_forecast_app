@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   AppTheme._();
-  static ThemeData theme = ThemeData(
+  static ThemeData lightTheme = ThemeData(
+    fontFamily: 'Nunito',
     appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.white,
       centerTitle: true,
       elevation: 0,
     ),

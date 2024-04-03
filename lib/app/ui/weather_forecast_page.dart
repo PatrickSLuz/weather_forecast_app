@@ -8,31 +8,39 @@ class WeatherForecastPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: BlocBuilder<WeatherCubit, WeatherState>(
-          builder: (context, state) {
-            if (state is LoadingState) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+    return Scaffold(
+      backgroundColor: Colors.grey.shade300,
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search_rounded),
+            onPressed: () {},
+          )
+        ],
+      ),
+      body: BlocBuilder<WeatherCubit, WeatherState>(
+        builder: (context, state) {
+          if (state is LoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-            if (state is ErrorState) {
-              return const Center(
-                child: Text('Error'),
-              );
-            }
+          if (state is ErrorState) {
+            return const Center(
+              child: Text('Error'),
+            );
+          }
 
-            if (state is SuccessState) {
-              return WeatherForecastComponent(
-                weather: state.weather,
-              );
-            }
+          if (state is SuccessState) {
+            return WeatherForecastComponent(
+              weather: state.weather,
+              screenHeight: MediaQuery.of(context).size.height,
+            );
+          }
 
-            return Container();
-          },
-        ),
+          return Container();
+        },
       ),
     );
   }

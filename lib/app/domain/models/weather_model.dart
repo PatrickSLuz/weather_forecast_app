@@ -7,9 +7,6 @@ import 'package:weather_forecast_app/app/domain/models/weather_detail_model.dart
 import 'package:weather_forecast_app/app/domain/models/wind_model.dart';
 
 class WeatherModel {
-  /// (timezone) Time of data calculation, unix, UTC
-  final num currentDate;
-
   /// location data
   final LocationModel location;
 
@@ -38,7 +35,6 @@ class WeatherModel {
   final RainSnowModel? snow;
 
   WeatherModel({
-    required this.currentDate,
     required this.location,
     required this.visibility,
     required this.coordinate,
@@ -51,7 +47,6 @@ class WeatherModel {
   });
 
   WeatherModel copyWith({
-    num? currentDate,
     LocationModel? location,
     num? visibility,
     CoordinateModel? coordinate,
@@ -63,7 +58,6 @@ class WeatherModel {
     snow,
   }) {
     return WeatherModel(
-      currentDate: currentDate ?? this.currentDate,
       location: location ?? this.location,
       visibility: visibility ?? this.visibility,
       coordinate: coordinate ?? this.coordinate,
@@ -74,5 +68,14 @@ class WeatherModel {
       rain: rain ?? this.rain,
       snow: snow ?? this.snow,
     );
+  }
+
+  String get visibilityFormatted {
+    if (visibility < 1000) {
+      return '$visibility m';
+    } else if (visibility < 10000) {
+      return '${(visibility / 1000).round()} km';
+    }
+    return '> 10 km';
   }
 }
