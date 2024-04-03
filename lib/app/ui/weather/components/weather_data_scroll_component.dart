@@ -3,7 +3,7 @@ import 'package:weather_forecast_app/app/domain/models/weather_model.dart';
 import 'package:weather_forecast_app/app/shared/assets/assets.dart';
 import 'package:weather_forecast_app/app/shared/extensions/num_extension.dart';
 import 'package:weather_forecast_app/app/shared/theme/app_colors.dart';
-import 'package:weather_forecast_app/app/ui/widgets/weather_data_card_widget.dart';
+import 'package:weather_forecast_app/app/ui/weather/widgets/weather_data_card_widget.dart';
 
 class WeatherDataScrollComponent extends StatelessWidget {
   final WeatherModel weather;

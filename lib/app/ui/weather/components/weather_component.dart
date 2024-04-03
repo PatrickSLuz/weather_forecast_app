@@ -3,15 +3,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_forecast_app/app/domain/models/weather_model.dart';
 import 'package:weather_forecast_app/app/shared/extensions/string_extension.dart';
 import 'package:weather_forecast_app/app/shared/theme/app_colors.dart';
-import 'package:weather_forecast_app/app/ui/components/weather_data_scroll_component.dart';
-import 'package:weather_forecast_app/app/ui/widgets/extra_data_widget.dart';
-import 'package:weather_forecast_app/app/ui/widgets/temperature_row_widget.dart';
+import 'package:weather_forecast_app/app/ui/weather/components/weather_data_scroll_component.dart';
+import 'package:weather_forecast_app/app/ui/weather/widgets/extra_data_widget.dart';
+import 'package:weather_forecast_app/app/ui/weather/widgets/temperature_row_widget.dart';
 
-class WeatherForecastComponent extends StatelessWidget {
+class WeatherComponent extends StatelessWidget {
   final WeatherModel weather;
   final double screenHeight;
 
-  const WeatherForecastComponent({
+  const WeatherComponent({
     super.key,
     required this.weather,
     required this.screenHeight,

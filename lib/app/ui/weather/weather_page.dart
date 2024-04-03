@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/domain/cubits/weather_cubit.dart';
-import 'package:weather_forecast_app/app/ui/components/weather_forecast_component.dart';
+import 'package:weather_forecast_app/app/ui/weather/components/weather_component.dart';
 
-class WeatherForecastPage extends StatelessWidget {
-  const WeatherForecastPage({super.key});
+class WeatherPage extends StatelessWidget {
+  const WeatherPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class WeatherForecastPage extends StatelessWidget {
           }
 
           if (state is SuccessState) {
-            return WeatherForecastComponent(
+            return WeatherComponent(
               weather: state.weather,
               screenHeight: MediaQuery.of(context).size.height,
             );

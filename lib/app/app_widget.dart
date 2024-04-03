@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast_app/app/shared/theme/app_theme.dart';
-import 'package:weather_forecast_app/app/ui/weather_forecast_module.dart';
+import 'package:weather_forecast_app/app/ui/weather/weather_module.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -12,7 +12,7 @@ class AppWidget extends StatelessWidget {
       title: 'Previsão do Tempo',
       initialRoute: '/',
       theme: AppTheme.lightTheme,
-      home: const WeatherForecastModule(),
+      home: const WeatherModule(),
     );
   }
 }
