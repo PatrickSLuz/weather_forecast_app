@@ -12,6 +12,8 @@ class SearchCubit extends Cubit<SearchState> {
   SearchCubit(this.geoRepository) : super(SearchInitial());
 
   Future<void> searchCity(String text) async {
+    if (text.isEmpty) return emit(const SearchSuccessState([]));
+    if (text.length < 3) return;
     emit(const SearchLoadingState());
     final newState = await geoRepository.searchCity(text);
     emit(newState);

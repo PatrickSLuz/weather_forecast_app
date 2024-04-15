@@ -6,7 +6,7 @@ class CityAdapter {
   static CityModel fromMap(Map<String, dynamic> map) {
     return CityModel(
       name: map['properties']['city'],
-      state: map['properties']['state'],
+      state: map['properties']['state'] ?? map['properties']['county'],
       countryCode: map['properties']['country_code'],
       lat: map['properties']['lat'],
       lng: map['properties']['lon'],

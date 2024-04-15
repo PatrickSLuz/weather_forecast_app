@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/domain/cubits/weather_cubit.dart';
+import 'package:weather_forecast_app/app/domain/models/city_model.dart';
 import 'package:weather_forecast_app/app/shared/routes/app_routes.dart';
 import 'package:weather_forecast_app/app/ui/weather/components/weather_component.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
+
+  void onSearchPressed(BuildContext context) async {
+    final weatherCubit = context.read<WeatherCubit>();
+    final result = await Navigator.pushNamed(context, AppRoutes.searchPage);
+    if (result != null && result is CityModel) {
+      weatherCubit.getWeather(result.lat, result.lng);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +23,7 @@ class WeatherPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.search_rounded),
-            onPressed: () {
-              Navigator.pushNamed(context, AppRoutes.searchPage);
-            },
+            onPressed: () => onSearchPressed(context),
           )
         ],
       ),
