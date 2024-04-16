@@ -1,6 +1,9 @@
 class Assets {
   Assets._();
 
+  // Logos
+  static const appLogo = 'assets/logos/app_logo.png';
+
   // SVGs
   static const cloud = 'assets/icons/cloud.svg';
   static const cloudDay = 'assets/icons/cloud_day.svg';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast_app/app/shared/routes/app_routes.dart';
 import 'package:weather_forecast_app/app/shared/theme/app_theme.dart';
-import 'package:weather_forecast_app/app/ui/weather/weather_module.dart';
+import 'package:weather_forecast_app/app/ui/splash/splash_page.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -14,7 +14,7 @@ class AppWidget extends StatelessWidget {
       theme: AppTheme.lightTheme,
       initialRoute: '/',
       onGenerateRoute: AppRoutes.generate,
-      home: const WeatherModule(),
+      home: const SplashPage(),
     );
   }
 }
