@@ -11,7 +11,7 @@ class WeatherModel {
   final LocationModel location;
 
   ///  Visibility, meter. The maximum value of the visibility is 10 km
-  final num visibility;
+  final num? visibility;
 
   /// coord
   final CoordinateModel coordinate;
@@ -71,10 +71,11 @@ class WeatherModel {
   }
 
   String get visibilityFormatted {
-    if (visibility < 1000) {
+    if (visibility == null) return '';
+    if (visibility! < 1000) {
       return '$visibility m';
-    } else if (visibility < 10000) {
-      return '${(visibility / 1000).round()} km';
+    } else if (visibility! < 10000) {
+      return '${(visibility! / 1000).round()} km';
     }
     return '> 10 km';
   }

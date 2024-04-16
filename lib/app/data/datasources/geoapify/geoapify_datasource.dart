@@ -12,11 +12,13 @@ class GeoApiFyDatasource implements GeoDatasource {
   Future<List<CityModel>> searchCity(String text) async {
     dio.options.queryParameters.addAll({
       'text': text,
+      'type': 'city',
     });
     final response = await dio.get('/autocomplete');
 
     if (response.statusCode == 200) {
-      final list = response.data['features'] as List;
+      final list = response.data['results'] as List;
+      list.removeWhere((element) => element['city'] == null);
       final cities = list.map((map) => CityAdapter.fromMap(map)).toList();
       return cities;
     }

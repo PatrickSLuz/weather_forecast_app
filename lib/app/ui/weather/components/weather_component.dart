@@ -52,6 +52,7 @@ class WeatherComponent extends StatelessWidget {
                   children: [
                     Text(
                       '${weather.location.city}, ${weather.location.country}',
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.w500,

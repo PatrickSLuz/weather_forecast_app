@@ -5,11 +5,11 @@ class CityAdapter {
 
   static CityModel fromMap(Map<String, dynamic> map) {
     return CityModel(
-      name: map['properties']['city'],
-      state: map['properties']['state'] ?? map['properties']['county'],
-      countryCode: map['properties']['country_code'],
-      lat: map['properties']['lat'],
-      lng: map['properties']['lon'],
+      name: map['city'],
+      state: map['state'] ?? map['county'] ?? map['country'],
+      countryCode: map['country_code'],
+      lat: map['lat'],
+      lng: map['lon'],
     );
   }
 }

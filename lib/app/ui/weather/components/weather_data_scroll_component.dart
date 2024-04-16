@@ -76,16 +76,17 @@ class WeatherDataScrollComponent extends StatelessWidget {
             value: '${weather.detail.pressure} hPa',
             description: 'Pressão atmosférica',
           ),
-          const SizedBox(width: 24),
-          WeatherDataCardWidget(
-            icon: const Icon(
-              Icons.remove_red_eye_rounded,
-              color: AppColors.grey,
-              size: 32,
+          if (weather.visibility != null) const SizedBox(width: 24),
+          if (weather.visibility != null)
+            WeatherDataCardWidget(
+              icon: const Icon(
+                Icons.remove_red_eye_rounded,
+                color: AppColors.grey,
+                size: 32,
+              ),
+              value: weather.visibilityFormatted,
+              description: 'Visibilidade',
             ),
-            value: weather.visibilityFormatted,
-            description: 'Visibilidade',
-          ),
           const SizedBox(width: 24),
           WeatherDataCardWidget(
             icon: Image.asset(

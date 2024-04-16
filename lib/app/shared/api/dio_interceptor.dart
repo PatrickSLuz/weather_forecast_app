@@ -42,6 +42,8 @@ class DioInterceptor {
     options.queryParameters.addAll(
       {
         'apiKey': Environment.geoApiKey,
+        'lang': 'pt',
+        'format': 'json',
       },
     );
 
