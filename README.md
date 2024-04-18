@@ -6,6 +6,7 @@ Aplicativo para visualizar o clima atual da sua cidade.
 ## Tech Stack
 
 **Framework:**
+
 ![Logo](https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg)
 
 **State Managment:** Bloc/Cubit
