@@ -6,6 +6,7 @@ import 'package:weather_forecast_app/app/shared/helpers/debouncer.dart';
 import 'package:weather_forecast_app/app/shared/routes/app_routes.dart';
 import 'package:weather_forecast_app/app/shared/theme/app_colors.dart';
 import 'package:weather_forecast_app/app/ui/search/widgets/city_tile_widget.dart';
+import 'package:weather_forecast_app/app/ui/widgets/app_confirmation_dialog.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -19,33 +20,41 @@ class _SearchPageState extends State<SearchPage> {
   final _focusNode = FocusNode();
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Future.delayed(
-        const Duration(milliseconds: 500),
-        () => _focusNode.requestFocus(),
-      );
-    });
-  }
-
-  @override
   void dispose() {
     _debouncer.dispose();
     _focusNode.dispose();
     super.dispose();
   }
 
-  void onCityTilePressed(CityModel city) {
+  void onCityTileTap(CityModel city) {
+    final searchCubit = context.read<SearchCubit>();
+    searchCubit.saveCity(city);
+
     if (Navigator.canPop(context)) {
-      Navigator.pop(context, city);
-      return;
+      return Navigator.pop(context, city);
     }
+
     Navigator.of(context).pushNamedAndRemoveUntil(
       AppRoutes.weatherPage,
       (route) => false,
       arguments: city,
     );
+  }
+
+  void onCityTileLongPress(CityModel city) async {
+    final searchCubit = context.read<SearchCubit>();
+
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (_) => AppConfirmationDialog(
+        title: 'Remover cidade??',
+        description: '${city.name} será removida do seu histórico de pesquisa.',
+      ),
+    );
+
+    if (result != null && result) {
+      searchCubit.deleteCity(city);
+    }
   }
 
   @override
@@ -91,7 +100,8 @@ class _SearchPageState extends State<SearchPage> {
             ),
         ],
       ),
-      body: BlocBuilder<SearchCubit, SearchState>(
+      body: BlocConsumer<SearchCubit, SearchState>(
+        listener: _listener,
         builder: (context, state) {
           if (state is SearchLoadingState) {
             return const Center(
@@ -105,23 +115,44 @@ class _SearchPageState extends State<SearchPage> {
             );
           }
 
-          if (state is SearchSuccessState) {
+          if (state is SearchSuccessState || state is SavedCitiesLoadedState) {
+            List<CityModel> cities = [];
+            if (state is SearchSuccessState) cities = state.cities;
+            if (state is SavedCitiesLoadedState) cities = state.savedCities;
+
             return ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: state.cities.length,
+              itemCount: cities.length,
               itemBuilder: (context, index) {
                 return CityTileWidget(
-                  city: state.cities[index],
-                  onTap: () => onCityTilePressed(state.cities[index]),
+                  city: cities[index],
+                  onTap: () => onCityTileTap(cities[index]),
+                  onLongPress: state is SavedCitiesLoadedState
+                      ? () => onCityTileLongPress(cities[index])
+                      : null,
+                  icon: state is SearchSuccessState
+                      ? Icons.location_on_rounded
+                      : Icons.history_rounded,
                 );
               },
             );
           }
 
-          return Container();
+          return const SizedBox.shrink();
         },
       ),
     );
+  }
+
+  void _listener(context, state) {
+    if (state is SavedCitiesLoadedState) {
+      if (state.savedCities.isEmpty) {
+        Future.delayed(
+          const Duration(milliseconds: 500),
+          () => _focusNode.requestFocus(),
+        );
+      }
+    }
   }
 }

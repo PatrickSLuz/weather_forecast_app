@@ -1,4 +1,5 @@
 class CityModel {
+  final int? id;
   final String name;
   final String state;
   final String countryCode;
@@ -6,6 +7,7 @@ class CityModel {
   final num lng;
 
   CityModel({
+    this.id,
     required this.name,
     required this.state,
     required this.countryCode,
@@ -14,6 +16,7 @@ class CityModel {
   });
 
   CityModel copyWith({
+    int? id,
     String? name,
     String? state,
     String? countryCode,
@@ -21,6 +24,7 @@ class CityModel {
     num? lng,
   }) {
     return CityModel(
+      id: id ?? this.id,
       name: name ?? this.name,
       state: state ?? this.state,
       countryCode: countryCode ?? this.countryCode,

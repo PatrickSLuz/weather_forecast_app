@@ -9,6 +9,11 @@ class SearchLoadingState implements SearchState {
   const SearchLoadingState();
 }
 
+class SavedCitiesLoadedState implements SearchState {
+  final List<CityModel> savedCities;
+  const SavedCitiesLoadedState(this.savedCities);
+}
+
 class SearchSuccessState implements SearchState {
   final List<CityModel> cities;
   const SearchSuccessState(this.cities);
