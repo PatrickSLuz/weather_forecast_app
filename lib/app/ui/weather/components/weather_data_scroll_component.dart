@@ -21,7 +21,7 @@ class WeatherDataScrollComponent extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          if (weather.rain?.last1Hour != null)
+          if (weather.rain?.last1Hour != null) ...[
             WeatherDataCardWidget(
               icon: const Icon(
                 Icons.cloudy_snowing,
@@ -31,8 +31,9 @@ class WeatherDataScrollComponent extends StatelessWidget {
               value: '${weather.rain!.last1Hour} mm',
               description: 'Chuva em 1 hora',
             ),
-          if (weather.rain?.last1Hour != null) const SizedBox(width: 24),
-          if (weather.rain?.last3Hour != null)
+            const SizedBox(width: 24),
+          ],
+          if (weather.rain?.last3Hour != null) ...[
             WeatherDataCardWidget(
               icon: const Icon(
                 Icons.cloudy_snowing,
@@ -42,7 +43,8 @@ class WeatherDataScrollComponent extends StatelessWidget {
               value: '${weather.rain!.last3Hour} mm',
               description: 'Chuva em 3 horas',
             ),
-          if (weather.rain?.last3Hour != null) const SizedBox(width: 24),
+            const SizedBox(width: 24),
+          ],
           WeatherDataCardWidget(
             icon: Image.asset(
               Assets.wind,
@@ -76,8 +78,8 @@ class WeatherDataScrollComponent extends StatelessWidget {
             value: '${weather.detail.pressure} hPa',
             description: 'Pressão atmosférica',
           ),
-          if (weather.visibility != null) const SizedBox(width: 24),
-          if (weather.visibility != null)
+          const SizedBox(width: 24),
+          if (weather.visibility != null) ...[
             WeatherDataCardWidget(
               icon: const Icon(
                 Icons.remove_red_eye_rounded,
@@ -87,7 +89,8 @@ class WeatherDataScrollComponent extends StatelessWidget {
               value: weather.visibilityFormatted,
               description: 'Visibilidade',
             ),
-          const SizedBox(width: 24),
+            const SizedBox(width: 24),
+          ],
           WeatherDataCardWidget(
             icon: Image.asset(
               Assets.sunrise,
