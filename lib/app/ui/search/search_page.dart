@@ -6,7 +6,7 @@ import 'package:weather_forecast_app/app/shared/helpers/debouncer.dart';
 import 'package:weather_forecast_app/app/shared/routes/app_routes.dart';
 import 'package:weather_forecast_app/app/shared/theme/app_colors.dart';
 import 'package:weather_forecast_app/app/ui/search/widgets/city_tile_widget.dart';
-import 'package:weather_forecast_app/app/ui/widgets/app_confirmation_dialog.dart';
+import 'package:weather_forecast_app/app/ui/components/dialogs/app_confirmation_dialog.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -37,7 +37,10 @@ class _SearchPageState extends State<SearchPage> {
     Navigator.of(context).pushNamedAndRemoveUntil(
       AppRoutes.weatherPage,
       (route) => false,
-      arguments: city,
+      arguments: {
+        'lat': city.lat,
+        'lng': city.lng,
+      },
     );
   }
 

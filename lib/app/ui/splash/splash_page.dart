@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_forecast_app/app/domain/cubits/geolocation_cubit.dart';
 import 'package:weather_forecast_app/app/shared/assets/assets.dart';
 import 'package:weather_forecast_app/app/shared/routes/app_routes.dart';
 import 'package:weather_forecast_app/app/shared/theme/app_colors.dart';
+import 'package:weather_forecast_app/app/ui/components/dialogs/app_information_dialog.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -15,34 +18,67 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
 
-    Future.delayed(
-      const Duration(seconds: 1),
-      () => Navigator.of(context).pushNamedAndRemoveUntil(
-        AppRoutes.searchPage,
-        (route) => false,
-      ),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final geolocationCubit = context.read<GeolocationCubit>();
+      await Future.delayed(const Duration(seconds: 1));
+      geolocationCubit.getLocation();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.darkBlue,
-      child: Center(
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-          decoration: const BoxDecoration(
-            color: AppColors.background,
-            borderRadius: BorderRadius.all(
-              Radius.circular(16),
+    return BlocListener<GeolocationCubit, GeolocationState>(
+      listener: _listener,
+      child: Container(
+        color: AppColors.darkBlue,
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            decoration: const BoxDecoration(
+              color: AppColors.background,
+              borderRadius: BorderRadius.all(
+                Radius.circular(16),
+              ),
             ),
-          ),
-          child: Image.asset(
-            Assets.appLogo,
-            width: MediaQuery.of(context).size.width * 0.3,
+            child: Image.asset(
+              Assets.appLogo,
+              width: MediaQuery.of(context).size.width * 0.3,
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void _listener(BuildContext context, GeolocationState state) async {
+    if (state is LocationServiceDisbaledState) {
+      final navigator = Navigator.of(context);
+      await showDialog(
+        context: context,
+        builder: (_) => const AppInformationDialog(
+          title: 'Serviço de localização desativada',
+          description:
+              'Não foi possível usar a localização atual do dispositivo, pois o serviço de localização esta desativado.\nPara ter uma melhor experiência no App, ative a localização e tente novamente!',
+        ),
+      );
+      navigator.pushNamedAndRemoveUntil(
+        AppRoutes.searchPage,
+        (route) => false,
+      );
+    } else if (state is GeolocationSuccessState) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        AppRoutes.weatherPage,
+        (route) => false,
+        arguments: {
+          'lat': state.geolocation.latitude,
+          'lng': state.geolocation.longitude,
+        },
+      );
+    } else if (state is GeolocationErrorState) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        AppRoutes.searchPage,
+        (route) => false,
+      );
+    }
   }
 }

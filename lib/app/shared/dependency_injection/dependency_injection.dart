@@ -7,6 +7,8 @@ import 'package:weather_forecast_app/app/data/datasources/geo_datasource.dart';
 import 'package:weather_forecast_app/app/data/datasources/geoapify/geoapify_datasource.dart';
 import 'package:weather_forecast_app/app/data/repositories/city_repository_impl.dart';
 import 'package:weather_forecast_app/app/data/repositories/geo_repository_impl.dart';
+import 'package:weather_forecast_app/app/data/services/app_geolocation_service.dart';
+import 'package:weather_forecast_app/app/data/services/geolocator/geolocator_service.dart';
 import 'package:weather_forecast_app/app/domain/repositories/city_repository.dart';
 import 'package:weather_forecast_app/app/domain/repositories/geo_repository.dart';
 import 'package:weather_forecast_app/app/shared/api/dio_service.dart';
@@ -22,6 +24,9 @@ class DependencyInjection {
 
   static void register() {
     log('Dependency Injection register');
+    getIt.registerLazySingleton<AppGeolocationService>(
+      () => GeolocatorService(),
+    );
     getIt.registerLazySingleton<WeatherDatasource>(
       () => OpenWeatherMapDatasource(DioService.weatherSetup()),
     );
