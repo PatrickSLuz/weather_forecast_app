@@ -10,7 +10,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Previsão do Tempo',
+      title: 'Clima Atual',
       theme: AppTheme.lightTheme,
       initialRoute: '/',
       onGenerateRoute: AppRoutes.generate,
