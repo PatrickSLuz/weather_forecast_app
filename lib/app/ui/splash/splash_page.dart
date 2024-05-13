@@ -13,16 +13,51 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
+  late final AnimationController _firstController = AnimationController(
+    duration: const Duration(milliseconds: 1200),
+    vsync: this,
+  );
+
+  late final AnimationController _lastController = AnimationController(
+    duration: const Duration(milliseconds: 1000),
+    vsync: this,
+  );
+
+  late final Animation<Offset> _firstAnimation = Tween<Offset>(
+    begin: const Offset(0, 1),
+    end: Offset.zero,
+  ).animate(CurvedAnimation(
+    parent: _firstController,
+    curve: Curves.easeInOutBack,
+  ));
+
+  late final Animation<Offset> _lastAnimation = Tween<Offset>(
+    begin: Offset.zero,
+    end: const Offset(0, 1),
+  ).animate(CurvedAnimation(
+    parent: _lastController,
+    curve: Curves.easeInOutBack,
+  ));
+
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final geolocationCubit = context.read<GeolocationCubit>();
+
       await Future.delayed(const Duration(seconds: 1));
+      await _firstController.forward();
       geolocationCubit.getLocation();
     });
+  }
+
+  @override
+  void dispose() {
+    _firstController.dispose();
+    _lastController.dispose();
+    super.dispose();
   }
 
   @override
@@ -31,18 +66,25 @@ class _SplashPageState extends State<SplashPage> {
       listener: _listener,
       child: Container(
         color: AppColors.darkBlue,
-        child: Center(
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            decoration: const BoxDecoration(
-              color: AppColors.background,
-              borderRadius: BorderRadius.all(
-                Radius.circular(16),
+        child: SlideTransition(
+          position: _firstAnimation,
+          child: SlideTransition(
+            position: _lastAnimation,
+            child: Center(
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                decoration: const BoxDecoration(
+                  color: AppColors.background,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Image.asset(
+                  Assets.appLogo,
+                  width: MediaQuery.of(context).size.width * 0.3,
+                ),
               ),
-            ),
-            child: Image.asset(
-              Assets.appLogo,
-              width: MediaQuery.of(context).size.width * 0.3,
             ),
           ),
         ),
@@ -61,24 +103,29 @@ class _SplashPageState extends State<SplashPage> {
               'Não foi possível usar a localização atual do dispositivo, pois o serviço de localização esta desativado.\nPara ter uma melhor experiência no App, ative a localização e tente novamente!',
         ),
       );
+      await _lastController.forward();
       navigator.pushNamedAndRemoveUntil(
         AppRoutes.searchPage,
         (route) => false,
       );
     } else if (state is GeolocationSuccessState) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        AppRoutes.weatherPage,
-        (route) => false,
-        arguments: {
-          'lat': state.geolocation.latitude,
-          'lng': state.geolocation.longitude,
-        },
-      );
+      _lastController.forward().whenCompleteOrCancel(() {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          AppRoutes.weatherPage,
+          (route) => false,
+          arguments: {
+            'lat': state.geolocation.latitude,
+            'lng': state.geolocation.longitude,
+          },
+        );
+      });
     } else if (state is GeolocationErrorState) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        AppRoutes.searchPage,
-        (route) => false,
-      );
+      _lastController.forward().whenCompleteOrCancel(() {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          AppRoutes.searchPage,
+          (route) => false,
+        );
+      });
     }
   }
 }
