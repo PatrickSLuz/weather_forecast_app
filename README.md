@@ -60,6 +60,13 @@ Na tela principal do App (tela que exibe os dados climáticos), o ususário tem 
 Também, a cada cidade pesquisada e com o clima consultado, é realizado o armazenamento local desta cidade. Ou seja, a cidade foi pesquisada e depois foi selecionada para consulta de clima, ela será salva localmente no dispositivo. Então, cada vez que abrir a tela de pesquisa de cidade, já serão listadas as cidades já consultadas, como um histórico de busca.
 
 
+## links
+
+- [Logo](https://www.iconfinder.com/icons/6802383/climate_cloud_cloudy_element_forecast_sunny_weather_icon)
+- [Icons and Images](https://icons8.com.br/icon/set/clima/officel)
+- [Icons and Images](https://www.iconfinder.com/iconsets/weather-filled-outline-6)
+
+
 ## Authors
 
 - [@PatrickSLuz](https://www.github.com/patricksluz)
