@@ -57,10 +57,9 @@ class DioInterceptor {
     ResponseInterceptorHandler handler,
   ) {
     log('----- RESPONSE -----');
-    log('Status Code: ${response.statusCode}');
     log('Path URL: ${response.requestOptions.path}');
+    log('Status Code: ${response.statusCode}');
     log('Body: ${response.data}');
-    log('--------------------');
 
     return handler.next(response);
   }
@@ -70,19 +69,20 @@ class DioInterceptor {
     ErrorInterceptorHandler handler,
   ) {
     log('----- DIO ERROR -----');
-    log('Status Code: ${error.response?.statusCode}');
     log('Path URL: ${error.requestOptions.path}');
-    log('---------------------');
+    log('Status Code: ${error.response?.statusCode}');
 
     return handler.next(error);
   }
 
   static void _showRequestLog(RequestOptions options) {
     log('----- REQUEST -----');
-    log('Method.${options.method}');
-    log('Headers: ${options.headers}');
-    log('Parameters: ${options.queryParameters}');
-    log('Path URL: ${options.path}');
-    log('-------------------');
+    log('Method.${options.method} - Path URL: ${options.path}');
+    if (options.headers.isNotEmpty) {
+      log('Headers: ${options.headers}');
+    }
+    if (options.queryParameters.isNotEmpty) {
+      log('Parameters: ${options.queryParameters}');
+    }
   }
 }
