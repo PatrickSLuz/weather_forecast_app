@@ -8,7 +8,7 @@ extension NumExtension on num {
   String inKmPerHour() => (this * 3.6).toStringAsFixed(2);
 
   String convertToDate(num timezone, [String pattern = 'dd/MM/yy HH:mm']) {
-    DateTime date = DateTime.fromMillisecondsSinceEpoch(toInt() * 1000);
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(toInt() * 1000).toUtc();
 
     final tz = timezone ~/ 3600;
 
