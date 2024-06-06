@@ -25,7 +25,7 @@ class AppTheme {
     ),
     iconButtonTheme: IconButtonThemeData(
       style: ButtonStyle(
-        iconColor: MaterialStateProperty.all<Color>(AppColors.darkBlue),
+        iconColor: WidgetStateProperty.all<Color>(AppColors.darkBlue),
       ),
     ),
   );
