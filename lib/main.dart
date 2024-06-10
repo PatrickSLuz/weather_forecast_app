@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weather_forecast_app/app/app_widget.dart';
 import 'package:weather_forecast_app/app/shared/assets/assets.dart';
@@ -6,6 +7,9 @@ import 'package:weather_forecast_app/app/shared/dependency_injection/dependency_
 import 'package:weather_forecast_app/app/shared/helpers/preload_svg.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SemanticsBinding.instance.ensureSemantics();
+
   await dotenv.load(fileName: '.env');
   DependencyInjection.register();
 
