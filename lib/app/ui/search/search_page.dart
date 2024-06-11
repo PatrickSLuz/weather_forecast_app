@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/domain/cubits/search_cubit.dart';
 import 'package:weather_forecast_app/app/domain/models/city_model.dart';
@@ -75,6 +76,10 @@ class _SearchPageState extends State<SearchPage> {
             onTapOutside: (event) => FocusScope.of(context).unfocus(),
             keyboardType: TextInputType.streetAddress,
             textInputAction: TextInputAction.search,
+            textCapitalization: TextCapitalization.sentences,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp('[0-9a-zA-Z]')),
+            ],
             decoration: const InputDecoration(
               hintText: 'Pesquise uma cidade',
               prefixIcon: Icon(Icons.search_rounded),
