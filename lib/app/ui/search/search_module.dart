@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_forecast_app/app/data/services/app_geolocation_service.dart';
 import 'package:weather_forecast_app/app/domain/cubits/search_cubit.dart';
 import 'package:weather_forecast_app/app/domain/repositories/city_repository.dart';
 import 'package:weather_forecast_app/app/domain/repositories/geo_repository.dart';
@@ -15,6 +16,7 @@ class SearchModule extends StatelessWidget {
       create: (_) => SearchCubit(
         getIt.get<GeoRepository>(),
         getIt.get<CityRepository>(),
+        getIt.get<AppGeolocationService>(),
       ),
       child: const SearchPage(),
     );

@@ -23,3 +23,7 @@ class SearchErrorState implements SearchState {
   final Failure error;
   const SearchErrorState(this.error);
 }
+
+class GetLocationErrorState implements SearchState {
+  const GetLocationErrorState();
+}

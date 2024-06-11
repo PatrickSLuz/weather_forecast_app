@@ -6,8 +6,10 @@ import 'package:weather_forecast_app/app/domain/models/city_model.dart';
 import 'package:weather_forecast_app/app/shared/helpers/debouncer.dart';
 import 'package:weather_forecast_app/app/shared/routes/app_routes.dart';
 import 'package:weather_forecast_app/app/shared/theme/app_colors.dart';
+import 'package:weather_forecast_app/app/ui/components/dialogs/app_information_dialog.dart';
 import 'package:weather_forecast_app/app/ui/search/widgets/city_tile_widget.dart';
 import 'package:weather_forecast_app/app/ui/components/dialogs/app_confirmation_dialog.dart';
+import 'package:weather_forecast_app/app/ui/search/widgets/use_my_location_tile_widget.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -17,8 +19,20 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  late SearchCubit searchCubit;
+  late bool canUseLocation;
+
   final _debouncer = Debouncer();
   final _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    searchCubit = context.read<SearchCubit>();
+    searchCubit.canUse().then(
+          (value) => canUseLocation = value,
+        );
+  }
 
   @override
   void dispose() {
@@ -27,8 +41,32 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
+  void onUseMyLocationTap() async {
+    final navigator = Navigator.of(context);
+
+    final location = await searchCubit.getLocation();
+    if (location == null) return;
+
+    if (navigator.canPop()) {
+      return navigator.pop(
+        CityModel.coordinate(
+          lat: location.latitude,
+          lng: location.longitude,
+        ),
+      );
+    }
+
+    navigator.pushNamedAndRemoveUntil(
+      AppRoutes.weatherPage,
+      (route) => false,
+      arguments: {
+        'lat': location.latitude,
+        'lng': location.longitude,
+      },
+    );
+  }
+
   void onCityTileTap(CityModel city) {
-    final searchCubit = context.read<SearchCubit>();
     searchCubit.saveCity(city);
 
     if (Navigator.canPop(context)) {
@@ -46,8 +84,6 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void onCityTileLongPress(CityModel city) async {
-    final searchCubit = context.read<SearchCubit>();
-
     final result = await showDialog<bool>(
       context: context,
       builder: (_) => AppConfirmationDialog(
@@ -128,22 +164,33 @@ class _SearchPageState extends State<SearchPage> {
             if (state is SearchSuccessState) cities = state.cities;
             if (state is SavedCitiesLoadedState) cities = state.savedCities;
 
-            return ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: cities.length,
-              itemBuilder: (context, index) {
-                return CityTileWidget(
-                  city: cities[index],
-                  onTap: () => onCityTileTap(cities[index]),
-                  onLongPress: state is SavedCitiesLoadedState
-                      ? () => onCityTileLongPress(cities[index])
-                      : null,
-                  icon: state is SearchSuccessState
-                      ? Icons.location_on_rounded
-                      : Icons.history_rounded,
-                );
-              },
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 8),
+                if (state is SavedCitiesLoadedState && canUseLocation)
+                  UseMyLocationTileWidget(
+                    onTap: onUseMyLocationTap,
+                  ),
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: cities.length,
+                  itemBuilder: (context, index) {
+                    return CityTileWidget(
+                      city: cities[index],
+                      onTap: () => onCityTileTap(cities[index]),
+                      onLongPress: state is SavedCitiesLoadedState
+                          ? () => onCityTileLongPress(cities[index])
+                          : null,
+                      icon: state is SearchSuccessState
+                          ? Icons.location_on_rounded
+                          : Icons.history_rounded,
+                    );
+                  },
+                ),
+              ],
             );
           }
 
@@ -161,6 +208,15 @@ class _SearchPageState extends State<SearchPage> {
           () => _focusNode.requestFocus(),
         );
       }
+    } else if (state is GetLocationErrorState) {
+      showDialog<bool>(
+        context: context,
+        builder: (_) => const AppInformationDialog(
+          title: 'Opss!',
+          description:
+              'Não foi possível buscar sua localização. Por favor, tente novamente!',
+        ),
+      );
     }
   }
 }

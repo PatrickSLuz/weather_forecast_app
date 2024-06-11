@@ -15,6 +15,19 @@ class CityModel {
     required this.lng,
   });
 
+  factory CityModel.coordinate({
+    required num lat,
+    required num lng,
+  }) {
+    return CityModel(
+      name: '',
+      state: '',
+      countryCode: '',
+      lat: lat,
+      lng: lng,
+    );
+  }
+
   CityModel copyWith({
     int? id,
     String? name,
