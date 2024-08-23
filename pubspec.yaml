@@ -1,22 +1,22 @@
 name: weather_forecast_app
 description: "A new Flutter project."
 publish_to: 'none'
-version: 0.1.0
+version: 0.1.1+1
 
 environment:
-  sdk: '>=3.3.0 <4.0.0'
+  sdk: '>=3.5.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   
   bloc: ^8.1.4
-  dio: ^5.4.3+1
-  flutter_bloc: ^8.1.5
+  dio: ^5.6.0
+  flutter_bloc: ^8.1.6
   flutter_dotenv: ^5.1.0
-  flutter_native_splash: ^2.4.0
+  flutter_native_splash: ^2.4.1
   flutter_svg: ^2.0.10+1
-  geolocator: ^12.0.0
+  geolocator: ^13.0.1
   get_it: ^7.7.0
   intl: ^0.19.0
   sqflite: ^2.3.3+1
@@ -25,7 +25,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
     
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 
 flutter_native_splash:
   color: "#042C4C"

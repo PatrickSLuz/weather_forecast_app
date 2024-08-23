@@ -27,7 +27,9 @@ class GeolocatorService implements AppGeolocationService {
 
     try {
       position = await Geolocator.getCurrentPosition(
-        timeLimit: const Duration(seconds: 5),
+        locationSettings: const LocationSettings(
+          timeLimit: Duration(seconds: 5),
+        ),
       );
     } catch (e) {
       position = await Geolocator.getLastKnownPosition();

@@ -135,9 +135,10 @@ class _SearchPageState extends State<SearchPage> {
           if (Navigator.canPop(context))
             IconButton(
               onPressed: () async {
+                final navigator = Navigator.of(context);
                 await Future.delayed(
                   const Duration(milliseconds: 100),
-                  () => Navigator.pop(context),
+                  navigator.pop,
                 );
               },
               icon: const Icon(Icons.close_rounded),
