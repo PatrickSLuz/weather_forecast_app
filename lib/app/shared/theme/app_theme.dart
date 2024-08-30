@@ -12,6 +12,7 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.background,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
       centerTitle: true,
       elevation: 0,
       iconTheme: IconThemeData(color: AppColors.darkBlue),

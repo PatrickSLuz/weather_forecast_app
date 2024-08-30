@@ -28,4 +28,10 @@ class WeatherCubit extends Cubit<WeatherState> {
     final newState = await weatherRepository.getWeather(lat, lng);
     emit(newState);
   }
+
+  Future<void> refresh() async {
+    emit(const LoadingState());
+    final newState = await weatherRepository.getWeather(lat ?? 0, lng ?? 0);
+    emit(newState);
+  }
 }

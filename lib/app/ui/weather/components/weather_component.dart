@@ -25,93 +25,104 @@ class WeatherComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(40),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black54,
-                  offset: Offset(3, 3),
-                  blurRadius: 4,
-                  spreadRadius: -4,
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      '${weather.location.city}, ${weather.location.country}',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w500,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight + 1),
+            child: IntrinsicHeight(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.vertical(
+                          bottom: Radius.circular(40),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black54,
+                            offset: Offset(3, 3),
+                            blurRadius: 4,
+                            spreadRadius: -4,
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                '${weather.location.city}, ${weather.location.country}',
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                weather.location.dateFormatted,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              )
+                            ],
+                          ),
+                          TemperatureRowWidget(weatherDetail: weather.detail),
+                          Text(
+                            weather.condition.description.capitalize(),
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SvgPicture.asset(
+                            weather.condition.asset,
+                            semanticsLabel: 'Condição do clima',
+                            fit: BoxFit.fitHeight,
+                            height: mainComponentHeight *
+                                (mainComponentHeight <= 450 ? 0.2 : 0.35),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              ExtraDataWidget(
+                                icon: const Icon(
+                                  Icons.water_drop_outlined,
+                                  color: AppColors.blue,
+                                  size: 26,
+                                ),
+                                data: '${weather.detail.humidity.toInt()}%',
+                                description: 'Humidade',
+                              ),
+                              ExtraDataWidget(
+                                icon: const Icon(
+                                  Icons.cloud_queue_rounded,
+                                  color: AppColors.blue,
+                                  size: 26,
+                                ),
+                                data: '${weather.cloudiness.percent}%',
+                                description: 'Nebulosidade',
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ),
-                    Text(
-                      weather.location.dateFormatted,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    )
-                  ],
-                ),
-                TemperatureRowWidget(weatherDetail: weather.detail),
-                Text(
-                  weather.condition.description.capitalize(),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
                   ),
-                ),
-                SvgPicture.asset(
-                  weather.condition.asset,
-                  semanticsLabel: 'Condição do clima',
-                  fit: BoxFit.fitHeight,
-                  height: mainComponentHeight *
-                      (mainComponentHeight <= 450 ? 0.2 : 0.35),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ExtraDataWidget(
-                      icon: const Icon(
-                        Icons.water_drop_outlined,
-                        color: AppColors.blue,
-                        size: 26,
-                      ),
-                      data: '${weather.detail.humidity.toInt()}%',
-                      description: 'Humidade',
-                    ),
-                    ExtraDataWidget(
-                      icon: const Icon(
-                        Icons.cloud_queue_rounded,
-                        color: AppColors.blue,
-                        size: 26,
-                      ),
-                      data: '${weather.cloudiness.percent}%',
-                      description: 'Nebulosidade',
-                    ),
-                  ],
-                )
-              ],
+                  WeatherDataScrollComponent(weather: weather),
+                ],
+              ),
             ),
           ),
-        ),
-        WeatherDataScrollComponent(weather: weather),
-      ],
+        );
+      },
     );
   }
 }

@@ -43,9 +43,15 @@ class WeatherPage extends StatelessWidget {
           }
 
           if (state is SuccessState) {
-            return WeatherComponent(
-              weather: state.weather,
-              screenHeight: MediaQuery.of(context).size.height,
+            return RefreshIndicator(
+              onRefresh: () async {
+                final weatherCubit = context.read<WeatherCubit>();
+                await weatherCubit.refresh();
+              },
+              child: WeatherComponent(
+                weather: state.weather,
+                screenHeight: MediaQuery.of(context).size.height,
+              ),
             );
           }
 
