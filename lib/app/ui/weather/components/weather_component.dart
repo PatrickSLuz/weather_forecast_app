@@ -77,6 +77,7 @@ class WeatherComponent extends StatelessWidget {
                 ),
                 SvgPicture.asset(
                   weather.condition.asset,
+                  semanticsLabel: 'Condição do clima',
                   fit: BoxFit.fitHeight,
                   height: mainComponentHeight *
                       (mainComponentHeight <= 450 ? 0.2 : 0.35),

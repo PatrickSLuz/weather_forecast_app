@@ -22,6 +22,7 @@ class WeatherPage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
+            tooltip: 'Pesquisar',
             icon: const Icon(Icons.search_rounded),
             onPressed: () => onSearchPressed(context),
           )

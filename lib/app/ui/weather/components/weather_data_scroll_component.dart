@@ -48,6 +48,7 @@ class WeatherDataScrollComponent extends StatelessWidget {
           WeatherDataCardWidget(
             icon: Image.asset(
               Assets.wind,
+              semanticLabel: 'Vento',
               height: 32,
               width: 32,
               color: AppColors.grey,
@@ -72,6 +73,7 @@ class WeatherDataScrollComponent extends StatelessWidget {
           WeatherDataCardWidget(
             icon: Image.asset(
               Assets.atmosphericPressure,
+              semanticLabel: 'Pressão atmosférica',
               height: 32,
               width: 32,
             ),
@@ -94,6 +96,7 @@ class WeatherDataScrollComponent extends StatelessWidget {
           WeatherDataCardWidget(
             icon: Image.asset(
               Assets.sunrise,
+              semanticLabel: 'Nascer do sol',
               height: 32,
               width: 32,
             ),
@@ -104,6 +107,7 @@ class WeatherDataScrollComponent extends StatelessWidget {
           WeatherDataCardWidget(
             icon: Image.asset(
               Assets.sunset,
+              semanticLabel: 'Pôr do Sol',
               height: 32,
               width: 32,
             ),

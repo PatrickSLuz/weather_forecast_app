@@ -134,6 +134,7 @@ class _SearchPageState extends State<SearchPage> {
         actions: [
           if (Navigator.canPop(context))
             IconButton(
+              tooltip: 'Pesquisar',
               onPressed: () async {
                 final navigator = Navigator.of(context);
                 await Future.delayed(

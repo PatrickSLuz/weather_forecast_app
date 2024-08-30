@@ -72,8 +72,10 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
             position: _lastAnimation,
             child: Center(
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 16,
+                ),
                 decoration: const BoxDecoration(
                   color: AppColors.background,
                   borderRadius: BorderRadius.all(
@@ -82,6 +84,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                 ),
                 child: Image.asset(
                   Assets.appLogo,
+                  semanticLabel: 'App logo',
                   width: MediaQuery.of(context).size.width * 0.3,
                 ),
               ),
