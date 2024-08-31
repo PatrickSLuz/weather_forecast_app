@@ -5,6 +5,7 @@ import 'package:weather_forecast_app/app/features/search/domain/cubits/search_cu
 import 'package:weather_forecast_app/app/features/search/domain/models/city_model.dart';
 import 'package:weather_forecast_app/core/helpers/debouncer.dart';
 import 'package:weather_forecast_app/app_routes.dart';
+import 'package:weather_forecast_app/core/states/base_state.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
 import 'package:weather_forecast_app/design_system/dialogs/app_information_dialog.dart';
 import 'package:weather_forecast_app/app/features/search/ui/widgets/city_tile_widget.dart';
@@ -147,16 +148,16 @@ class _SearchPageState extends State<SearchPage> {
             ),
         ],
       ),
-      body: BlocConsumer<SearchCubit, SearchState>(
+      body: BlocConsumer<SearchCubit, BaseState>(
         listener: _listener,
         builder: (context, state) {
-          if (state is SearchLoadingState) {
+          if (state is LoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
-          if (state is SearchErrorState) {
+          if (state is ErrorState) {
             return ErrorTextWidget(text: state.exception.message);
           }
 

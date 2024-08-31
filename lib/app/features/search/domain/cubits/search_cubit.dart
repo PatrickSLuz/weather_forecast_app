@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/foundation.dart';
 import 'package:weather_forecast_app/app/features/search/domain/models/city_model.dart';
 import 'package:weather_forecast_app/core/enuns/geolocation_permission_type_enum.dart';
 import 'package:weather_forecast_app/core/geolocation/i_geolocation.dart';
@@ -10,10 +9,11 @@ import 'package:weather_forecast_app/app/features/search/domain/repositories/i_c
 import 'package:weather_forecast_app/app/features/search/domain/repositories/i_geo_repository.dart';
 import 'package:weather_forecast_app/core/errors/base_exception.dart';
 import 'package:weather_forecast_app/core/errors/unknown_exception.dart';
+import 'package:weather_forecast_app/core/states/base_state.dart';
 
 part '../states/search_state.dart';
 
-class SearchCubit extends Cubit<SearchState> {
+class SearchCubit extends Cubit<BaseState> {
   final IGeoRepository geoRepository;
   final ICityDatabaseRepository cityDatabaseRepository;
   final IGeolocation geolocation;
@@ -22,7 +22,7 @@ class SearchCubit extends Cubit<SearchState> {
     this.geoRepository,
     this.cityDatabaseRepository,
     this.geolocation,
-  ) : super(SearchInitial()) {
+  ) : super(InitialState()) {
     loadSavedCities();
   }
 
@@ -36,7 +36,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   Future<GeolocationModel?> getLocation() async {
     final currentState = state;
-    emit(const SearchLoadingState());
+    emit(LoadingState());
     final location = await geolocation.getGeolocation();
     if (location == null) {
       emit(const GetLocationErrorState());
@@ -46,7 +46,7 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   Future<void> loadSavedCities() async {
-    emit(const SearchLoadingState());
+    emit(LoadingState());
     final cities = await cityDatabaseRepository.getAll();
     emit(SavedCitiesLoadedState(cities));
   }
@@ -57,7 +57,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   Future<void> deleteCity(CityModel city) async {
     if (city.id == null) return;
-    emit(const SearchLoadingState());
+    emit(LoadingState());
     await cityDatabaseRepository.delete(city.id!);
     loadSavedCities();
   }
@@ -66,17 +66,17 @@ class SearchCubit extends Cubit<SearchState> {
     try {
       if (text.isEmpty) return loadSavedCities();
       if (text.length < 3) return;
-      emit(const SearchLoadingState());
+      emit(LoadingState());
 
       final cities = await geoRepository.searchCity(text);
 
       return emit(SearchSuccessState(cities ?? []));
     } on BaseException catch (baseException) {
       log(baseException.message);
-      emit(SearchErrorState(baseException));
+      emit(ErrorState(baseException));
     } catch (e) {
       log(e.toString());
-      emit(const SearchErrorState(UnknownException()));
+      emit(ErrorState(const UnknownException()));
     }
   }
 }

@@ -1,29 +1,15 @@
 part of '../cubits/search_cubit.dart';
 
-@immutable
-sealed class SearchState {}
-
-final class SearchInitial extends SearchState {}
-
-class SearchLoadingState implements SearchState {
-  const SearchLoadingState();
-}
-
-class SavedCitiesLoadedState implements SearchState {
+class SavedCitiesLoadedState implements BaseState {
   final List<CityModel> savedCities;
   const SavedCitiesLoadedState(this.savedCities);
 }
 
-class SearchSuccessState implements SearchState {
+class SearchSuccessState implements BaseState {
   final List<CityModel> cities;
   const SearchSuccessState(this.cities);
 }
 
-class SearchErrorState<T extends BaseException> implements SearchState {
-  final T exception;
-  const SearchErrorState(this.exception);
-}
-
-class GetLocationErrorState implements SearchState {
+class GetLocationErrorState implements BaseState {
   const GetLocationErrorState();
 }

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/cubits/weather_cubit.dart';
 import 'package:weather_forecast_app/app/features/search/domain/models/city_model.dart';
+import 'package:weather_forecast_app/app/features/weather/domain/models/weather_model.dart';
 import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/app/features/weather/ui/components/weather_component.dart';
+import 'package:weather_forecast_app/core/states/base_state.dart';
 import 'package:weather_forecast_app/design_system/widgets/error_text_widget.dart';
 
 class WeatherPage extends StatelessWidget {
@@ -29,7 +31,7 @@ class WeatherPage extends StatelessWidget {
           )
         ],
       ),
-      body: BlocBuilder<WeatherCubit, WeatherState>(
+      body: BlocBuilder<WeatherCubit, BaseState>(
         builder: (context, state) {
           if (state is LoadingState) {
             return const Center(
@@ -41,14 +43,14 @@ class WeatherPage extends StatelessWidget {
             return ErrorTextWidget(text: state.exception.message);
           }
 
-          if (state is SuccessState) {
+          if (state is SuccessState<WeatherModel>) {
             return RefreshIndicator(
               onRefresh: () async {
                 final weatherCubit = context.read<WeatherCubit>();
                 await weatherCubit.getWeather();
               },
               child: WeatherComponent(
-                weather: state.weather,
+                weather: state.data,
                 screenHeight: MediaQuery.of(context).size.height,
               ),
             );

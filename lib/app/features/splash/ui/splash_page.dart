@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/splash/domain/cubits/splash_cubit.dart';
 import 'package:weather_forecast_app/core/functions/add_interceptor_function.dart';
+import 'package:weather_forecast_app/core/models/geolocation_model.dart';
+import 'package:weather_forecast_app/core/states/base_state.dart';
 import 'package:weather_forecast_app/design_system/assets/app_assets.dart';
 import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
@@ -65,7 +67,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SplashCubit, SplashState>(
+    return BlocListener<SplashCubit, BaseState>(
       listener: _listener,
       child: Container(
         color: AppColors.darkBlue,
@@ -98,7 +100,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     );
   }
 
-  void _listener(BuildContext context, SplashState state) async {
+  void _listener(BuildContext context, BaseState state) async {
     if (state is LocationServiceDisbaledState) {
       final navigator = Navigator.of(context);
       await showDialog(
@@ -114,14 +116,14 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
         AppRoutes.searchPage,
         (route) => false,
       );
-    } else if (state is SuccessState) {
+    } else if (state is SuccessState<GeolocationModel>) {
       _lastController.forward().whenCompleteOrCancel(() {
         Navigator.of(context).pushNamedAndRemoveUntil(
           AppRoutes.weatherPage,
           (route) => false,
           arguments: {
-            'lat': state.geolocation.latitude,
-            'lng': state.geolocation.longitude,
+            'lat': state.data.latitude,
+            'lng': state.data.longitude,
           },
         );
       });

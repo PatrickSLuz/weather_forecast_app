@@ -1,16 +1,13 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/foundation.dart';
-import 'package:weather_forecast_app/app/features/weather/domain/models/weather_model.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/repositories/i_weather_repository.dart';
 import 'package:weather_forecast_app/core/errors/base_exception.dart';
 import 'package:weather_forecast_app/core/errors/default_exception.dart';
 import 'package:weather_forecast_app/core/errors/unknown_exception.dart';
+import 'package:weather_forecast_app/core/states/base_state.dart';
 
-part '../states/weather_state.dart';
-
-class WeatherCubit extends Cubit<WeatherState> {
+class WeatherCubit extends Cubit<BaseState> {
   final IWeatherRepository repository;
   final num? lat;
   final num? lng;
@@ -19,11 +16,11 @@ class WeatherCubit extends Cubit<WeatherState> {
     this.repository,
     this.lat,
     this.lng,
-  ) : super(WeatherInitial()) {
+  ) : super(InitialState()) {
     if (lat != null && lng != null) {
       getWeather(lat!, lng!);
     } else {
-      emit(const ErrorState(DefaultException(
+      emit(ErrorState(const DefaultException(
         message:
             'Não foi possível buscar os dados de clima, pois os dados de localizaçao estão inválidos. Por favor, tente novamente.',
       )));
@@ -32,14 +29,14 @@ class WeatherCubit extends Cubit<WeatherState> {
 
   Future<void> getWeather([num? lat, num? lng]) async {
     try {
-      emit(const LoadingState());
+      emit(LoadingState());
       final weather = await repository.getWeather(lat, lng);
 
       if (weather != null) {
         return emit(SuccessState(weather));
       }
 
-      emit(const ErrorState(DefaultException(
+      emit(ErrorState(const DefaultException(
         message:
             'Não foi possível buscar os dados de clima. Por favor, tente novamente.',
       )));
@@ -48,7 +45,7 @@ class WeatherCubit extends Cubit<WeatherState> {
       emit(ErrorState(baseException));
     } catch (e) {
       log(e.toString());
-      emit(const ErrorState(UnknownException()));
+      emit(ErrorState(const UnknownException()));
     }
   }
 }
