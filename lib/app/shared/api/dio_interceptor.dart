@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:weather_forecast_app/app/shared/environment/environment.dart';
+import 'package:weather_forecast_app/environment.dart';
 
 class DioInterceptor {
   DioInterceptor._();
