@@ -18,17 +18,6 @@ class ClientInterceptorImpl implements IClientInterceptor {
   @override
   FutureOr<RestClientHttpMessage> onResponse(RestClientResponse response) {
     logResponse(response);
-
-    final errorMsg = _getErrorOnResponse(response);
-
-    if (errorMsg != null && errorMsg.isNotEmpty) {
-      return RestClientException(
-        message: errorMsg,
-        error: null,
-        statusCode: 400,
-      );
-    }
-
     return response;
   }
 
@@ -38,30 +27,6 @@ class ClientInterceptorImpl implements IClientInterceptor {
     final response = error.response;
     final statusCode = response?.statusCode ?? 0;
 
-    if (statusCode == 401) {
-      logout();
-      return error;
-    }
-
-    final hasData = response?.data != null;
-    final dataIsHtml = response?.data?.toString().contains('<html>') ?? false;
-    if (!hasData || dataIsHtml) {
-      String message = ErrorMessage.generic;
-
-      if (response != null &&
-          response.message != null &&
-          response.message!.isNotEmpty) {
-        message = response.message!;
-      }
-
-      return RestClientException(
-        message: message,
-        error: error,
-        statusCode: statusCode,
-      );
-    }
-
-    final responseError = response?.data['errorList'][0];
     String message = '';
 
     switch (statusCode) {
@@ -78,21 +43,15 @@ class ClientInterceptorImpl implements IClientInterceptor {
         message = ErrorMessage.serviceUnavailable;
         break;
       default:
-        message = '${responseError['message'] ?? ''}';
-    }
-
-    if (message.isEmpty) {
-      message = ErrorMessage.generic;
+        message = ErrorMessage.generic;
     }
 
     return RestClientException(
       message: message,
-      error: responseError,
+      error: null,
       statusCode: statusCode,
     );
   }
-
-  void logout() async {}
 
   void logRequest(RestClientRequest request) {
     final params = _handleQueryParameters(request.queryParameters);
@@ -129,23 +88,5 @@ class ClientInterceptorImpl implements IClientInterceptor {
     } catch (e) {
       return '';
     }
-  }
-
-  String? _getErrorOnResponse(RestClientResponse response) {
-    final data = response.data;
-    if (data == null) return null;
-    if (data is! Map) return null;
-
-    if (!data.containsKey('success')) return null;
-    if (data['success'] == true) return null;
-
-    if (!data.containsKey('errors')) return null;
-    final errors = data['errors'];
-    if (errors is! List) return null;
-
-    final error = errors.first.toString();
-    if (error.isNotEmpty) return error;
-
-    return null;
   }
 }
