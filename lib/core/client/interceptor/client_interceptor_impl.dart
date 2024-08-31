@@ -30,6 +30,8 @@ class ClientInterceptorImpl implements IClientInterceptor {
     String message = '';
 
     switch (statusCode) {
+      case 400:
+        message = ErrorMessage.badRequest;
       case 403:
         message = ErrorMessage.forbidden;
         break;
