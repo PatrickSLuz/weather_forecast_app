@@ -10,6 +10,7 @@ import 'package:weather_forecast_app/design_system/dialogs/app_information_dialo
 import 'package:weather_forecast_app/app/features/search/ui/widgets/city_tile_widget.dart';
 import 'package:weather_forecast_app/design_system/dialogs/app_confirmation_dialog.dart';
 import 'package:weather_forecast_app/app/features/search/ui/widgets/use_my_location_tile_widget.dart';
+import 'package:weather_forecast_app/design_system/widgets/error_text_widget.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -114,7 +115,7 @@ class _SearchPageState extends State<SearchPage> {
             textInputAction: TextInputAction.search,
             textCapitalization: TextCapitalization.sentences,
             inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp('[0-9a-zA-Z]')),
+              FilteringTextInputFormatter.allow(RegExp('[0-9a-zA-Z\\s]')),
             ],
             decoration: const InputDecoration(
               hintText: 'Pesquise uma cidade',
@@ -156,9 +157,7 @@ class _SearchPageState extends State<SearchPage> {
           }
 
           if (state is SearchErrorState) {
-            return const Center(
-              child: Text('Error'),
-            );
+            return ErrorTextWidget(text: state.exception.message);
           }
 
           if (state is SearchSuccessState || state is SavedCitiesLoadedState) {

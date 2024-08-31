@@ -1,17 +1,20 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:weather_forecast_app/app/shared/services/app_geolocation_service.dart';
-import 'package:weather_forecast_app/app/shared/errors/errors.dart';
 import 'package:weather_forecast_app/app/features/search/domain/models/city_model.dart';
 import 'package:weather_forecast_app/app/features/search/domain/models/enuns/geolocation_permission_type_enum.dart';
 import 'package:weather_forecast_app/app/features/search/domain/models/geolocation_model.dart';
 import 'package:weather_forecast_app/app/features/search/domain/repositories/i_city_repository.dart';
-import 'package:weather_forecast_app/app/features/search/domain/repositories/geo_repository.dart';
+import 'package:weather_forecast_app/app/features/search/domain/repositories/i_geo_repository.dart';
+import 'package:weather_forecast_app/core/errors/base_exception.dart';
+import 'package:weather_forecast_app/core/errors/unknown_exception.dart';
 
 part '../states/search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
-  final GeoRepository geoRepository;
+  final IGeoRepository geoRepository;
   final ICityRepository cityRepository;
   final AppGeolocationService geolocationService;
 
@@ -60,10 +63,20 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   Future<void> searchCity(String text) async {
-    if (text.isEmpty) return loadSavedCities();
-    if (text.length < 3) return;
-    emit(const SearchLoadingState());
-    final newState = await geoRepository.searchCity(text);
-    emit(newState);
+    try {
+      if (text.isEmpty) return loadSavedCities();
+      if (text.length < 3) return;
+      emit(const SearchLoadingState());
+
+      final cities = await geoRepository.searchCity(text);
+
+      return emit(SearchSuccessState(cities ?? []));
+    } on BaseException catch (baseException) {
+      log(baseException.message);
+      emit(SearchErrorState(baseException));
+    } catch (e) {
+      log(e.toString());
+      emit(const SearchErrorState(UnknownException()));
+    }
   }
 }

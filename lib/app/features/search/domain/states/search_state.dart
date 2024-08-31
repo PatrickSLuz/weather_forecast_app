@@ -19,9 +19,9 @@ class SearchSuccessState implements SearchState {
   const SearchSuccessState(this.cities);
 }
 
-class SearchErrorState implements SearchState {
-  final Failure error;
-  const SearchErrorState(this.error);
+class SearchErrorState<T extends BaseException> implements SearchState {
+  final T exception;
+  const SearchErrorState(this.exception);
 }
 
 class GetLocationErrorState implements SearchState {

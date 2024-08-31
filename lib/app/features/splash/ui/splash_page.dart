@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/search/domain/cubits/geolocation_cubit.dart';
-import 'package:weather_forecast_app/core/client/weather/i_weather_rest_client.dart';
-import 'package:weather_forecast_app/core/client/weather/weather_client_interceptor_impl.dart';
+import 'package:weather_forecast_app/core/functions/add_interceptor_function.dart';
 import 'package:weather_forecast_app/design_system/assets/app_assets.dart';
 import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
 import 'package:weather_forecast_app/design_system/dialogs/app_information_dialog.dart';
-import 'package:weather_forecast_app/injector.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -17,8 +15,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
-  final weatherRestClient = getIt<IWeatherRestClient>();
-
   late final AnimationController _firstController = AnimationController(
     duration: const Duration(milliseconds: 1200),
     vsync: this,
@@ -49,7 +45,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    weatherRestClient.addInterceptors(WeatherClientInterceptorImpl());
+    addInterceptors();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final geolocationCubit = context.read<GeolocationCubit>();

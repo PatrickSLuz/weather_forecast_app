@@ -9,7 +9,7 @@ class GeoClientInterceptorImpl extends ClientInterceptorImpl
   Future<RestClientRequest> onRequest(RestClientRequest request) async {
     request.queryParameters?['format'] = 'json';
     request.queryParameters?['lang'] = 'pt';
-    request.queryParameters?['apiKey'] = Environment.weatherApiAppId;
+    request.queryParameters?['apiKey'] = Environment.geoApiKey;
 
     logRequest(request);
     return request;
