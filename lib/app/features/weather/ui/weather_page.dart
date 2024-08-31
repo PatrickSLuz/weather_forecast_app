@@ -4,6 +4,7 @@ import 'package:weather_forecast_app/app/features/weather/domain/cubits/weather_
 import 'package:weather_forecast_app/app/features/search/domain/models/city_model.dart';
 import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/app/features/weather/ui/components/weather_component.dart';
+import 'package:weather_forecast_app/design_system/widgets/error_text_widget.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
@@ -37,16 +38,14 @@ class WeatherPage extends StatelessWidget {
           }
 
           if (state is ErrorState) {
-            return const Center(
-              child: Text('Error'),
-            );
+            return ErrorTextWidget(text: state.exception.message);
           }
 
           if (state is SuccessState) {
             return RefreshIndicator(
               onRefresh: () async {
                 final weatherCubit = context.read<WeatherCubit>();
-                await weatherCubit.refresh();
+                await weatherCubit.getWeather();
               },
               child: WeatherComponent(
                 weather: state.weather,

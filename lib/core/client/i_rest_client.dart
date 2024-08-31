@@ -3,7 +3,7 @@ import 'package:weather_forecast_app/core/client/rest_client_multipart.dart';
 import 'package:weather_forecast_app/core/client/rest_client_request.dart';
 import 'package:weather_forecast_app/core/client/rest_client_response.dart';
 
-abstract interface class IRestClient {
+abstract class IRestClient {
   Future<RestClientResponse> post(RestClientRequest request);
 
   Future<RestClientResponse> get(RestClientRequest request);

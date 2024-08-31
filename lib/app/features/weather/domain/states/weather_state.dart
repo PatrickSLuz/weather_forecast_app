@@ -14,7 +14,7 @@ class SuccessState implements WeatherState {
   const SuccessState(this.weather);
 }
 
-class ErrorState implements WeatherState {
-  final Failure error;
-  const ErrorState(this.error);
+class ErrorState<T extends BaseException> implements WeatherState {
+  final T exception;
+  const ErrorState(this.exception);
 }

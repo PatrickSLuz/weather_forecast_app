@@ -11,9 +11,6 @@ import 'package:weather_forecast_app/core/errors/error_message.dart';
 class ClientInterceptorImpl implements IClientInterceptor {
   @override
   Future<RestClientRequest> onRequest(RestClientRequest request) async {
-    request.headers?['Content-Type'] = 'application/json';
-    request.headers?['accept'] = 'application/json';
-
     logRequest(request);
     return request;
   }
@@ -100,21 +97,21 @@ class ClientInterceptorImpl implements IClientInterceptor {
   void logRequest(RestClientRequest request) {
     final params = _handleQueryParameters(request.queryParameters);
     log('Request: Method.${request.method}');
-    log('Path: ${request.path}$params');
+    log('URL: ${request.baseUrl}${request.path}$params');
     // log('Header: ${request.headers}');
   }
 
   void logResponse(RestClientResponse response) {
     final params = _handleQueryParameters(response.request.queryParameters);
     log('Response: StatusCode ${response.statusCode}');
-    log('Path: ${response.request.path}$params');
+    log('URL: ${response.request.baseUrl}${response.request.path}$params');
   }
 
   void logError(RestClientException error) {
     final response = error.response;
     final params = _handleQueryParameters(response?.request.queryParameters);
     log('Error: StatusCode ${response?.statusCode}');
-    log('Path: ${response?.request.path}$params');
+    log('URL: ${response?.request.baseUrl}${response?.request.path}$params');
   }
 
   String _handleQueryParameters(Map<String, dynamic>? queryParameters) {

@@ -14,6 +14,9 @@ import 'package:weather_forecast_app/app/shared/datasources/open_weather_map/ope
 import 'package:weather_forecast_app/app/shared/datasources/weather_datasource.dart';
 import 'package:weather_forecast_app/app/features/weather/data/repositories/weather_repository_impl.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/repositories/i_weather_repository.dart';
+import 'package:weather_forecast_app/core/client/dio/rest_client_dio_impl.dart';
+import 'package:weather_forecast_app/core/client/weather/i_weather_rest_client.dart';
+import 'package:weather_forecast_app/core/client/weather/weather_rest_client_dio_impl.dart';
 
 final getIt = GetIt.instance;
 
@@ -24,8 +27,15 @@ void injector() {
   getIt.registerLazySingleton<WeatherDatasource>(
     () => OpenWeatherMapDatasource(DioService.weatherSetup()),
   );
+
+  /// Weather Rest Client
+  getIt.registerLazySingleton<IWeatherRestClient>(
+    () => WeatherRestClientDioImpl(DioFactory.weatherSetup()),
+  );
+
+  /// Weather Repository
   getIt.registerLazySingleton<IWeatherRepository>(
-    () => WeatherRepositoryImpl(getIt<WeatherDatasource>()),
+    () => WeatherRepositoryImpl(getIt<IWeatherRestClient>()),
   );
   getIt.registerLazySingleton<GeoDatasource>(
     () => GeoApiFyDatasource(DioService.geoSetup()),

@@ -6,33 +6,49 @@ import 'package:weather_forecast_app/core/client/i_rest_client.dart';
 import 'package:weather_forecast_app/core/client/rest_client_multipart.dart';
 import 'package:weather_forecast_app/core/client/rest_client_request.dart';
 import 'package:weather_forecast_app/core/client/rest_client_response.dart';
+import 'package:weather_forecast_app/environment.dart';
 
 class DioFactory {
-  static Dio dio() {
-    final baseOptions = BaseOptions(
-        // baseUrl: baseUrl,
-        );
-    return Dio(baseOptions);
+  static Dio weatherSetup() {
+    return Dio(
+      BaseOptions(
+        baseUrl: Environment.weatherApiUrl,
+        connectTimeout: const Duration(seconds: 20),
+        receiveTimeout: const Duration(seconds: 20),
+        validateStatus: (status) => true,
+      ),
+    );
+  }
+
+  static Dio geoSetup() {
+    return Dio(
+      BaseOptions(
+        baseUrl: Environment.geoApiUrl,
+        connectTimeout: const Duration(seconds: 20),
+        receiveTimeout: const Duration(seconds: 20),
+        validateStatus: (status) => true,
+      ),
+    );
   }
 }
 
 class RestClientDioImpl implements IRestClient {
-  final Dio _dio;
+  final Dio dio;
 
   final Map<IClientInterceptor, Interceptor> _interceptors = {};
 
-  RestClientDioImpl({required Dio dio}) : _dio = dio;
+  RestClientDioImpl(this.dio);
 
   @override
   void addInterceptors(IClientInterceptor interceptor) {
     _interceptors[interceptor] =
         ClientInterceptorDioImpl(interceptor: interceptor);
-    _dio.interceptors.add(_interceptors[interceptor]!);
+    dio.interceptors.add(_interceptors[interceptor]!);
   }
 
   @override
   void removeInterceptors(IClientInterceptor interceptor) {
-    _dio.interceptors.remove(_interceptors[interceptor]);
+    dio.interceptors.remove(_interceptors[interceptor]);
   }
 
   @override
@@ -58,7 +74,7 @@ class RestClientDioImpl implements IRestClient {
   @override
   Future<RestClientResponse> delete(RestClientRequest request) async {
     try {
-      final response = await _dio.delete(
+      final response = await dio.delete(
         request.path,
         data: request.data,
         queryParameters: request.queryParameters,
@@ -75,7 +91,7 @@ class RestClientDioImpl implements IRestClient {
   @override
   Future<RestClientResponse> get(RestClientRequest request) async {
     try {
-      final response = await _dio.get(
+      final response = await dio.get(
         request.path,
         queryParameters: request.queryParameters,
         options: Options(
@@ -91,7 +107,7 @@ class RestClientDioImpl implements IRestClient {
   @override
   Future<RestClientResponse> patch(RestClientRequest request) async {
     try {
-      final response = await _dio.patch(
+      final response = await dio.patch(
         request.path,
         data: request.data,
         queryParameters: request.queryParameters,
@@ -108,7 +124,7 @@ class RestClientDioImpl implements IRestClient {
   @override
   Future<RestClientResponse> post(RestClientRequest request) async {
     try {
-      final response = await _dio.post(
+      final response = await dio.post(
         request.path,
         data: request.data,
         queryParameters: request.queryParameters,
@@ -125,7 +141,7 @@ class RestClientDioImpl implements IRestClient {
   @override
   Future<RestClientResponse> put(RestClientRequest request) async {
     try {
-      final response = await _dio.put(
+      final response = await dio.put(
         request.path,
         data: request.data,
         queryParameters: request.queryParameters,
