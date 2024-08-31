@@ -62,7 +62,7 @@ class RestClientDioImpl implements IRestClient {
 
     final baseOptions = BaseOptions();
 
-    Dio dio = Dio(baseOptions);
+    final dio = Dio(baseOptions);
     final response = await dio.put(
       multipart.path,
       data: formData,
