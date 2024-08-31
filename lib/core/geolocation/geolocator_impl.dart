@@ -1,9 +1,9 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:weather_forecast_app/app/shared/services/app_geolocation_service.dart';
-import 'package:weather_forecast_app/app/features/search/domain/models/enuns/geolocation_permission_type_enum.dart';
-import 'package:weather_forecast_app/app/features/search/domain/models/geolocation_model.dart';
+import 'package:weather_forecast_app/core/enuns/geolocation_permission_type_enum.dart';
+import 'package:weather_forecast_app/core/geolocation/i_geolocation.dart';
+import 'package:weather_forecast_app/core/models/geolocation_model.dart';
 
-class GeolocatorService implements AppGeolocationService {
+class GeolocatorImpl implements IGeolocation {
   @override
   Future<bool> get isLocationServiceEnabled {
     return Geolocator.isLocationServiceEnabled();

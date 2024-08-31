@@ -3,8 +3,6 @@ import 'package:weather_forecast_app/app/shared/database/app_database.dart';
 import 'package:weather_forecast_app/app/shared/database/sqflite/sqflite_database.dart';
 import 'package:weather_forecast_app/app/features/search/data/repositories/city_repository_impl.dart';
 import 'package:weather_forecast_app/app/features/search/data/repositories/geo_repository_impl.dart';
-import 'package:weather_forecast_app/app/shared/services/app_geolocation_service.dart';
-import 'package:weather_forecast_app/app/shared/services/geolocator/geolocator_service.dart';
 import 'package:weather_forecast_app/app/features/search/domain/repositories/i_city_repository.dart';
 import 'package:weather_forecast_app/app/features/search/domain/repositories/i_geo_repository.dart';
 import 'package:weather_forecast_app/app/features/weather/data/repositories/weather_repository_impl.dart';
@@ -14,10 +12,15 @@ import 'package:weather_forecast_app/core/client/geo/geo_rest_client_dio_impl.da
 import 'package:weather_forecast_app/core/client/geo/i_geo_rest_client.dart';
 import 'package:weather_forecast_app/core/client/weather/i_weather_rest_client.dart';
 import 'package:weather_forecast_app/core/client/weather/weather_rest_client_dio_impl.dart';
+import 'package:weather_forecast_app/core/geolocation/geolocator_impl.dart';
+import 'package:weather_forecast_app/core/geolocation/i_geolocation.dart';
 
 final getIt = GetIt.instance;
 
 void injector() {
+  /// Geolocation package
+  getIt.registerSingleton<IGeolocation>(GeolocatorImpl());
+
   /// Weather Rest Client
   getIt.registerSingleton<IWeatherRestClient>(
     WeatherRestClientDioImpl(DioFactory.weatherSetup()),
@@ -36,10 +39,6 @@ void injector() {
   /// Geo Repository
   getIt.registerLazySingleton<IGeoRepository>(
     () => GeoRepositoryImpl(getIt<IGeoRestClient>()),
-  );
-
-  getIt.registerLazySingleton<AppGeolocationService>(
-    () => GeolocatorService(),
   );
 
   getIt.registerLazySingleton<AppDatabase>(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_forecast_app/app/features/search/domain/cubits/geolocation_cubit.dart';
+import 'package:weather_forecast_app/app/features/splash/domain/cubits/splash_cubit.dart';
 import 'package:weather_forecast_app/core/functions/add_interceptor_function.dart';
 import 'package:weather_forecast_app/design_system/assets/app_assets.dart';
 import 'package:weather_forecast_app/app_routes.dart';
@@ -48,11 +48,11 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     addInterceptors();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      final geolocationCubit = context.read<GeolocationCubit>();
+      final splashCubit = context.read<SplashCubit>();
 
       await Future.delayed(const Duration(seconds: 1));
       await _firstController.forward();
-      geolocationCubit.getLocation();
+      splashCubit.getLocation();
     });
   }
 
@@ -65,7 +65,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GeolocationCubit, GeolocationState>(
+    return BlocListener<SplashCubit, SplashState>(
       listener: _listener,
       child: Container(
         color: AppColors.darkBlue,
@@ -98,7 +98,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     );
   }
 
-  void _listener(BuildContext context, GeolocationState state) async {
+  void _listener(BuildContext context, SplashState state) async {
     if (state is LocationServiceDisbaledState) {
       final navigator = Navigator.of(context);
       await showDialog(
@@ -114,7 +114,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
         AppRoutes.searchPage,
         (route) => false,
       );
-    } else if (state is GeolocationSuccessState) {
+    } else if (state is SuccessState) {
       _lastController.forward().whenCompleteOrCancel(() {
         Navigator.of(context).pushNamedAndRemoveUntil(
           AppRoutes.weatherPage,
@@ -125,7 +125,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
           },
         );
       });
-    } else if (state is GeolocationErrorState) {
+    } else if (state is ErrorState) {
       _lastController.forward().whenCompleteOrCancel(() {
         Navigator.of(context).pushNamedAndRemoveUntil(
           AppRoutes.searchPage,
