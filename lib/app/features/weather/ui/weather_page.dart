@@ -6,6 +6,7 @@ import 'package:weather_forecast_app/app/features/weather/domain/models/weather_
 import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/app/features/weather/ui/components/weather_component.dart';
 import 'package:weather_forecast_app/core/states/base_state.dart';
+import 'package:weather_forecast_app/design_system/loadings/app_loading.dart';
 import 'package:weather_forecast_app/design_system/widgets/error_text_widget.dart';
 
 class WeatherPage extends StatelessWidget {
@@ -33,11 +34,7 @@ class WeatherPage extends StatelessWidget {
       ),
       body: BlocBuilder<WeatherCubit, BaseState>(
         builder: (context, state) {
-          if (state is LoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+          if (state is LoadingState) return const AppLoading();
 
           if (state is ErrorState) {
             return ErrorTextWidget(text: state.exception.message);

@@ -6,6 +6,7 @@ import 'package:weather_forecast_app/app/features/search/domain/models/city_mode
 import 'package:weather_forecast_app/core/helpers/debouncer.dart';
 import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/core/states/base_state.dart';
+import 'package:weather_forecast_app/design_system/loadings/app_loading.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
 import 'package:weather_forecast_app/design_system/dialogs/app_information_dialog.dart';
 import 'package:weather_forecast_app/app/features/search/ui/widgets/city_tile_widget.dart';
@@ -30,10 +31,11 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    searchCubit = context.read<SearchCubit>();
-    searchCubit.canUse().then(
-          (value) => canUseLocation = value,
-        );
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      searchCubit = context.read<SearchCubit>();
+      canUseLocation = await searchCubit.canUse();
+      searchCubit.loadSavedCities();
+    });
   }
 
   @override
@@ -151,11 +153,7 @@ class _SearchPageState extends State<SearchPage> {
       body: BlocConsumer<SearchCubit, BaseState>(
         listener: _listener,
         builder: (context, state) {
-          if (state is LoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+          if (state is LoadingState) return const AppLoading();
 
           if (state is ErrorState) {
             return ErrorTextWidget(text: state.exception.message);

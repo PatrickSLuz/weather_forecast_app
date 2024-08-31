@@ -22,9 +22,7 @@ class SearchCubit extends Cubit<BaseState> {
     this.geoRepository,
     this.cityDatabaseRepository,
     this.geolocation,
-  ) : super(InitialState()) {
-    loadSavedCities();
-  }
+  ) : super(LoadingState());
 
   Future<bool> canUse() async {
     final isServiceEnabled = await geolocation.isLocationServiceEnabled;
