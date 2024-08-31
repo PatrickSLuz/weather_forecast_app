@@ -6,7 +6,7 @@ import 'package:weather_forecast_app/app/features/search/domain/models/city_mode
 import 'package:weather_forecast_app/core/enuns/geolocation_permission_type_enum.dart';
 import 'package:weather_forecast_app/core/geolocation/i_geolocation.dart';
 import 'package:weather_forecast_app/core/models/geolocation_model.dart';
-import 'package:weather_forecast_app/app/features/search/domain/repositories/i_city_repository.dart';
+import 'package:weather_forecast_app/app/features/search/domain/repositories/i_city_database_repository.dart';
 import 'package:weather_forecast_app/app/features/search/domain/repositories/i_geo_repository.dart';
 import 'package:weather_forecast_app/core/errors/base_exception.dart';
 import 'package:weather_forecast_app/core/errors/unknown_exception.dart';
@@ -15,12 +15,12 @@ part '../states/search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   final IGeoRepository geoRepository;
-  final ICityRepository cityRepository;
+  final ICityDatabaseRepository cityDatabaseRepository;
   final IGeolocation geolocation;
 
   SearchCubit(
     this.geoRepository,
-    this.cityRepository,
+    this.cityDatabaseRepository,
     this.geolocation,
   ) : super(SearchInitial()) {
     loadSavedCities();
@@ -47,18 +47,18 @@ class SearchCubit extends Cubit<SearchState> {
 
   Future<void> loadSavedCities() async {
     emit(const SearchLoadingState());
-    final cities = await cityRepository.getAll();
+    final cities = await cityDatabaseRepository.getAll();
     emit(SavedCitiesLoadedState(cities));
   }
 
   Future<void> saveCity(CityModel city) {
-    return cityRepository.save(city);
+    return cityDatabaseRepository.save(city);
   }
 
   Future<void> deleteCity(CityModel city) async {
     if (city.id == null) return;
     emit(const SearchLoadingState());
-    await cityRepository.delete(city.id!);
+    await cityDatabaseRepository.delete(city.id!);
     loadSavedCities();
   }
 

@@ -1,4 +1,4 @@
-abstract class AppDatabase {
+abstract class ILocalDatabase {
   Future<num> insert(
     String tableName,
     Map<String, dynamic> value,

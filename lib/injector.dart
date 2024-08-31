@@ -1,9 +1,9 @@
 import 'package:get_it/get_it.dart';
-import 'package:weather_forecast_app/app/shared/database/app_database.dart';
-import 'package:weather_forecast_app/app/shared/database/sqflite/sqflite_database.dart';
-import 'package:weather_forecast_app/app/features/search/data/repositories/city_repository_impl.dart';
+import 'package:weather_forecast_app/core/local_database/i_local_database.dart';
+import 'package:weather_forecast_app/core/local_database/sqflite_local_database_impl.dart';
+import 'package:weather_forecast_app/app/features/search/data/repositories/city_database_repository_impl.dart';
 import 'package:weather_forecast_app/app/features/search/data/repositories/geo_repository_impl.dart';
-import 'package:weather_forecast_app/app/features/search/domain/repositories/i_city_repository.dart';
+import 'package:weather_forecast_app/app/features/search/domain/repositories/i_city_database_repository.dart';
 import 'package:weather_forecast_app/app/features/search/domain/repositories/i_geo_repository.dart';
 import 'package:weather_forecast_app/app/features/weather/data/repositories/weather_repository_impl.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/repositories/i_weather_repository.dart';
@@ -20,6 +20,9 @@ final getIt = GetIt.instance;
 void injector() {
   /// Geolocation package
   getIt.registerSingleton<IGeolocation>(GeolocatorImpl());
+
+  /// Local Database Package
+  getIt.registerSingleton<ILocalDatabase>(SqfliteLocalDatabaseImpl());
 
   /// Weather Rest Client
   getIt.registerSingleton<IWeatherRestClient>(
@@ -41,11 +44,7 @@ void injector() {
     () => GeoRepositoryImpl(getIt<IGeoRestClient>()),
   );
 
-  getIt.registerLazySingleton<AppDatabase>(
-    () => SqfliteDatabase(),
-  );
-
-  getIt.registerLazySingleton<ICityRepository>(
-    () => CityRepositoryImpl(getIt<AppDatabase>()),
+  getIt.registerLazySingleton<ICityDatabaseRepository>(
+    () => CityDatabaseRepositoryImpl(getIt<ILocalDatabase>()),
   );
 }

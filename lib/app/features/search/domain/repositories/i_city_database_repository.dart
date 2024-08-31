@@ -1,6 +1,6 @@
 import 'package:weather_forecast_app/app/features/search/domain/models/city_model.dart';
 
-abstract class ICityRepository {
+abstract class ICityDatabaseRepository {
   Future<num> save(CityModel city);
 
   Future<List<CityModel>> getAll();

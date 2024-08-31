@@ -1,5 +1,5 @@
-class CityDatabaseHelper {
-  CityDatabaseHelper._();
+class CityTable {
+  CityTable._();
 
   static const tableName = 'city_table';
 

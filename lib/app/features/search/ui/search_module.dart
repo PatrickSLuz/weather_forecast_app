@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/search/domain/cubits/search_cubit.dart';
-import 'package:weather_forecast_app/app/features/search/domain/repositories/i_city_repository.dart';
+import 'package:weather_forecast_app/app/features/search/domain/repositories/i_city_database_repository.dart';
 import 'package:weather_forecast_app/app/features/search/domain/repositories/i_geo_repository.dart';
 import 'package:weather_forecast_app/core/geolocation/i_geolocation.dart';
 import 'package:weather_forecast_app/injector.dart';
@@ -15,7 +15,7 @@ class SearchModule extends StatelessWidget {
     return BlocProvider(
       create: (_) => SearchCubit(
         getIt.get<IGeoRepository>(),
-        getIt.get<ICityRepository>(),
+        getIt.get<ICityDatabaseRepository>(),
         getIt.get<IGeolocation>(),
       ),
       child: const SearchPage(),

@@ -1,5 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:weather_forecast_app/app/shared/database/helpers/city_database_helper.dart';
+import 'package:weather_forecast_app/core/local_database/tables/city_table.dart';
 
 class SqfliteHelper {
   SqfliteHelper._();
@@ -19,7 +19,7 @@ class SqfliteHelper {
     return openDatabase(
       '$dbPath/$_databaseName',
       onCreate: (db, _) {
-        db.execute(CityDatabaseHelper.createTableQuery);
+        db.execute(CityTable.createTableQuery);
       },
       version: _databaseVersion,
     );
