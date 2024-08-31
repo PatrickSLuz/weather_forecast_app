@@ -9,8 +9,9 @@ import 'package:weather_forecast_app/core/states/base_state.dart';
 
 class WeatherCubit extends Cubit<BaseState> {
   final IWeatherRepository repository;
-  final num? lat;
-  final num? lng;
+
+  num? lat;
+  num? lng;
 
   WeatherCubit(
     this.repository,
@@ -30,7 +31,11 @@ class WeatherCubit extends Cubit<BaseState> {
   Future<void> getWeather([num? lat, num? lng]) async {
     try {
       emit(LoadingState());
-      final weather = await repository.getWeather(lat, lng);
+
+      if (lat != null && lat != 0) this.lat = lat;
+      if (lng != null && lng != 0) this.lng = lng;
+
+      final weather = await repository.getWeather(this.lat, this.lng);
 
       if (weather != null) {
         return emit(SuccessState(weather));
