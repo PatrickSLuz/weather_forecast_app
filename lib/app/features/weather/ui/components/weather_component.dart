@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/models/weather_model.dart';
 import 'package:weather_forecast_app/core/extensions/string_extension.dart';
+import 'package:weather_forecast_app/app/features/ad/banner_ad_widget.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
 import 'package:weather_forecast_app/app/features/weather/ui/components/weather_data_scroll_component.dart';
 import 'package:weather_forecast_app/app/features/weather/ui/widgets/extra_data_widget.dart';
@@ -117,6 +118,7 @@ class WeatherComponent extends StatelessWidget {
                     ),
                   ),
                   WeatherDataScrollComponent(weather: weather),
+                  const BannerAdWidget(),
                 ],
               ),
             ),
