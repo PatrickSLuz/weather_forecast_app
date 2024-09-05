@@ -31,7 +31,7 @@ migrate_working_dir/
 .pub/
 /build/
 pubspec.lock
-.env
+*.env
 
 # Symbolication related
 app.*.symbols

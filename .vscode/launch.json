@@ -5,21 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "weather_forecast_app",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "weather_forecast_app (profile mode)",
+            "name": "Dev",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "program": "lib/main_dev.dart",
         },
         {
-            "name": "weather_forecast_app (release mode)",
+            "name": "Prod",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
-        }
+            "program": "lib/main.dart",
+        },
     ]
 }
