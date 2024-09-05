@@ -38,7 +38,7 @@ class CityTileWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${city.state}, ${city.countryCode.toUpperCase()}',
+                  '${city.state.isNotEmpty ? '${city.state}, ' : ''}${city.countryCode.toUpperCase()}',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

@@ -3,7 +3,17 @@ import 'package:weather_forecast_app/app/features/search/domain/models/city_mode
 class CityAdapter {
   CityAdapter._();
 
-  static CityModel fromMap(Map<String, dynamic> map) {
+  static CityModel fromMapOpenWeather(Map<String, dynamic> map) {
+    return CityModel(
+      name: map['name'],
+      state: map['state'] ?? '',
+      countryCode: map['country'],
+      lat: map['lat'],
+      lng: map['lon'],
+    );
+  }
+
+  static CityModel fromMapGeo(Map<String, dynamic> map) {
     return CityModel(
       name: map['city'],
       state: map['state'] ?? map['county'] ?? map['country'],

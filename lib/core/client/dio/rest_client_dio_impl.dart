@@ -64,7 +64,7 @@ class RestClientDioImpl implements IRestClient {
 
     final dio = Dio(baseOptions);
     final response = await dio.put(
-      multipart.path,
+      '${multipart.urlSuffix}${multipart.path}',
       data: formData,
     );
 
@@ -75,7 +75,7 @@ class RestClientDioImpl implements IRestClient {
   Future<RestClientResponse> delete(RestClientRequest request) async {
     try {
       final response = await dio.delete(
-        request.path,
+        '${request.urlSuffix}${request.path}',
         data: request.data,
         queryParameters: request.queryParameters,
         options: Options(
@@ -92,7 +92,7 @@ class RestClientDioImpl implements IRestClient {
   Future<RestClientResponse> get(RestClientRequest request) async {
     try {
       final response = await dio.get(
-        request.path,
+        '${request.urlSuffix}${request.path}',
         queryParameters: request.queryParameters,
         options: Options(
           headers: request.headers,
@@ -108,7 +108,7 @@ class RestClientDioImpl implements IRestClient {
   Future<RestClientResponse> patch(RestClientRequest request) async {
     try {
       final response = await dio.patch(
-        request.path,
+        '${request.urlSuffix}${request.path}',
         data: request.data,
         queryParameters: request.queryParameters,
         options: Options(
@@ -125,7 +125,7 @@ class RestClientDioImpl implements IRestClient {
   Future<RestClientResponse> post(RestClientRequest request) async {
     try {
       final response = await dio.post(
-        request.path,
+        '${request.urlSuffix}${request.path}',
         data: request.data,
         queryParameters: request.queryParameters,
         options: Options(
@@ -142,7 +142,7 @@ class RestClientDioImpl implements IRestClient {
   Future<RestClientResponse> put(RestClientRequest request) async {
     try {
       final response = await dio.put(
-        request.path,
+        '${request.urlSuffix}${request.path}',
         data: request.data,
         queryParameters: request.queryParameters,
         options: Options(

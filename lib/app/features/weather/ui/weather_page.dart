@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/cubits/weather_cubit.dart';
 import 'package:weather_forecast_app/app/features/search/domain/models/city_model.dart';
-import 'package:weather_forecast_app/app/features/weather/domain/models/weather_model.dart';
+import 'package:weather_forecast_app/app/features/weather/domain/states/weather_state.dart';
+import 'package:weather_forecast_app/app/features/weather/ui/widgets/city_name_widget.dart';
 import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/app/features/weather/ui/components/weather_component.dart';
 import 'package:weather_forecast_app/core/states/base_state.dart';
@@ -22,40 +23,49 @@ class WeatherPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            tooltip: 'Pesquisar',
-            icon: const Icon(Icons.search_rounded),
-            onPressed: () => onSearchPressed(context),
-          )
-        ],
-      ),
-      body: BlocBuilder<WeatherCubit, BaseState>(
-        builder: (context, state) {
-          if (state is LoadingState) return const AppLoading();
+    return BlocBuilder<WeatherCubit, BaseState>(
+      builder: (context, state) {
+        if (state is LoadingState) {
+          return const AppLoading(withScaffold: true);
+        }
 
-          if (state is ErrorState) {
-            return ErrorTextWidget(text: state.exception.message);
-          }
+        if (state is ErrorState) {
+          return ErrorTextWidget(text: state.exception.message);
+        }
 
-          if (state is SuccessState<WeatherModel>) {
-            return RefreshIndicator(
+        if (state is WeatherSuccessState) {
+          return Scaffold(
+            appBar: AppBar(
+              toolbarHeight: 88,
+              centerTitle: true,
+              title: CityNameWidget(
+                weather: state.weather,
+                address: state.address,
+              ),
+              actions: [
+                IconButton(
+                  tooltip: 'Pesquisar',
+                  icon: const Icon(Icons.search_rounded),
+                  onPressed: () => onSearchPressed(context),
+                )
+              ],
+            ),
+            body: RefreshIndicator(
               onRefresh: () async {
                 final weatherCubit = context.read<WeatherCubit>();
                 await weatherCubit.getWeather();
               },
               child: WeatherComponent(
-                weather: state.data,
+                weather: state.weather,
+                address: state.address,
                 screenHeight: MediaQuery.of(context).size.height,
               ),
-            );
-          }
+            ),
+          );
+        }
 
-          return Container();
-        },
-      ),
+        return Container();
+      },
     );
   }
 }

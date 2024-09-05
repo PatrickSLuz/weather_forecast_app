@@ -29,7 +29,7 @@ class GeoRepositoryImpl implements IGeoRepository {
       if (response.statusCode == 200) {
         final list = response.data['results'] as List;
         list.removeWhere((element) => element['city'] == null);
-        final cities = list.map((map) => CityAdapter.fromMap(map)).toList();
+        final cities = list.map((map) => CityAdapter.fromMapGeo(map)).toList();
         return cities;
       }
 

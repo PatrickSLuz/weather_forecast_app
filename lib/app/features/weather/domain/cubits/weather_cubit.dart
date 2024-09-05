@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/repositories/i_weather_repository.dart';
+import 'package:weather_forecast_app/app/features/weather/domain/states/weather_state.dart';
 import 'package:weather_forecast_app/core/errors/base_exception.dart';
 import 'package:weather_forecast_app/core/errors/default_exception.dart';
 import 'package:weather_forecast_app/core/errors/unknown_exception.dart';
+import 'package:weather_forecast_app/core/functions/coordinates_to_address_function.dart';
 import 'package:weather_forecast_app/core/states/base_state.dart';
 
 class WeatherCubit extends Cubit<BaseState> {
@@ -36,9 +38,13 @@ class WeatherCubit extends Cubit<BaseState> {
       if (lng != null && lng != 0) this.lng = lng;
 
       final weather = await repository.getWeather(this.lat, this.lng);
+      final address = await coordinatesToAddress(this.lat, this.lng);
 
-      if (weather != null) {
-        return emit(SuccessState(weather));
+      if (weather != null && address != null) {
+        return emit(WeatherSuccessState(
+          weather: weather,
+          address: address,
+        ));
       }
 
       emit(ErrorState(const DefaultException(

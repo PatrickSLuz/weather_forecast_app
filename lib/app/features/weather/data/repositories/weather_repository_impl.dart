@@ -18,6 +18,7 @@ class WeatherRepositoryImpl implements IWeatherRepository {
       final response = await restClient.get(
         RestClientRequest(
           path: '/weather',
+          urlSuffix: '/data/2.5',
           queryParameters: {
             'lat': lat,
             'lon': lng,

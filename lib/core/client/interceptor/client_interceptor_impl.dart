@@ -57,26 +57,37 @@ class ClientInterceptorImpl implements IClientInterceptor {
   }
 
   void logRequest(RestClientRequest request) {
-    final params = _handleQueryParameters(request.queryParameters);
+    final params = _buildQueryParameters(request.queryParameters);
+    final url = _buildUrl(request);
     log('Request: Method.${request.method}');
-    log('URL: ${request.baseUrl}${request.path}$params');
+    log('URL: $url$params');
     // log('Header: ${request.headers}');
   }
 
   void logResponse(RestClientResponse response) {
-    final params = _handleQueryParameters(response.request.queryParameters);
+    final params = _buildQueryParameters(response.request.queryParameters);
+    final url = _buildUrl(response.request);
     log('Response: StatusCode ${response.statusCode}');
-    log('URL: ${response.request.baseUrl}${response.request.path}$params');
+    log('URL: $url$params');
   }
 
   void logError(RestClientException error) {
     final response = error.response;
-    final params = _handleQueryParameters(response?.request.queryParameters);
+    final params = _buildQueryParameters(response?.request.queryParameters);
+    final url = _buildUrl(response?.request);
     log('Error: StatusCode ${response?.statusCode}');
-    log('URL: ${response?.request.baseUrl}${response?.request.path}$params');
+    log('URL: $url$params');
   }
 
-  String _handleQueryParameters(Map<String, dynamic>? queryParameters) {
+  String _buildUrl(RestClientRequest? request) {
+    try {
+      return '${request?.baseUrl}${request?.urlSuffix}${request?.path}';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  String _buildQueryParameters(Map<String, dynamic>? queryParameters) {
     try {
       if (queryParameters != null && queryParameters.isNotEmpty) {
         String params = '?';
