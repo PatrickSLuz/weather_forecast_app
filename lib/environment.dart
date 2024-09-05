@@ -8,7 +8,13 @@ enum EnvFlavorEnum {
 class Environment {
   Environment._();
 
-  static late EnvFlavorEnum flavor;
+  static late EnvFlavorEnum _flavor;
+  static setFlavor(EnvFlavorEnum flavor) {
+    _flavor = flavor;
+  }
+
+  static bool get isProd => _flavor == EnvFlavorEnum.prod;
+  static bool get isDev => _flavor == EnvFlavorEnum.dev;
 
   static final weatherApiUrl = dotenv.get('OPEN_WEATHER_API_URL');
   static final weatherApiAppId = dotenv.get('OPEN_WEATHER_API_APP_ID');

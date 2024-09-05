@@ -16,7 +16,7 @@ void main() async {
   unawaited(MobileAds.instance.initialize());
 
   await dotenv.load(fileName: 'environment/dev.env');
-  Environment.flavor = EnvFlavorEnum.dev;
+  Environment.setFlavor(EnvFlavorEnum.dev);
   injector();
   await preloadSVGs();
 
