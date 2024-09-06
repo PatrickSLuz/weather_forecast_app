@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:weather_forecast_app/app/features/about/ui/about_module.dart';
 import 'package:weather_forecast_app/app/features/search/ui/search_module.dart';
 import 'package:weather_forecast_app/app/features/splash/ui/splash_module.dart';
 import 'package:weather_forecast_app/design_system/pages/unknown_page.dart';
@@ -10,6 +11,7 @@ class AppRoutes {
   static const splashPage = '/splash';
   static const weatherPage = '/weather';
   static const searchPage = '/search';
+  static const aboutPage = '/about';
 
   static Route<dynamic> generate(RouteSettings settings) {
     switch (settings.name) {
@@ -23,6 +25,8 @@ class AppRoutes {
         );
       case searchPage:
         return CupertinoPageRoute(builder: (_) => const SearchModule());
+      case aboutPage:
+        return CupertinoPageRoute(builder: (_) => const AboutModule());
       default:
         return CupertinoPageRoute(builder: (_) => const UnknownPage());
     }
