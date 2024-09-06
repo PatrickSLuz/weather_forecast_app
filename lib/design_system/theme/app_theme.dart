@@ -39,7 +39,6 @@ class AppTheme {
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,
-      centerTitle: true,
       elevation: 0,
       iconTheme: IconThemeData(color: AppColors.darkBlue),
       actionsIconTheme: IconThemeData(color: AppColors.darkBlue),
