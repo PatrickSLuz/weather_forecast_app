@@ -21,8 +21,10 @@ dependencies:
   get_it: ^7.7.0
   google_mobile_ads: ^5.1.0
   intl: ^0.19.0
+  package_info_plus: ^8.0.2
   share_plus: ^10.0.2
   sqflite: ^2.3.3+1
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:weather_forecast_app/core/application_info/i_application_info.dart';
+import 'package:weather_forecast_app/core/application_info/package_info_plus_impl.dart';
 import 'package:weather_forecast_app/core/local_database/i_local_database.dart';
 import 'package:weather_forecast_app/core/local_database/sqflite_local_database_impl.dart';
 import 'package:weather_forecast_app/app/features/search/data/repositories/city_database_repository_impl.dart';
@@ -23,6 +25,9 @@ void injector() {
 
   /// Local Database Package
   getIt.registerSingleton<ILocalDatabase>(SqfliteLocalDatabaseImpl());
+
+  /// Application Info Package
+  getIt.registerSingleton<IApplicationInfo>(PackageInfoPlusImpl());
 
   /// Weather Rest Client
   getIt.registerSingleton<IWeatherRestClient>(
