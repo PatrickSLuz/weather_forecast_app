@@ -89,7 +89,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                 ),
                 child: Image.asset(
                   AppAssets.appLogo,
-                  semanticLabel: 'App logo',
+                  semanticLabel: 'Logo app Clima Atual',
                   width: MediaQuery.of(context).size.width * 0.3,
                 ),
               ),
