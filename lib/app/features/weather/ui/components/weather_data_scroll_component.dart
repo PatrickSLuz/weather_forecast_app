@@ -45,18 +45,20 @@ class WeatherDataScrollComponent extends StatelessWidget {
             ),
             const SizedBox(width: 24),
           ],
-          WeatherDataCardWidget(
-            icon: Image.asset(
-              AppAssets.wind,
-              semanticLabel: 'Vento',
-              height: 32,
-              width: 32,
-              color: AppColors.grey,
+          if (weather.wind.speed != 0) ...[
+            WeatherDataCardWidget(
+              icon: Image.asset(
+                AppAssets.wind,
+                semanticLabel: 'Vento',
+                height: 32,
+                width: 32,
+                color: AppColors.grey,
+              ),
+              value: '${weather.wind.speed.inKmPerHour()} km/h',
+              description: 'Velocidade do vento',
             ),
-            value: '${weather.wind.speed.inKmPerHour()} km/h',
-            description: 'Velocidade do vento',
-          ),
-          const SizedBox(width: 24),
+            const SizedBox(width: 24),
+          ],
           WeatherDataCardWidget(
             icon: Transform.rotate(
               angle: weather.wind.degrees.toRadians(),

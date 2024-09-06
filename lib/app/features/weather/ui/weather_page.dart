@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_forecast_app/app/features/ad/banner_ad_widget.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/cubits/weather_cubit.dart';
 import 'package:weather_forecast_app/app/features/search/domain/models/city_model.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/states/weather_state.dart';
@@ -35,6 +36,7 @@ class WeatherPage extends StatelessWidget {
 
         if (state is WeatherSuccessState) {
           return Scaffold(
+            bottomNavigationBar: const BannerAdWidget(),
             appBar: AppBar(
               toolbarHeight: 88,
               centerTitle: true,

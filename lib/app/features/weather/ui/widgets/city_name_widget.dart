@@ -21,7 +21,7 @@ class CityNameWidget extends StatelessWidget {
           address.city ?? weather.location.city,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 32,
+            fontSize: 28,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -29,7 +29,7 @@ class CityNameWidget extends StatelessWidget {
           address.stateWithIsoCountryCode,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
         ),

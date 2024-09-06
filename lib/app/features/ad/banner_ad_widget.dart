@@ -2,6 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:weather_forecast_app/environment.dart';
+
+const adUnitId = 'ca-app-pub-5906691229604512/9346174530';
+const adUnitIdTestAndroid = 'ca-app-pub-3940256099942544/6300978111';
+const adUnitIdTestIos = 'ca-app-pub-3940256099942544/2934735716';
 
 class BannerAdWidget extends StatefulWidget {
   const BannerAdWidget({super.key});
@@ -13,10 +18,6 @@ class BannerAdWidget extends StatefulWidget {
 class _BannerAdWidgetState extends State<BannerAdWidget> {
   BannerAd? _bannerAd;
   bool _isLoaded = false;
-
-  final adUnitId = Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/6300978111'
-      : 'ca-app-pub-3940256099942544/2934735716';
 
   @override
   void initState() {
@@ -36,22 +37,20 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
       return const SizedBox.shrink();
     }
 
-    return Container(
-      color: Colors.white,
-      alignment: Alignment.bottomCenter,
-      child: SafeArea(
-        child: SizedBox(
-          width: _bannerAd!.size.width.toDouble(),
-          height: _bannerAd!.size.height.toDouble(),
-          child: AdWidget(ad: _bannerAd!),
-        ),
+    return SafeArea(
+      child: Container(
+        color: Colors.white,
+        alignment: Alignment.bottomCenter,
+        width: _bannerAd!.size.width.toDouble(),
+        height: _bannerAd!.size.height.toDouble(),
+        child: AdWidget(ad: _bannerAd!),
       ),
     );
   }
 
   void loadAd() {
     _bannerAd = BannerAd(
-      adUnitId: adUnitId,
+      adUnitId: getAdUnitId(),
       request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
@@ -63,5 +62,13 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
         },
       ),
     )..load();
+  }
+
+  String getAdUnitId() {
+    if (Environment.isDev) {
+      if (Platform.isIOS) return adUnitIdTestIos;
+      return adUnitIdTestAndroid;
+    }
+    return adUnitId;
   }
 }

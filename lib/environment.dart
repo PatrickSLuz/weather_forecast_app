@@ -9,7 +9,7 @@ class Environment {
   Environment._();
 
   static late EnvFlavorEnum _flavor;
-  static setFlavor(EnvFlavorEnum flavor) {
+  static void setFlavor(EnvFlavorEnum flavor) {
     _flavor = flavor;
   }
 

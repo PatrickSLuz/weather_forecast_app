@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_forecast_app/app/features/ad/banner_ad_widget.dart';
 import 'package:weather_forecast_app/app/features/search/domain/cubits/search_cubit.dart';
 import 'package:weather_forecast_app/app/features/search/domain/models/city_model.dart';
 import 'package:weather_forecast_app/core/helpers/debouncer.dart';
@@ -105,6 +106,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      bottomNavigationBar: const BannerAdWidget(),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Padding(
