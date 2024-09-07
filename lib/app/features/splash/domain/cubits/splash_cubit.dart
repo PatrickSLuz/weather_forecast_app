@@ -12,6 +12,7 @@ class SplashCubit extends Cubit<BaseState> {
   SplashCubit(this.geolocation) : super(InitialState());
 
   Future<void> getLocation() async {
+    emit(LoadingState());
     final isServiceEnabled = await geolocation.isLocationServiceEnabled;
 
     if (!isServiceEnabled) {

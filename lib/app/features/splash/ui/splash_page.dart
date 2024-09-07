@@ -6,6 +6,7 @@ import 'package:weather_forecast_app/core/models/geolocation_model.dart';
 import 'package:weather_forecast_app/core/states/base_state.dart';
 import 'package:weather_forecast_app/design_system/assets/app_assets.dart';
 import 'package:weather_forecast_app/app_routes.dart';
+import 'package:weather_forecast_app/design_system/loadings/app_loading.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
 import 'package:weather_forecast_app/design_system/dialogs/app_information_dialog.dart';
 
@@ -49,7 +50,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
     addInterceptors();
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final splashCubit = context.read<SplashCubit>();
 
       await Future.delayed(const Duration(seconds: 1));
@@ -67,36 +68,54 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SplashCubit, BaseState>(
+    return BlocConsumer<SplashCubit, BaseState>(
       listener: _listener,
-      child: Container(
-        color: AppColors.darkBlue,
-        child: SlideTransition(
-          position: _firstAnimation,
-          child: SlideTransition(
-            position: _lastAnimation,
-            child: Center(
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 16,
-                ),
-                decoration: const BoxDecoration(
-                  color: AppColors.background,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(16),
+      builder: (context, state) {
+        return Container(
+          color: AppColors.darkBlue,
+          child: Stack(
+            children: [
+              SlideTransition(
+                position: _firstAnimation,
+                child: SlideTransition(
+                  position: _lastAnimation,
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 16,
+                      ),
+                      decoration: const BoxDecoration(
+                        color: AppColors.background,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16),
+                        ),
+                      ),
+                      child: Image.asset(
+                        AppAssets.appLogo,
+                        semanticLabel: 'Logo app Clima Atual',
+                        width: MediaQuery.of(context).size.width * 0.3,
+                      ),
+                    ),
                   ),
                 ),
-                child: Image.asset(
-                  AppAssets.appLogo,
-                  semanticLabel: 'Logo app Clima Atual',
-                  width: MediaQuery.of(context).size.width * 0.3,
+              ),
+              Container(
+                alignment: Alignment.bottomCenter,
+                margin: const EdgeInsets.only(bottom: 40),
+                child: AnimatedScale(
+                  duration: const Duration(milliseconds: 300),
+                  scale: state is LoadingState ? 1 : 0,
+                  child: const AppLoading(
+                    withCenter: false,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
