@@ -49,9 +49,24 @@ class AppTheme {
       constraints: BoxConstraints(maxHeight: 50),
       border: OutlineInputBorder(),
     ),
-    iconButtonTheme: IconButtonThemeData(
+    iconButtonTheme: const IconButtonThemeData(
       style: ButtonStyle(
-        iconColor: WidgetStateProperty.all<Color>(AppColors.darkBlue),
+        iconColor: WidgetStatePropertyAll<Color>(AppColors.darkBlue),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: const WidgetStatePropertyAll(AppColors.darkBlue),
+        foregroundColor: const WidgetStatePropertyAll(Colors.white),
+        overlayColor: WidgetStatePropertyAll(Colors.white.withOpacity(0.2)),
+        textStyle: const WidgetStatePropertyAll(TextStyle(fontSize: 16)),
+        shape: const WidgetStatePropertyAll(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(12),
+            ),
+          ),
+        ),
       ),
     ),
   );

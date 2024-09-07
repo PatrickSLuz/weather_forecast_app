@@ -89,10 +89,10 @@ class _AboutPageState extends State<AboutPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 24),
-                      child: TextButton.icon(
+                      child: ElevatedButton.icon(
                         onPressed: () => openLink(Constants.privacyPolicyLink),
                         label: const Text('Política de Privacidade'),
-                        icon: const Icon(Icons.receipt_rounded),
+                        icon: const Icon(Icons.privacy_tip_outlined),
                       ),
                     ),
                     const Spacer(),
