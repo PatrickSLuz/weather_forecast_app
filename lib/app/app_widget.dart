@@ -5,6 +5,10 @@ import 'package:weather_forecast_app/design_system/theme/app_theme.dart';
 import 'package:weather_forecast_app/app/features/splash/ui/splash_module.dart';
 import 'package:weather_forecast_app/injector.dart';
 
+abstract class NavigatorService {
+  static final key = GlobalKey<NavigatorState>();
+}
+
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
 
@@ -12,6 +16,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorKey: NavigatorService.key,
       title: 'Clima Atual',
       theme: AppTheme.data,
       initialRoute: '/',
