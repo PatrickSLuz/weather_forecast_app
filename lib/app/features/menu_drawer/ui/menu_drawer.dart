@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/menu_drawer/ui/widgets/menu_drawer_header_widget.dart';
 import 'package:weather_forecast_app/app/features/menu_drawer/ui/widgets/menu_drawer_item_widget.dart';
+import 'package:weather_forecast_app/app/features/search/domain/models/city_model.dart';
+import 'package:weather_forecast_app/app/features/weather/domain/cubits/weather_cubit.dart';
 import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/core/constants/constants.dart';
 import 'package:weather_forecast_app/core/functions/share_function.dart';
@@ -12,6 +15,14 @@ class MenuDrawer extends StatelessWidget {
     super.key,
     required this.scaffoldKey,
   });
+
+  void _onCitySearchPressed(BuildContext context) async {
+    final weatherCubit = context.read<WeatherCubit>();
+    final result = await Navigator.of(context).pushNamed(AppRoutes.searchPage);
+    if (result != null && result is CityModel) {
+      weatherCubit.getWeather(result.lat, result.lng);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +50,9 @@ class MenuDrawer extends StatelessWidget {
               MenuDrawerItemWidget(
                 title: 'Pesquisar uma cidade',
                 icon: const Icon(Icons.search_rounded),
-                onPressed: () {
+                onPressed: () async {
                   scaffoldKey.currentState!.closeDrawer();
-                  Navigator.of(context).pushNamed(AppRoutes.searchPage);
+                  _onCitySearchPressed(context);
                 },
               ),
               MenuDrawerItemWidget(
