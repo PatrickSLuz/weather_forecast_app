@@ -9,10 +9,10 @@ import 'package:weather_forecast_app/core/client/rest_client_response.dart';
 import 'package:weather_forecast_app/environment.dart';
 
 class DioFactory {
-  static Dio weatherSetup() {
+  static Dio setup({String baseUrl = ''}) {
     return Dio(
       BaseOptions(
-        baseUrl: Environment.weatherApiUrl,
+        baseUrl: baseUrl,
         connectTimeout: const Duration(seconds: 20),
         receiveTimeout: const Duration(seconds: 20),
         validateStatus: (status) => true,
@@ -20,16 +20,8 @@ class DioFactory {
     );
   }
 
-  static Dio geoSetup() {
-    return Dio(
-      BaseOptions(
-        baseUrl: Environment.geoApiUrl,
-        connectTimeout: const Duration(seconds: 20),
-        receiveTimeout: const Duration(seconds: 20),
-        validateStatus: (status) => true,
-      ),
-    );
-  }
+  static Dio weatherSetup() => setup(baseUrl: Environment.weatherApiUrl);
+  static Dio geoSetup() => setup(baseUrl: Environment.geoApiUrl);
 }
 
 class RestClientDioImpl implements IRestClient {
@@ -74,6 +66,7 @@ class RestClientDioImpl implements IRestClient {
   @override
   Future<RestClientResponse> delete(RestClientRequest request) async {
     try {
+      _handleBaseUrl(request);
       final response = await dio.delete(
         '${request.urlSuffix}${request.path}',
         data: request.data,
@@ -91,6 +84,7 @@ class RestClientDioImpl implements IRestClient {
   @override
   Future<RestClientResponse> get(RestClientRequest request) async {
     try {
+      _handleBaseUrl(request);
       final response = await dio.get(
         '${request.urlSuffix}${request.path}',
         queryParameters: request.queryParameters,
@@ -107,6 +101,7 @@ class RestClientDioImpl implements IRestClient {
   @override
   Future<RestClientResponse> patch(RestClientRequest request) async {
     try {
+      _handleBaseUrl(request);
       final response = await dio.patch(
         '${request.urlSuffix}${request.path}',
         data: request.data,
@@ -124,6 +119,7 @@ class RestClientDioImpl implements IRestClient {
   @override
   Future<RestClientResponse> post(RestClientRequest request) async {
     try {
+      _handleBaseUrl(request);
       final response = await dio.post(
         '${request.urlSuffix}${request.path}',
         data: request.data,
@@ -141,6 +137,7 @@ class RestClientDioImpl implements IRestClient {
   @override
   Future<RestClientResponse> put(RestClientRequest request) async {
     try {
+      _handleBaseUrl(request);
       final response = await dio.put(
         '${request.urlSuffix}${request.path}',
         data: request.data,
@@ -152,6 +149,12 @@ class RestClientDioImpl implements IRestClient {
       return DioAdapter.toClientResponse(response);
     } on DioException catch (e) {
       throw DioAdapter.toClientException(e);
+    }
+  }
+
+  void _handleBaseUrl(RestClientRequest request) {
+    if (dio.options.baseUrl.isEmpty) {
+      dio.options.baseUrl = request.baseUrl;
     }
   }
 }

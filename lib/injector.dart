@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
+import 'package:weather_forecast_app/app/shared/services/check_update_app_service.dart';
 import 'package:weather_forecast_app/core/application_info/i_application_info.dart';
 import 'package:weather_forecast_app/core/application_info/package_info_plus_impl.dart';
+import 'package:weather_forecast_app/core/client/i_rest_client.dart';
 import 'package:weather_forecast_app/core/local_database/i_local_database.dart';
 import 'package:weather_forecast_app/core/local_database/sqflite_local_database_impl.dart';
 import 'package:weather_forecast_app/app/features/search/data/repositories/city_database_repository_impl.dart';
@@ -29,6 +31,11 @@ void injector() {
   /// Application Info Package
   getIt.registerSingleton<IApplicationInfo>(PackageInfoPlusImpl());
 
+  /// Empty Rest Client
+  getIt.registerSingleton<IRestClient>(
+    RestClientDioImpl(DioFactory.setup()),
+  );
+
   /// Weather Rest Client
   getIt.registerSingleton<IWeatherRestClient>(
     WeatherRestClientDioImpl(DioFactory.weatherSetup()),
@@ -37,6 +44,11 @@ void injector() {
   /// Geo Rest Client
   getIt.registerSingleton<IGeoRestClient>(
     GeoRestClientDioImpl(DioFactory.geoSetup()),
+  );
+
+  /// Check Update App Service
+  getIt.registerSingleton<CheckUpdateAppService>(
+    CheckUpdateAppService(getIt<IRestClient>(), getIt<IApplicationInfo>()),
   );
 
   /// Weather Repository
@@ -49,6 +61,7 @@ void injector() {
     () => GeoRepositoryImpl(getIt<IGeoRestClient>()),
   );
 
+  /// City Database Repository
   getIt.registerLazySingleton<ICityDatabaseRepository>(
     () => CityDatabaseRepositoryImpl(getIt<ILocalDatabase>()),
   );
