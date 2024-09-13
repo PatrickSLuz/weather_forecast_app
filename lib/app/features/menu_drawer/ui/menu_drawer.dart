@@ -29,7 +29,7 @@ class MenuDrawer extends StatelessWidget {
     return Drawer(
       backgroundColor: Colors.white,
       child: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 24),
           child: Column(
             mainAxisSize: MainAxisSize.min,

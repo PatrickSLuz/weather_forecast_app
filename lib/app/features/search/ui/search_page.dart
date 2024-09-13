@@ -166,33 +166,35 @@ class _SearchPageState extends State<SearchPage> {
             if (state is SearchSuccessState) cities = state.cities;
             if (state is SavedCitiesLoadedState) cities = state.savedCities;
 
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 8),
-                if (state is SavedCitiesLoadedState && canUseLocation)
-                  UseMyLocationTileWidget(
-                    onTap: onUseMyLocationTap,
+            return SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 8),
+                  if (state is SavedCitiesLoadedState && canUseLocation)
+                    UseMyLocationTileWidget(
+                      onTap: onUseMyLocationTap,
+                    ),
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: cities.length,
+                    itemBuilder: (context, index) {
+                      return CityTileWidget(
+                        city: cities[index],
+                        onTap: () => onCityTileTap(cities[index]),
+                        onLongPress: state is SavedCitiesLoadedState
+                            ? () => onCityTileLongPress(cities[index])
+                            : null,
+                        icon: state is SearchSuccessState
+                            ? Icons.location_on_rounded
+                            : Icons.history_rounded,
+                      );
+                    },
                   ),
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: cities.length,
-                  itemBuilder: (context, index) {
-                    return CityTileWidget(
-                      city: cities[index],
-                      onTap: () => onCityTileTap(cities[index]),
-                      onLongPress: state is SavedCitiesLoadedState
-                          ? () => onCityTileLongPress(cities[index])
-                          : null,
-                      icon: state is SearchSuccessState
-                          ? Icons.location_on_rounded
-                          : Icons.history_rounded,
-                    );
-                  },
-                ),
-              ],
+                ],
+              ),
             );
           }
 

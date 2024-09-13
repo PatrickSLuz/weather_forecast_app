@@ -90,7 +90,7 @@ class WeatherComponent extends StatelessWidget {
                                   size: 26,
                                 ),
                                 data: '${weather.detail.humidity.toInt()}%',
-                                description: 'Humidade',
+                                description: 'Umidade',
                               ),
                               ExtraDataWidget(
                                 icon: const Icon(
