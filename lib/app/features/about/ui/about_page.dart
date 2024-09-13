@@ -80,30 +80,52 @@ class _AboutPageState extends State<AboutPage> {
                           TextSpan(
                             text: '! Seu feedback é importante para nós.',
                           ),
-                          TextSpan(text: '\n\n'),
-                          TextSpan(
-                            text: 'Desenvolvido por Patrick S. Luz',
-                          ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 24),
-                      child: ElevatedButton.icon(
-                        onPressed: () => openLink(Constants.privacyPolicyLink),
-                        label: const Text('Política de Privacidade'),
-                        icon: const Icon(Icons.privacy_tip_outlined),
-                      ),
+                    const SizedBox(height: 24),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.laptop_mac_rounded),
+                            const SizedBox(width: 12),
+                            Text(
+                              'Desenvolvido por Patrick S. Luz',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color: Colors.black87,
+                                  ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            const Icon(Icons.layers_outlined),
+                            const SizedBox(width: 12),
+                            Text(
+                              'Versão: ${appInfo.version} (${appInfo.buildNumber})',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color: Colors.black87,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    const Spacer(),
-                    const SizedBox(height: 16),
-                    Text(
-                      '${appInfo.version} (${appInfo.buildNumber})',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Colors.black87,
-                          ),
-                    )
+                    const SizedBox(height: 32),
+                    ElevatedButton.icon(
+                      onPressed: () => openLink(Constants.privacyPolicyLink),
+                      label: const Text('Política de Privacidade'),
+                      icon: const Icon(Icons.privacy_tip_outlined),
+                    ),
                   ],
                 ),
               ),
