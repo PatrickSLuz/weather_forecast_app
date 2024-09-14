@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_forecast_app/app/features/weather/domain/models/forecast_model.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/models/weather_model.dart';
 import 'package:weather_forecast_app/core/extensions/date_time_extension.dart';
 import 'package:weather_forecast_app/core/extensions/string_extension.dart';
-import 'package:weather_forecast_app/core/models/address_model.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
 import 'package:weather_forecast_app/app/features/weather/ui/components/weather_data_scroll_component.dart';
 import 'package:weather_forecast_app/app/features/weather/ui/widgets/extra_data_widget.dart';
 import 'package:weather_forecast_app/app/features/weather/ui/widgets/temperature_row_widget.dart';
 
 class WeatherComponent extends StatelessWidget {
+  final ForecastModel forecast;
   final WeatherModel weather;
-  final AddressModel address;
   final double screenHeight;
 
   const WeatherComponent({
     super.key,
+    required this.forecast,
     required this.weather,
-    required this.address,
     required this.screenHeight,
   });
 
@@ -58,7 +58,7 @@ class WeatherComponent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '${weather.location.currentDateTime.dayOfWeek()}\n${weather.location.dateFormatted}',
+                            '${weather.dateTime.dayOfWeek()}\n${weather.dateTime.format()}',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 12,
@@ -109,7 +109,10 @@ class WeatherComponent extends StatelessWidget {
                       ),
                     ),
                   ),
-                  WeatherDataScrollComponent(weather: weather),
+                  WeatherDataScrollComponent(
+                    location: forecast.location,
+                    weather: weather,
+                  ),
                 ],
               ),
             ),

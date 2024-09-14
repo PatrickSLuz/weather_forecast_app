@@ -32,7 +32,7 @@ class _WeatherPageState extends State<WeatherPage> {
     final weatherCubit = context.read<WeatherCubit>();
     final result = await Navigator.pushNamed(context, AppRoutes.searchPage);
     if (result != null && result is CityModel) {
-      weatherCubit.getWeather(result.lat, result.lng);
+      weatherCubit.getForecast(result.lat, result.lng);
     }
   }
 
@@ -48,7 +48,7 @@ class _WeatherPageState extends State<WeatherPage> {
           return ErrorTextWidget(text: state.exception.message);
         }
 
-        if (state is WeatherSuccessState) {
+        if (state is ForecastSuccessState) {
           return Scaffold(
             key: _scaffoldKey,
             bottomNavigationBar: const BannerAdWidget(),
@@ -57,7 +57,7 @@ class _WeatherPageState extends State<WeatherPage> {
               toolbarHeight: 88,
               centerTitle: true,
               title: CityNameWidget(
-                weather: state.weather,
+                location: state.forecast.location,
                 address: state.address,
               ),
               leading: IconButton(
@@ -76,11 +76,11 @@ class _WeatherPageState extends State<WeatherPage> {
             body: RefreshIndicator(
               onRefresh: () async {
                 final weatherCubit = context.read<WeatherCubit>();
-                await weatherCubit.getWeather();
+                await weatherCubit.getForecast();
               },
               child: WeatherComponent(
-                weather: state.weather,
-                address: state.address,
+                forecast: state.forecast,
+                weather: state.forecast.weathers.first,
                 screenHeight: MediaQuery.of(context).size.height,
               ),
             ),

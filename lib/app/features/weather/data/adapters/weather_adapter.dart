@@ -1,25 +1,20 @@
 import 'package:weather_forecast_app/app/features/weather/data/adapters/cloudiness_adapter.dart';
-import 'package:weather_forecast_app/app/features/weather/data/adapters/coordinate_adapter.dart';
-import 'package:weather_forecast_app/app/features/weather/data/adapters/location_adapter.dart';
 import 'package:weather_forecast_app/app/features/weather/data/adapters/rain_snow_adapter.dart';
 import 'package:weather_forecast_app/app/features/weather/data/adapters/weather_condition_adapter.dart';
 import 'package:weather_forecast_app/app/features/weather/data/adapters/weather_detail_adapter.dart';
 import 'package:weather_forecast_app/app/features/weather/data/adapters/wind_adapter.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/models/weather_model.dart';
+import 'package:weather_forecast_app/core/functions/convert_num_to_date_function.dart';
 
 class WeatherAdapter {
   WeatherAdapter._();
 
-  static Map<String, dynamic> toMap(WeatherModel weather) {
-    return {};
-  }
-
-  static WeatherModel fromMap(Map<String, dynamic> map) {
+  static WeatherModel fromMap(Map<String, dynamic> map, num timezone) {
     final weathers = map['weather'] as List;
     return WeatherModel(
-      location: LocationAdapter.fromMap(map),
+      dateTime: convertNumToDateTime(map['dt'], timezone),
       visibility: map['visibility'],
-      coordinate: CoordinateAdapter.fromMap(map['coord']),
+      pop: map['pop'],
       condition: WeatherConditionAdapter.fromMap(weathers.first),
       detail: WeatherDetailAdapter.fromMap(map['main']),
       wind: WindAdapter.fromMap(map['wind']),

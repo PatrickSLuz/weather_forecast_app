@@ -1,9 +1,6 @@
-import 'package:weather_forecast_app/core/extensions/num_extension.dart';
+import 'package:weather_forecast_app/app/features/weather/domain/models/coordinate_model.dart';
 
 class LocationModel {
-  /// (timezone) Time of data calculation, unix, UTC
-  final num currentDate;
-
   /// (name) City name
   final String city;
 
@@ -13,23 +10,21 @@ class LocationModel {
   /// Shift in seconds from UTC
   final num timezone;
 
+  /// coordinates of location
+  final CoordinateModel coordinate;
+
   /// Sunrise time, unix, UTC
-  final num sunrise;
+  final DateTime sunrise;
 
   /// Sunset time, unix, UTC
-  final num sunset;
+  final DateTime sunset;
 
   LocationModel({
-    required this.currentDate,
     required this.city,
     required this.country,
     required this.timezone,
+    required this.coordinate,
     required this.sunrise,
     required this.sunset,
   });
-
-  DateTime get currentDateTime => currentDate.toDate(timezone);
-  String get dateFormatted => currentDate.formatToDate(timezone);
-  String get sunriseFormatted => sunrise.formatToDate(timezone, 'HH:mm');
-  String get sunsetFormatted => sunset.formatToDate(timezone, 'HH:mm');
 }

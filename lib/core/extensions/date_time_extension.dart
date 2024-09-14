@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 extension DateTimeExtension on DateTime {
   String dayOfWeek([bool fullName = true]) {
     switch (weekday) {
@@ -25,5 +27,9 @@ extension DateTimeExtension on DateTime {
       default:
         return 'Dia da Semana';
     }
+  }
+
+  String format([String pattern = 'dd/MM/yy HH:mm']) {
+    return DateFormat(pattern).format(this);
   }
 }

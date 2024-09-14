@@ -20,7 +20,7 @@ class MenuDrawer extends StatelessWidget {
     final weatherCubit = context.read<WeatherCubit>();
     final result = await Navigator.of(context).pushNamed(AppRoutes.searchPage);
     if (result != null && result is CityModel) {
-      weatherCubit.getWeather(result.lat, result.lng);
+      weatherCubit.getForecast(result.lat, result.lng);
     }
   }
 

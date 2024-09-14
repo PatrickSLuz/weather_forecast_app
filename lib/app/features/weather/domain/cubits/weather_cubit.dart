@@ -21,7 +21,7 @@ class WeatherCubit extends Cubit<BaseState> {
     this.lng,
   ) : super(InitialState()) {
     if (lat != null && lng != null) {
-      getWeather(lat!, lng!);
+      getForecast(lat!, lng!);
     } else {
       emit(ErrorState(const DefaultException(
         message:
@@ -30,19 +30,19 @@ class WeatherCubit extends Cubit<BaseState> {
     }
   }
 
-  Future<void> getWeather([num? lat, num? lng]) async {
+  Future<void> getForecast([num? lat, num? lng]) async {
     try {
       emit(LoadingState());
 
       if (lat != null && lat != 0) this.lat = lat;
       if (lng != null && lng != 0) this.lng = lng;
 
-      final weather = await repository.getWeather(this.lat, this.lng);
+      final forecast = await repository.getForecast(this.lat, this.lng);
       final address = await coordinatesToAddress(this.lat, this.lng);
 
-      if (weather != null && address != null) {
-        return emit(WeatherSuccessState(
-          weather: weather,
+      if (forecast != null && address != null) {
+        return emit(ForecastSuccessState(
+          forecast: forecast,
           address: address,
         ));
       }

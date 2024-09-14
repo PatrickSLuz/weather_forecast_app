@@ -1,20 +1,18 @@
 import 'package:weather_forecast_app/app/features/weather/domain/models/cloudiness_model.dart';
-import 'package:weather_forecast_app/app/features/weather/domain/models/coordinate_model.dart';
-import 'package:weather_forecast_app/app/features/weather/domain/models/location_model.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/models/rain_snow_model.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/models/weather_condition_model.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/models/weather_detail_model.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/models/wind_model.dart';
 
 class WeatherModel {
-  /// location data
-  final LocationModel location;
+  /// Time of data forecasted, unix, UTC
+  final DateTime dateTime;
 
-  ///  Visibility, meter. The maximum value of the visibility is 10 km
+  /// Visibility, meter. The maximum value of the visibility is 10 km
   final num? visibility;
 
-  /// coord
-  final CoordinateModel coordinate;
+  /// Probability of precipitation. The values of the parameter vary between 0 and 1, where 0 is equal to 0%, 1 is equal to 100%
+  final num? pop;
 
   /// weather
   final WeatherConditionModel condition;
@@ -35,9 +33,9 @@ class WeatherModel {
   final RainSnowModel? snow;
 
   WeatherModel({
-    required this.location,
+    required this.dateTime,
     required this.visibility,
-    required this.coordinate,
+    required this.pop,
     required this.condition,
     required this.detail,
     required this.wind,
@@ -47,9 +45,9 @@ class WeatherModel {
   });
 
   WeatherModel copyWith({
-    LocationModel? location,
+    DateTime? dateTime,
     num? visibility,
-    CoordinateModel? coordinate,
+    num? pop,
     WeatherConditionModel? condition,
     WeatherDetailModel? detail,
     WindModel? wind,
@@ -58,9 +56,9 @@ class WeatherModel {
     snow,
   }) {
     return WeatherModel(
-      location: location ?? this.location,
+      dateTime: dateTime ?? this.dateTime,
       visibility: visibility ?? this.visibility,
-      coordinate: coordinate ?? this.coordinate,
+      pop: pop ?? this.pop,
       condition: condition ?? this.condition,
       detail: detail ?? this.detail,
       wind: wind ?? this.wind,
