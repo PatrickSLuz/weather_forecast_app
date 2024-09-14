@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_forecast_app/app/features/weather/domain/models/weather_model.dart';
+import 'package:weather_forecast_app/core/extensions/date_time_extension.dart';
 import 'package:weather_forecast_app/core/extensions/string_extension.dart';
 import 'package:weather_forecast_app/core/models/address_model.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
@@ -57,7 +58,8 @@ class WeatherComponent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            weather.location.dateFormatted,
+                            '${weather.location.currentDateTime.dayOfWeek()}\n${weather.location.dateFormatted}',
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,

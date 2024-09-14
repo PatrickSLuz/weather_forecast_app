@@ -28,7 +28,8 @@ class LocationModel {
     required this.sunset,
   });
 
-  String get dateFormatted => currentDate.convertToDate(timezone);
-  String get sunriseFormatted => sunrise.convertToDate(timezone, 'HH:mm');
-  String get sunsetFormatted => sunset.convertToDate(timezone, 'HH:mm');
+  DateTime get currentDateTime => currentDate.toDate(timezone);
+  String get dateFormatted => currentDate.formatToDate(timezone);
+  String get sunriseFormatted => sunrise.formatToDate(timezone, 'HH:mm');
+  String get sunsetFormatted => sunset.formatToDate(timezone, 'HH:mm');
 }

@@ -5,10 +5,14 @@ import 'package:intl/intl.dart';
 extension NumExtension on num {
   double toRadians() => this * pi / 180;
 
-  String inKmPerHour() => (this * 3.6).toStringAsFixed(2);
+  String inKmPerHour() => (this * 3.6).toStringAsFixed(0);
 
-  String convertToDate(num timezone, [String pattern = 'dd/MM/yy HH:mm']) {
-    DateTime date = DateTime.fromMillisecondsSinceEpoch(toInt() * 1000).toUtc();
+  DateTime toDate(num timezone) {
+    return DateTime.fromMillisecondsSinceEpoch(toInt() * 1000).toUtc();
+  }
+
+  String formatToDate(num timezone, [String pattern = 'dd/MM/yy HH:mm']) {
+    DateTime date = toDate(timezone);
 
     final tz = timezone ~/ 3600;
 
