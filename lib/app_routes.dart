@@ -2,14 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:weather_forecast_app/app/features/about/ui/about_module.dart';
 import 'package:weather_forecast_app/app/features/search/ui/search_module.dart';
 import 'package:weather_forecast_app/app/features/splash/ui/splash_module.dart';
+import 'package:weather_forecast_app/app/features/weather_details/ui/weather_details_module.dart';
 import 'package:weather_forecast_app/design_system/pages/unknown_page.dart';
-import 'package:weather_forecast_app/app/features/weather/ui/weather_module.dart';
+import 'package:weather_forecast_app/app/features/forecast/ui/forecast_module.dart';
 
 class AppRoutes {
   AppRoutes._();
 
   static const splashPage = '/splash';
-  static const weatherPage = '/weather';
+  static const forecastPage = '/forecast';
+  static const weatherDetailsPage = '/weather-details';
   static const searchPage = '/search';
   static const aboutPage = '/about';
 
@@ -18,9 +20,14 @@ class AppRoutes {
       case '/':
       case splashPage:
         return CupertinoPageRoute(builder: (_) => const SplashModule());
-      case weatherPage:
+      case forecastPage:
         return CupertinoPageRoute(
-          builder: (_) => const WeatherModule(),
+          builder: (_) => const ForecastModule(),
+          settings: settings,
+        );
+      case weatherDetailsPage:
+        return CupertinoPageRoute(
+          builder: (_) => const WeatherDetailsModule(),
           settings: settings,
         );
       case searchPage:

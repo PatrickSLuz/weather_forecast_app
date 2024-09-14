@@ -138,7 +138,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     } else if (state is SuccessState<GeolocationModel>) {
       _lastController.forward().whenCompleteOrCancel(() {
         Navigator.of(context).pushNamedAndRemoveUntil(
-          AppRoutes.weatherPage,
+          AppRoutes.forecastPage,
           (route) => false,
           arguments: {
             'lat': state.data.latitude,

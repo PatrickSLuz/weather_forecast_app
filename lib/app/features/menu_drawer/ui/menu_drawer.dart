@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/menu_drawer/ui/widgets/menu_drawer_header_widget.dart';
 import 'package:weather_forecast_app/app/features/menu_drawer/ui/widgets/menu_drawer_item_widget.dart';
 import 'package:weather_forecast_app/app/features/search/domain/models/city_model.dart';
-import 'package:weather_forecast_app/app/features/weather/domain/cubits/weather_cubit.dart';
+import 'package:weather_forecast_app/app/features/forecast/domain/cubits/forecast_cubit.dart';
 import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/core/constants/constants.dart';
 import 'package:weather_forecast_app/core/functions/share_function.dart';
@@ -17,10 +17,10 @@ class MenuDrawer extends StatelessWidget {
   });
 
   void _onCitySearchPressed(BuildContext context) async {
-    final weatherCubit = context.read<WeatherCubit>();
+    final forecastCubit = context.read<ForecastCubit>();
     final result = await Navigator.of(context).pushNamed(AppRoutes.searchPage);
     if (result != null && result is CityModel) {
-      weatherCubit.getForecast(result.lat, result.lng);
+      forecastCubit.getForecast(result.lat, result.lng);
     }
   }
 

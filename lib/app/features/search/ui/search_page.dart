@@ -62,7 +62,7 @@ class _SearchPageState extends State<SearchPage> {
     }
 
     navigator.pushNamedAndRemoveUntil(
-      AppRoutes.weatherPage,
+      AppRoutes.forecastPage,
       (route) => false,
       arguments: {
         'lat': location.latitude,
@@ -79,7 +79,7 @@ class _SearchPageState extends State<SearchPage> {
     }
 
     Navigator.of(context).pushNamedAndRemoveUntil(
-      AppRoutes.weatherPage,
+      AppRoutes.forecastPage,
       (route) => false,
       arguments: {
         'lat': city.lat,

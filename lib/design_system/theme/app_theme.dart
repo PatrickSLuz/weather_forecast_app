@@ -23,6 +23,7 @@ class AppTheme {
 
   static final data = ThemeData(
     fontFamily: 'Nunito',
+    scaffoldBackgroundColor: Colors.white,
     drawerTheme: const DrawerThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
@@ -35,7 +36,6 @@ class AppTheme {
       primary: AppColors.darkBlue,
       secondary: AppColors.lightGrey,
     ),
-    scaffoldBackgroundColor: AppColors.background,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,

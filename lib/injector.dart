@@ -9,8 +9,8 @@ import 'package:weather_forecast_app/app/features/search/data/repositories/city_
 import 'package:weather_forecast_app/app/features/search/data/repositories/geo_repository_impl.dart';
 import 'package:weather_forecast_app/app/features/search/domain/repositories/i_city_database_repository.dart';
 import 'package:weather_forecast_app/app/features/search/domain/repositories/i_geo_repository.dart';
-import 'package:weather_forecast_app/app/features/weather/data/repositories/weather_repository_impl.dart';
-import 'package:weather_forecast_app/app/features/weather/domain/repositories/i_weather_repository.dart';
+import 'package:weather_forecast_app/app/features/forecast/data/repositories/forecast_repository_impl.dart';
+import 'package:weather_forecast_app/app/features/forecast/domain/repositories/i_forecast_repository.dart';
 import 'package:weather_forecast_app/core/client/dio/rest_client_dio_impl.dart';
 import 'package:weather_forecast_app/core/client/geo/geo_rest_client_dio_impl.dart';
 import 'package:weather_forecast_app/core/client/geo/i_geo_rest_client.dart';
@@ -51,9 +51,9 @@ void injector() {
     CheckUpdateAppService(getIt<IRestClient>(), getIt<IApplicationInfo>()),
   );
 
-  /// Weather Repository
-  getIt.registerLazySingleton<IWeatherRepository>(
-    () => WeatherRepositoryImpl(getIt<IWeatherRestClient>()),
+  /// Forecast Repository
+  getIt.registerLazySingleton<IForecastRepository>(
+    () => ForecastRepositoryImpl(getIt<IWeatherRestClient>()),
   );
 
   /// Geo Repository
