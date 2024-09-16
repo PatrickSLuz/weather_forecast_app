@@ -5,6 +5,7 @@ import 'package:weather_forecast_app/app/features/forecast/ui/widgets/weather_fo
 import 'package:weather_forecast_app/core/extensions/date_time_extension.dart';
 import 'package:weather_forecast_app/core/extensions/string_extension.dart';
 import 'package:weather_forecast_app/core/models/address_model.dart';
+import 'package:weather_forecast_app/design_system/divider/app_divider.dart';
 
 class ForecastComponent extends StatelessWidget {
   final ForecastModel forecast;
@@ -18,10 +19,7 @@ class ForecastComponent extends StatelessWidget {
 
   double getConditionAssetHeight(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    const cardSize = 130;
-    const cardPadding = 48;
-    final componentHeight = screenHeight - cardSize - cardPadding;
-    return componentHeight * (componentHeight <= 450 ? 0.3 : 0.4);
+    return screenHeight * 0.35;
   }
 
   @override
@@ -67,7 +65,8 @@ class ForecastComponent extends StatelessWidget {
                   fit: BoxFit.fitHeight,
                   height: getConditionAssetHeight(context),
                 ),
-                const SizedBox(height: 48),
+                const AppDivider(),
+                const SizedBox(height: 24),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Text(

@@ -39,38 +39,44 @@ class WeatherForecastCardWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  weather.dateTime.dayOfWeek(),
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-                Text(
-                  '${weather.dateTime.format('dd/MM')} ${weather.dateTime.format('HH:mm')}',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.black87,
-                      ),
-                ),
-              ],
-            ),
-            const SizedBox(width: 24),
             Expanded(
-              child: Text(
-                weather.condition.description.capitalize(),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.w500,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      weather.dateTime.dayOfWeek(),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
+                    Text(
+                      '${weather.dateTime.format('dd/MM')} ${weather.dateTime.format('HH:mm')}',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.black87,
+                          ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(width: 16),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: Text(
+                  weather.condition.description.capitalize(),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+              ),
+            ),
             SvgPicture.asset(
               weather.condition.asset,
               semanticsLabel: 'Condição do clima',
