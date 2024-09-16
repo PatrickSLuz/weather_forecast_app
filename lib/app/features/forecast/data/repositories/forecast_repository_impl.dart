@@ -7,8 +7,6 @@ import 'package:weather_forecast_app/core/client/rest_client_request.dart';
 import 'package:weather_forecast_app/core/client/weather/i_weather_rest_client.dart';
 import 'package:weather_forecast_app/core/errors/base_exception.dart';
 
-const daysCount = 5;
-
 class ForecastRepositoryImpl implements IForecastRepository {
   final IWeatherRestClient restClient;
 
@@ -24,7 +22,8 @@ class ForecastRepositoryImpl implements IForecastRepository {
           queryParameters: {
             'lat': lat,
             'lon': lng,
-            'cnt': daysCount,
+            // 'cnt': 40,
+            'cnt': 8, // TODO, update
             'units': 'metric',
           },
         ),

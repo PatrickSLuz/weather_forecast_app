@@ -4,6 +4,7 @@ import 'package:weather_forecast_app/app/features/forecast/domain/models/forecas
 import 'package:weather_forecast_app/app/features/forecast/ui/widgets/weather_forecast_card_widget.dart';
 import 'package:weather_forecast_app/core/extensions/date_time_extension.dart';
 import 'package:weather_forecast_app/core/extensions/string_extension.dart';
+import 'package:weather_forecast_app/core/functions/convert_num_to_date_function.dart';
 import 'package:weather_forecast_app/core/models/address_model.dart';
 import 'package:weather_forecast_app/design_system/divider/app_divider.dart';
 
@@ -16,6 +17,10 @@ class ForecastComponent extends StatelessWidget {
     required this.forecast,
     required this.address,
   });
+
+  DateTime get dateTimeNowByTimezone {
+    return getDateTimeNowByTimezone(forecast.location.timezone);
+  }
 
   double getConditionAssetHeight(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -34,7 +39,7 @@ class ForecastComponent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  '${DateTime.now().dayOfWeek()}\n${DateTime.now().format()}',
+                  '${dateTimeNowByTimezone.dayOfWeek()}\n${dateTimeNowByTimezone.format()}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 14,
@@ -65,6 +70,7 @@ class ForecastComponent extends StatelessWidget {
                   fit: BoxFit.fitHeight,
                   height: getConditionAssetHeight(context),
                 ),
+                const SizedBox(height: 24),
                 const AppDivider(),
                 const SizedBox(height: 24),
                 Padding(
