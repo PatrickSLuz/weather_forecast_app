@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -17,7 +18,11 @@ void main() async {
 
   await dotenv.load(fileName: 'environment/dev.env');
   Environment.setFlavor(EnvFlavorEnum.dev);
+
+  await Firebase.initializeApp(options: FirebaseEnv.options);
+
   injector();
+
   await preloadSVGs();
 
   runApp(const AppWidget());

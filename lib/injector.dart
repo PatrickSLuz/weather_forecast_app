@@ -2,6 +2,8 @@ import 'package:get_it/get_it.dart';
 import 'package:weather_forecast_app/app/shared/services/check_update_app_service.dart';
 import 'package:weather_forecast_app/core/application_info/i_application_info.dart';
 import 'package:weather_forecast_app/core/application_info/package_info_plus_impl.dart';
+import 'package:weather_forecast_app/core/cache/i_cache.dart';
+import 'package:weather_forecast_app/core/cache/shared_preferences_impl.dart';
 import 'package:weather_forecast_app/core/client/i_rest_client.dart';
 import 'package:weather_forecast_app/core/local_database/i_local_database.dart';
 import 'package:weather_forecast_app/core/local_database/sqflite_local_database_impl.dart';
@@ -18,18 +20,27 @@ import 'package:weather_forecast_app/core/client/weather/i_weather_rest_client.d
 import 'package:weather_forecast_app/core/client/weather/weather_rest_client_dio_impl.dart';
 import 'package:weather_forecast_app/core/geolocation/geolocator_impl.dart';
 import 'package:weather_forecast_app/core/geolocation/i_geolocation.dart';
+import 'package:weather_forecast_app/app/shared/services/firebase_message_service.dart';
 
 final getIt = GetIt.instance;
 
 void injector() {
+  /// Application Info Package
+  getIt.registerSingleton<IApplicationInfo>(PackageInfoPlusImpl());
+
+  /// Cache package
+  getIt.registerSingleton<ICache>(SharedPreferencesImpl());
+
   /// Geolocation package
   getIt.registerSingleton<IGeolocation>(GeolocatorImpl());
 
   /// Local Database Package
   getIt.registerSingleton<ILocalDatabase>(SqfliteLocalDatabaseImpl());
 
-  /// Application Info Package
-  getIt.registerSingleton<IApplicationInfo>(PackageInfoPlusImpl());
+  /// Firebase Cloud Message Service
+  getIt.registerSingleton<FirebaseMessageService>(
+    FirebaseMessageService(getIt<ICache>()),
+  );
 
   /// Empty Rest Client
   getIt.registerSingleton<IRestClient>(
