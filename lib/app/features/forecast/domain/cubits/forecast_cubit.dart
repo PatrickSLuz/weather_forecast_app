@@ -7,38 +7,42 @@ import 'package:weather_forecast_app/core/errors/base_exception.dart';
 import 'package:weather_forecast_app/core/errors/default_exception.dart';
 import 'package:weather_forecast_app/core/errors/unknown_exception.dart';
 import 'package:weather_forecast_app/core/functions/coordinates_to_address_function.dart';
+import 'package:weather_forecast_app/core/geolocation/i_geolocation.dart';
 import 'package:weather_forecast_app/core/states/base_state.dart';
+import 'package:weather_forecast_app/core/validators/coord_validator.dart';
 
 class ForecastCubit extends Cubit<BaseState> {
   final IForecastRepository repository;
-
-  num? lat;
-  num? lng;
+  final IGeolocation geolocation;
 
   ForecastCubit(
     this.repository,
-    this.lat,
-    this.lng,
+    this.geolocation,
+    num? lat,
+    num? lng,
   ) : super(InitialState()) {
-    if (lat != null && lng != null) {
-      getForecast(lat!, lng!);
-    } else {
-      emit(ErrorState(const DefaultException(
-        message:
-            'Não foi possível buscar os dados de clima, pois os dados de localizaçao estão inválidos. Por favor, tente novamente.',
-      )));
-    }
+    getForecast(lat, lng);
   }
 
   Future<void> getForecast([num? lat, num? lng]) async {
     try {
       emit(LoadingState());
 
-      if (lat != null && lat != 0) this.lat = lat;
-      if (lng != null && lng != 0) this.lng = lng;
+      if (!CoordValidator.isValid(lat, lng)) {
+        final location = await geolocation.getGeolocation();
+        lat = location?.latitude;
+        lng = location?.longitude;
+      }
 
-      final forecast = await repository.getForecast(this.lat, this.lng);
-      final address = await coordinatesToAddress(this.lat, this.lng);
+      if (!CoordValidator.isValid(lat, lng)) {
+        return emit(ErrorState(const DefaultException(
+          message:
+              'Não foi possível buscar os dados de clima, pois os dados de localizaçao estão inválidos. Por favor, tente novamente.',
+        )));
+      }
+
+      final forecast = await repository.getForecast(lat, lng);
+      final address = await coordinatesToAddress(lat, lng);
 
       if (forecast != null && address != null) {
         return emit(ForecastSuccessState(

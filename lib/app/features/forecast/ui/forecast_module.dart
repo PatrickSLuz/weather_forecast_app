@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/forecast/domain/cubits/forecast_cubit.dart';
 import 'package:weather_forecast_app/app/features/forecast/domain/repositories/i_forecast_repository.dart';
+import 'package:weather_forecast_app/core/geolocation/i_geolocation.dart';
 import 'package:weather_forecast_app/design_system/pages/error_page.dart';
 import 'package:weather_forecast_app/injector.dart';
 import 'package:weather_forecast_app/app/features/forecast/ui/forecast_page.dart';
@@ -19,6 +20,7 @@ class ForecastModule extends StatelessWidget {
     return BlocProvider(
       create: (_) => ForecastCubit(
         getIt.get<IForecastRepository>(),
+        getIt.get<IGeolocation>(),
         coord['lat'],
         coord['lng'],
       ),

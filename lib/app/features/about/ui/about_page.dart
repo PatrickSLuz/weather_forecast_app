@@ -108,7 +108,7 @@ class _AboutPageState extends State<AboutPage> {
                             const Icon(Icons.layers_outlined),
                             const SizedBox(width: 12),
                             Text(
-                              'Versão: ${appInfo.version} (${appInfo.buildNumber})',
+                              'Versão: ${appInfo.version}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium
