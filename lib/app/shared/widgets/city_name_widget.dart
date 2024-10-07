@@ -18,7 +18,9 @@ class CityNameWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          address.city ?? location.city,
+          address.city != null && address.city!.isNotEmpty
+              ? address.city!
+              : location.city,
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 28,

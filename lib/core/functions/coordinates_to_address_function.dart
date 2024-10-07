@@ -12,12 +12,19 @@ Future<AddressModel?> coordinatesToAddress(num? lat, num? lng) async {
       lng.toDouble(),
     );
 
+    final placemark = placemarks.first;
+
+    final city = placemark.subAdministrativeArea != null &&
+            placemark.subAdministrativeArea!.isNotEmpty
+        ? placemark.subAdministrativeArea
+        : placemark.locality;
+
     return AddressModel(
-      city: placemarks.first.subAdministrativeArea,
-      state: placemarks.first.administrativeArea,
-      postalCode: placemarks.first.postalCode,
-      country: placemarks.first.country,
-      isoCountryCode: placemarks.first.isoCountryCode,
+      city: city,
+      state: placemark.administrativeArea,
+      postalCode: placemark.postalCode,
+      country: placemark.country,
+      isoCountryCode: placemark.isoCountryCode,
     );
   } catch (e) {
     return null;
