@@ -35,6 +35,8 @@ class WeatherConditionModel {
     );
   }
 
+  bool get isSnow => iconId == '13d' || iconId == '13n';
+
   String get asset {
     switch (iconId) {
       case '01d':

@@ -30,24 +30,24 @@ class WeatherSnowComponent extends StatelessWidget {
           if (snow.last1Hour != null) ...[
             DataRowWidget(
               icon: const Icon(
-                CupertinoIcons.cloud_rain,
+                CupertinoIcons.cloud_snow,
                 color: AppColors.blue,
                 size: 24,
               ),
               data: '${snow.last1Hour} mm',
-              description: 'Volume de neve na última hora',
+              description: 'Volume de neve em uma hora',
             ),
             const SizedBox(height: 16),
           ],
           if (snow.last3Hour != null)
             DataRowWidget(
               icon: const Icon(
-                CupertinoIcons.cloud_rain,
+                CupertinoIcons.cloud_snow,
                 color: AppColors.blue,
                 size: 24,
               ),
               data: '${snow.last3Hour} mm',
-              description: 'Volume de neve nas últimas 3 horas',
+              description: 'Volume de neve em 3 horas',
             ),
         ],
       ),

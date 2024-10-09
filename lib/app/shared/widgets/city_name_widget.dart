@@ -12,15 +12,27 @@ class CityNameWidget extends StatelessWidget {
     required this.address,
   });
 
+  String get cityName {
+    if (address.city != null && address.city!.isNotEmpty) {
+      return address.city!;
+    }
+
+    if (location.city.isNotEmpty) return location.city;
+
+    if (address.state != null && address.state!.isNotEmpty) {
+      return address.state!;
+    }
+
+    return address.country ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          address.city != null && address.city!.isNotEmpty
-              ? address.city!
-              : location.city,
+          cityName,
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 28,

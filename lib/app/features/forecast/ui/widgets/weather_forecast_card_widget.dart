@@ -84,14 +84,18 @@ class WeatherForecastCardWidget extends StatelessWidget {
               height: 40,
             ),
             const SizedBox(width: 16),
-            Text(
-              '${weather.detail.temperature.toInt()}°',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w600,
-                  ),
+            SizedBox(
+              width: 36,
+              child: Text(
+                '${weather.detail.temperature.toInt()}°',
+                textAlign: TextAlign.right,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
             ),
-            const SizedBox(width: 24),
+            const SizedBox(width: 20),
             const Icon(
               Icons.arrow_forward_ios_rounded,
               color: Colors.black45,

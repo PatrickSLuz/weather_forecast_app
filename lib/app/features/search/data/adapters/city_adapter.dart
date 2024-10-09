@@ -16,8 +16,12 @@ class CityAdapter {
   static CityModel fromMapGeo(Map<String, dynamic> map) {
     return CityModel(
       name: map['city'],
-      state: map['state'] ?? map['county'] ?? map['country'],
-      countryCode: map['country_code'],
+      state: map['state'] ??
+          map['county'] ??
+          map['country'] ??
+          map['formatted'] ??
+          '',
+      countryCode: map['country_code'] ?? '',
       lat: map['lat'],
       lng: map['lon'],
     );

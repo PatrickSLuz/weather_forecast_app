@@ -101,13 +101,15 @@ class WeatherDetailsPage extends StatelessWidget {
                 ),
                 if (weather.pop != null)
                   ExtraDataWidget(
-                    icon: const Icon(
-                      CupertinoIcons.cloud_rain,
+                    icon: Icon(
+                      weather.condition.isSnow
+                          ? CupertinoIcons.cloud_snow
+                          : CupertinoIcons.cloud_rain,
                       color: AppColors.blue,
                       size: 24,
                     ),
                     data: '${(weather.pop! * 100).toInt()}%',
-                    description: 'Chuva',
+                    description: weather.condition.isSnow ? 'Neve' : 'Chuva',
                   ),
                 ExtraDataWidget(
                   icon: const Icon(
