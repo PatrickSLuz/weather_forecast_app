@@ -5,7 +5,6 @@ import 'package:weather_forecast_app/core/application_info/i_application_info.da
 import 'package:weather_forecast_app/core/client/i_rest_client.dart';
 import 'package:weather_forecast_app/core/client/rest_client_request.dart';
 
-// TODO, implement after prodcution
 class CheckUpdateAppService {
   final IApplicationInfo _appInfo;
   final IRestClient _restClient;

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/splash/domain/cubits/splash_cubit.dart';
+import 'package:weather_forecast_app/core/constants/constants.dart';
 import 'package:weather_forecast_app/core/functions/add_interceptor_function.dart';
+import 'package:weather_forecast_app/core/functions/url_launcher_function.dart';
 import 'package:weather_forecast_app/core/models/geolocation_model.dart';
 import 'package:weather_forecast_app/core/states/base_state.dart';
 import 'package:weather_forecast_app/design_system/assets/app_assets.dart';
@@ -47,15 +49,9 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
     addInterceptors();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final splashCubit = context.read<SplashCubit>();
-
-      await Future.delayed(const Duration(seconds: 1));
-      await _firstController.forward();
-      splashCubit.getLocation();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      initialize();
     });
   }
 
@@ -64,6 +60,17 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     _firstController.dispose();
     _lastController.dispose();
     super.dispose();
+  }
+
+  void initialize() async {
+    final splashCubit = context.read<SplashCubit>();
+
+    await _firstController.forward();
+
+    final hasNewVersion = await splashCubit.checkVersion();
+    if (hasNewVersion) await _openNewVersionDialog();
+
+    splashCubit.getLocation();
   }
 
   @override
@@ -154,5 +161,30 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
         );
       });
     }
+  }
+
+  Future<void> _openNewVersionDialog() {
+    // TODO, melhorar
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Nova versão'),
+        content: const Text('Atualize o app para uma melhor experiência!'),
+        actions: [
+          TextButton(
+            onPressed: Navigator.of(context).pop,
+            child: const Text('Agora não'),
+          ),
+          TextButton(
+            child: const Text('Atualizar'),
+            onPressed: () async {
+              final navigator = Navigator.of(context);
+              await openLink(Constants.androidAppLink);
+              navigator.pop();
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
