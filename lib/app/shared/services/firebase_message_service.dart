@@ -11,6 +11,7 @@ class FirebaseMessageService {
 
   FirebaseMessageService(this.cache) {
     handleToken();
+    subscribeToTopic();
     handleNotifications();
   }
 
@@ -41,6 +42,10 @@ class FirebaseMessageService {
     } catch (e) {
       log('Firebase Cloud Message - Token Error: ${e.toString()}');
     }
+  }
+
+  void subscribeToTopic() async {
+    await FirebaseMessaging.instance.subscribeToTopic('app_clima_atual');
   }
 
   void handleNotifications() {
