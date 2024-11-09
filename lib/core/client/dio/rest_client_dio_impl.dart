@@ -6,7 +6,7 @@ import 'package:weather_forecast_app/core/client/i_rest_client.dart';
 import 'package:weather_forecast_app/core/client/rest_client_multipart.dart';
 import 'package:weather_forecast_app/core/client/rest_client_request.dart';
 import 'package:weather_forecast_app/core/client/rest_client_response.dart';
-import 'package:weather_forecast_app/environment.dart';
+import 'package:weather_forecast_app/app/shared/env/environment.dart';
 
 class DioFactory {
   static Dio setup({String baseUrl = ''}) {

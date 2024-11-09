@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/splash/domain/cubits/splash_cubit.dart';
 import 'package:weather_forecast_app/core/constants/constants.dart';
-import 'package:weather_forecast_app/core/functions/add_interceptor_function.dart';
 import 'package:weather_forecast_app/core/functions/url_launcher_function.dart';
 import 'package:weather_forecast_app/core/models/geolocation_model.dart';
 import 'package:weather_forecast_app/core/states/base_state.dart';
@@ -11,6 +10,7 @@ import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/design_system/loadings/app_loading.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
 import 'package:weather_forecast_app/design_system/dialogs/app_information_dialog.dart';
+import 'package:weather_forecast_app/setup.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

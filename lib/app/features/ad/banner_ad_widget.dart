@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:weather_forecast_app/environment.dart';
+import 'package:weather_forecast_app/app/shared/env/environment.dart';
 
 const adUnitId = 'ca-app-pub-5906691229604512/9346174530';
 const adUnitIdTestAndroid = 'ca-app-pub-3940256099942544/6300978111';
