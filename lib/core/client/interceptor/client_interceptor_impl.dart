@@ -90,13 +90,16 @@ class ClientInterceptorImpl implements IClientInterceptor {
   String _buildQueryParameters(Map<String, dynamic>? queryParameters) {
     try {
       if (queryParameters != null && queryParameters.isNotEmpty) {
-        String params = '?';
-        params += queryParameters.entries
-            .map((param) => '${param.key}=${param.value}')
-            .toString();
-        params = params.replaceAll('(', '').replaceAll(')', '');
-        params = params.replaceAll(', ', '&');
-        return params.trim();
+        final params = StringBuffer();
+        for (var entry in queryParameters.entries) {
+          if (params.isEmpty) {
+            params.write('?');
+          } else {
+            params.write('&');
+          }
+          params.write('${entry.key}=${entry.value}');
+        }
+        return params.toString();
       }
       return '';
     } catch (e) {
