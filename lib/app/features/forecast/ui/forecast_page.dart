@@ -45,7 +45,10 @@ class _ForecastPageState extends State<ForecastPage> {
         }
 
         if (state is ErrorState) {
-          return ErrorTextWidget(text: state.exception.message);
+          return ErrorTextWidget(
+            text: state.exception.message,
+            withScaffold: true,
+          );
         }
 
         if (state is ForecastSuccessState) {

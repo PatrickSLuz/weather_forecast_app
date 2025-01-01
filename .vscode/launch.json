@@ -9,12 +9,18 @@
             "request": "launch",
             "type": "dart",
             "program": "lib/main_dev.dart",
+            "args": [
+                "--dart-define-from-file=environment/dev.env",
+            ],
         },
         {
             "name": "Prod",
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
+            "args": [
+                "--dart-define-from-file=environment/prod.env",
+            ],
         },
     ]
 }

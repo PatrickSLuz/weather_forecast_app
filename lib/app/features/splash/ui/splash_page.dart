@@ -10,7 +10,6 @@ import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/design_system/loadings/app_loading.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
 import 'package:weather_forecast_app/design_system/dialogs/app_information_dialog.dart';
-import 'package:weather_forecast_app/setup.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -49,7 +48,6 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    addInterceptors();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       initialize();
     });

@@ -32,6 +32,7 @@ migrate_working_dir/
 /build/
 pubspec.lock
 *.env
+firebase_options.dart
 
 # Symbolication related
 app.*.symbols

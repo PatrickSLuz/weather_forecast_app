@@ -1,0 +1,43 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "clean build",
+            "type": "flutter",
+            "group": "none",
+            "command": "flutter",
+            "args": [
+                "clean",
+            ],
+        },
+        {
+            "label": "build prod apk",
+            "type": "flutter",
+            "group": "build",
+            "dependsOn": "clean build",
+            "command": "flutter",
+            "args": [
+                "build",
+                "apk",
+                "-t",
+                "lib/main.dart",
+                "--dart-define-from-file=environment/prod.env",
+                "--split-per-abi",
+            ],
+        },
+        {
+            "label": "build prod appbundle",
+            "type": "flutter",
+            "group": "build",
+            "dependsOn": "clean build",
+            "command": "flutter",
+            "args": [
+                "build",
+                "appbundle",
+                "-t",
+                "lib/main.dart",
+                "--dart-define-from-file=environment/prod.env",
+            ],
+        }
+    ]
+}

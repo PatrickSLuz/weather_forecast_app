@@ -4,7 +4,9 @@ import 'package:weather_forecast_app/core/application_info/i_application_info.da
 import 'package:weather_forecast_app/core/application_info/package_info_plus_impl.dart';
 import 'package:weather_forecast_app/core/cache/i_cache.dart';
 import 'package:weather_forecast_app/core/cache/shared_preferences_impl.dart';
+import 'package:weather_forecast_app/core/client/geo/geo_client_interceptor_impl.dart';
 import 'package:weather_forecast_app/core/client/i_rest_client.dart';
+import 'package:weather_forecast_app/core/client/weather/weather_client_interceptor_impl.dart';
 import 'package:weather_forecast_app/core/local_database/i_local_database.dart';
 import 'package:weather_forecast_app/core/local_database/sqflite_local_database_impl.dart';
 import 'package:weather_forecast_app/app/features/search/data/repositories/city_database_repository_impl.dart';
@@ -76,4 +78,7 @@ void injector() {
   getIt.registerLazySingleton<ICityDatabaseRepository>(
     () => CityDatabaseRepositoryImpl(getIt<ILocalDatabase>()),
   );
+
+  getIt<IWeatherRestClient>().addInterceptors(WeatherClientInterceptorImpl());
+  getIt<IGeoRestClient>().addInterceptors(GeoClientInterceptorImpl());
 }
