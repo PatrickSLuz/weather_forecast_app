@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/splash/domain/cubits/splash_cubit.dart';
@@ -11,6 +12,7 @@ class SplashModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics.instance.logAppOpen();
     return BlocProvider(
       create: (_) => SplashCubit(
         getIt.get<IGeolocation>(),

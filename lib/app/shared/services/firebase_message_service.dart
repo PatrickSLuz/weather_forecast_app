@@ -18,6 +18,7 @@ class FirebaseMessageService {
   Future<void> handleToken() async {
     try {
       String? fcmToken = await cache.getData('fcmToken');
+      log('Firebase Cloud Message - cache token: $fcmToken');
 
       if (fcmToken == null || fcmToken.isEmpty) {
         fcmToken = await FirebaseMessaging.instance.getToken();

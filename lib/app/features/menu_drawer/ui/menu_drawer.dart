@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/menu_drawer/ui/widgets/menu_drawer_header_widget.dart';
@@ -60,6 +61,7 @@ class MenuDrawer extends StatelessWidget {
                 icon: const Icon(Icons.share_outlined),
                 onPressed: () {
                   scaffoldKey.currentState!.closeDrawer();
+                  FirebaseAnalytics.instance.logEvent(name: 'share_app');
                   shareLink(Constants.androidAppLink);
                 },
               ),
