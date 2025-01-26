@@ -14,6 +14,7 @@ import 'package:weather_forecast_app/app/features/search/ui/widgets/city_tile_wi
 import 'package:weather_forecast_app/design_system/dialogs/app_confirmation_dialog.dart';
 import 'package:weather_forecast_app/app/features/search/ui/widgets/use_my_location_tile_widget.dart';
 import 'package:weather_forecast_app/design_system/widgets/error_text_widget.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -92,8 +93,8 @@ class _SearchPageState extends State<SearchPage> {
     final result = await showDialog<bool>(
       context: context,
       builder: (_) => AppConfirmationDialog(
-        title: 'Remover cidade??',
-        description: '${city.name} será removida do seu histórico de pesquisa.',
+        title: AppIntl.of(context).removeCity,
+        description: AppIntl.of(context).removeCityDesc(city.name),
       ),
     );
 
@@ -122,9 +123,9 @@ class _SearchPageState extends State<SearchPage> {
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp('[0-9a-zA-Z\\s]')),
             ],
-            decoration: const InputDecoration(
-              hintText: 'Pesquise uma cidade',
-              prefixIcon: Icon(Icons.search_rounded),
+            decoration: InputDecoration(
+              hintText: AppIntl.of(context).searchCity,
+              prefixIcon: const Icon(Icons.search_rounded),
               prefixIconColor: AppColors.darkBlue,
             ),
             onChanged: (value) {
@@ -140,7 +141,7 @@ class _SearchPageState extends State<SearchPage> {
         actions: [
           if (Navigator.canPop(context))
             IconButton(
-              tooltip: 'Pesquisar',
+              tooltip: AppIntl.of(context).search,
               onPressed: () async {
                 final navigator = Navigator.of(context);
                 await Future.delayed(
@@ -215,10 +216,9 @@ class _SearchPageState extends State<SearchPage> {
     } else if (state is GetLocationErrorState) {
       showDialog<bool>(
         context: context,
-        builder: (_) => const AppInformationDialog(
-          title: 'Opss!',
-          description:
-              'Não foi possível buscar sua localização. Por favor, tente novamente!',
+        builder: (_) => AppInformationDialog(
+          title: AppIntl.of(context).defaultErrorTitle,
+          description: AppIntl.of(context).getLocationErrorMessage,
         ),
       );
     }

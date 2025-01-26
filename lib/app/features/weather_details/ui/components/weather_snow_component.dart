@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_forecast_app/app/features/forecast/domain/models/rain_snow_model.dart';
 import 'package:weather_forecast_app/app/features/weather_details/ui/widgets/data_row_widget.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class WeatherSnowComponent extends StatelessWidget {
   final RainSnowModel snow;
@@ -20,7 +21,7 @@ class WeatherSnowComponent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Dados sobre a neve',
+            AppIntl.of(context).snowData,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: Colors.black87,
                   fontWeight: FontWeight.w600,
@@ -35,7 +36,7 @@ class WeatherSnowComponent extends StatelessWidget {
                 size: 24,
               ),
               data: '${snow.last1Hour} mm',
-              description: 'Volume de neve em uma hora',
+              description: AppIntl.of(context).snowVolumeHours(1),
             ),
             const SizedBox(height: 16),
           ],
@@ -47,7 +48,7 @@ class WeatherSnowComponent extends StatelessWidget {
                 size: 24,
               ),
               data: '${snow.last3Hour} mm',
-              description: 'Volume de neve em 3 horas',
+              description: AppIntl.of(context).snowVolumeHours(3),
             ),
         ],
       ),

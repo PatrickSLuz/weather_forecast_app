@@ -10,6 +10,7 @@ import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/design_system/loadings/app_loading.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
 import 'package:weather_forecast_app/design_system/dialogs/app_information_dialog.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -98,7 +99,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                       ),
                       child: Image.asset(
                         AppAssets.appLogo,
-                        semanticLabel: 'Logo app Clima Atual',
+                        semanticLabel: AppIntl.of(context).appLogoDescription,
                         width: MediaQuery.of(context).size.width * 0.3,
                       ),
                     ),
@@ -129,10 +130,9 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       final navigator = Navigator.of(context);
       await showDialog(
         context: context,
-        builder: (_) => const AppInformationDialog(
-          title: 'Serviço de localização desativada',
-          description:
-              'Não foi possível usar a localização atual do dispositivo, pois o serviço de localização esta desativado.\nPara ter uma melhor experiência no App, ative a localização e tente novamente!',
+        builder: (_) => AppInformationDialog(
+          title: AppIntl.of(context).locationServiceDisbaledTitle,
+          description: AppIntl.of(context).locationServiceDisbaledDescription,
         ),
       );
       await _lastController.forward();
@@ -166,15 +166,15 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('Nova versão'),
-        content: const Text('Atualize o app para uma melhor experiência!'),
+        title: Text(AppIntl.of(context).newVersion),
+        content: Text(AppIntl.of(context).newVersionDesc),
         actions: [
           TextButton(
             onPressed: Navigator.of(context).pop,
-            child: const Text('Agora não'),
+            child: Text(AppIntl.of(context).notNow),
           ),
           TextButton(
-            child: const Text('Atualizar'),
+            child: Text(AppIntl.of(context).update),
             onPressed: () async {
               final navigator = Navigator.of(context);
               await openLink(Constants.androidAppLink);

@@ -11,6 +11,7 @@ import 'package:weather_forecast_app/app/features/forecast/ui/components/forecas
 import 'package:weather_forecast_app/core/states/base_state.dart';
 import 'package:weather_forecast_app/design_system/loadings/app_loading.dart';
 import 'package:weather_forecast_app/design_system/widgets/error_text_widget.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class ForecastPage extends StatefulWidget {
   const ForecastPage({super.key});
@@ -64,13 +65,13 @@ class _ForecastPageState extends State<ForecastPage> {
                 address: state.address,
               ),
               leading: IconButton(
-                tooltip: 'Menu',
+                tooltip: AppIntl.of(context).menu,
                 icon: const Icon(Icons.menu_rounded),
                 onPressed: () => _scaffoldKey.currentState!.openDrawer(),
               ),
               actions: [
                 IconButton(
-                  tooltip: 'Pesquisar',
+                  tooltip: AppIntl.of(context).search,
                   icon: const Icon(Icons.search_rounded),
                   onPressed: () => onSearchPressed(context),
                 )

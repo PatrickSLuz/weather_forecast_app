@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({super.key});
@@ -7,10 +8,10 @@ class ErrorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Opss!'),
+        title: Text(AppIntl.of(context).defaultErrorTitle),
       ),
-      body: const Center(
-        child: Text('Dados inválidos ao carregar a página.'),
+      body: Center(
+        child: Text(AppIntl.of(context).errorPageMessage),
       ),
     );
   }

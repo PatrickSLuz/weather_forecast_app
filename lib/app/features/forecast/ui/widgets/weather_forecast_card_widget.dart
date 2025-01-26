@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_forecast_app/app/features/forecast/domain/models/location_model.dart';
 import 'package:weather_forecast_app/app/features/forecast/domain/models/weather_model.dart';
 import 'package:weather_forecast_app/app_routes.dart';
-import 'package:weather_forecast_app/core/extensions/date_time_extension.dart';
 import 'package:weather_forecast_app/core/extensions/string_extension.dart';
 import 'package:weather_forecast_app/core/models/address_model.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class WeatherForecastCardWidget extends StatelessWidget {
   final WeatherModel weather;
@@ -47,14 +48,14 @@ class WeatherForecastCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      weather.dateTime.dayOfWeek(),
+                      DateFormat.EEEE().format(weather.dateTime),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Colors.black87,
                             fontWeight: FontWeight.w600,
                           ),
                     ),
                     Text(
-                      '${weather.dateTime.format('dd/MM')} ${weather.dateTime.format('HH:mm')}',
+                      DateFormat.Md().add_Hm().format(weather.dateTime),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Colors.black87,
                           ),
@@ -79,7 +80,7 @@ class WeatherForecastCardWidget extends StatelessWidget {
             ),
             SvgPicture.asset(
               weather.condition.asset,
-              semanticsLabel: 'Condição do clima',
+              semanticsLabel: AppIntl.of(context).weatherCondition,
               fit: BoxFit.fitHeight,
               height: 40,
             ),

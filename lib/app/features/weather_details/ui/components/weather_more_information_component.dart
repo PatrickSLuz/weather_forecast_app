@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_forecast_app/app/features/forecast/domain/models/location_model.dart';
 import 'package:weather_forecast_app/app/features/forecast/domain/models/weather_model.dart';
 import 'package:weather_forecast_app/app/features/weather_details/ui/widgets/data_row_widget.dart';
-import 'package:weather_forecast_app/core/extensions/date_time_extension.dart';
 import 'package:weather_forecast_app/design_system/assets/app_assets.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class WeatherMoreInformationComponent extends StatelessWidget {
   final LocationModel location;
@@ -24,7 +25,7 @@ class WeatherMoreInformationComponent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Mais informações',
+            AppIntl.of(context).moreInformation,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: Colors.black87,
                   fontWeight: FontWeight.w600,
@@ -34,12 +35,12 @@ class WeatherMoreInformationComponent extends StatelessWidget {
           DataRowWidget(
             icon: Image.asset(
               AppAssets.atmosphericPressure,
-              semanticLabel: 'Pressão atmosférica',
+              semanticLabel: AppIntl.of(context).pressure,
               height: 24,
               width: 24,
             ),
             data: '${weather.detail.pressure} hPa',
-            description: 'Pressão atmosférica',
+            description: AppIntl.of(context).pressure,
           ),
           const SizedBox(height: 16),
           // DataRowWidget(
@@ -72,30 +73,30 @@ class WeatherMoreInformationComponent extends StatelessWidget {
                 size: 24,
               ),
               data: weather.visibilityFormatted,
-              description: 'Visibilidade',
+              description: AppIntl.of(context).visibility,
             ),
             const SizedBox(height: 16),
           ],
           DataRowWidget(
             icon: Image.asset(
               AppAssets.sunrise,
-              semanticLabel: 'Nascer do sol',
+              semanticLabel: AppIntl.of(context).sunrise,
               height: 24,
               width: 24,
             ),
-            data: location.sunrise.format('HH:mm'),
-            description: 'Nascer do Sol',
+            data: DateFormat.Hm().format(location.sunrise),
+            description: AppIntl.of(context).sunrise,
           ),
           const SizedBox(height: 16),
           DataRowWidget(
             icon: Image.asset(
               AppAssets.sunset,
-              semanticLabel: 'Pôr do Sol',
+              semanticLabel: AppIntl.of(context).sunset,
               height: 24,
               width: 24,
             ),
-            data: location.sunset.format('HH:mm'),
-            description: 'Pôr do Sol',
+            data: DateFormat.Hm().format(location.sunset),
+            description: AppIntl.of(context).sunset,
           ),
         ],
       ),

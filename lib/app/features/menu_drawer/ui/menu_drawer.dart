@@ -8,6 +8,7 @@ import 'package:weather_forecast_app/app/features/forecast/domain/cubits/forecas
 import 'package:weather_forecast_app/app_routes.dart';
 import 'package:weather_forecast_app/core/constants/constants.dart';
 import 'package:weather_forecast_app/core/functions/share_function.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class MenuDrawer extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -42,14 +43,14 @@ class MenuDrawer extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               MenuDrawerItemWidget(
-                title: 'Home',
+                title: AppIntl.of(context).home,
                 icon: const Icon(Icons.home_outlined),
                 onPressed: () {
                   scaffoldKey.currentState!.closeDrawer();
                 },
               ),
               MenuDrawerItemWidget(
-                title: 'Pesquisar uma cidade',
+                title: AppIntl.of(context).searchCity,
                 icon: const Icon(Icons.search_rounded),
                 onPressed: () async {
                   scaffoldKey.currentState!.closeDrawer();
@@ -57,7 +58,7 @@ class MenuDrawer extends StatelessWidget {
                 },
               ),
               MenuDrawerItemWidget(
-                title: 'Compartilhar App',
+                title: AppIntl.of(context).shareApp,
                 icon: const Icon(Icons.share_outlined),
                 onPressed: () {
                   scaffoldKey.currentState!.closeDrawer();
@@ -66,7 +67,7 @@ class MenuDrawer extends StatelessWidget {
                 },
               ),
               MenuDrawerItemWidget(
-                title: 'Sobre',
+                title: AppIntl.of(context).about,
                 icon: const Icon(Icons.info_outline_rounded),
                 onPressed: () {
                   scaffoldKey.currentState!.closeDrawer();

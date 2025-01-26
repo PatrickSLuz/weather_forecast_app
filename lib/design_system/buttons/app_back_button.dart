@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class AppBackButton extends StatelessWidget {
   final VoidCallback? onClose;
@@ -15,7 +16,7 @@ class AppBackButton extends StatelessWidget {
         Navigator.of(context).pop();
         onClose?.call();
       },
-      tooltip: 'Voltar',
+      tooltip: AppIntl.of(context).back,
       splashRadius: 16,
       icon: const Icon(
         Icons.arrow_back_ios_new_rounded,

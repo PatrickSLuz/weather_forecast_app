@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
 import 'package:weather_forecast_app/design_system/dialogs/widgets/dialog_action_widget.dart';
 import 'package:weather_forecast_app/design_system/dialogs/widgets/dialog_button_widget.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class AppConfirmationDialog extends StatelessWidget {
   final String title;
@@ -50,14 +51,14 @@ class AppConfirmationDialog extends StatelessWidget {
           DialogActionWidget(
             primaryButton: DialogButtonWidget(
               onTap: () => Navigator.of(context).pop(true),
-              text: 'Remover',
+              text: AppIntl.of(context).remove,
               textColor: AppColors.darkBlue,
               borderRadius: BorderRadius.only(
                 bottomRight: radius,
               ),
             ),
             secondaryButton: DialogButtonWidget(
-              text: 'Cancelar',
+              text: AppIntl.of(context).cancel,
               borderRadius: BorderRadius.only(
                 bottomLeft: radius,
               ),

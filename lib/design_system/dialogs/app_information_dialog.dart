@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
 import 'package:weather_forecast_app/design_system/dialogs/widgets/dialog_action_widget.dart';
 import 'package:weather_forecast_app/design_system/dialogs/widgets/dialog_button_widget.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class AppInformationDialog extends StatelessWidget {
   final String title;
@@ -59,7 +60,7 @@ class AppInformationDialog extends StatelessWidget {
           const SizedBox(height: 24),
           DialogActionWidget(
             primaryButton: DialogButtonWidget(
-              text: 'OK',
+              text: AppIntl.of(context).ok,
               textColor: AppColors.darkBlue,
               borderRadius: BorderRadius.only(
                 bottomLeft: radius,

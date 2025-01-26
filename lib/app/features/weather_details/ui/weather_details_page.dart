@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_forecast_app/app/features/ad/banner_ad_widget.dart';
 import 'package:weather_forecast_app/app/features/forecast/domain/models/location_model.dart';
 import 'package:weather_forecast_app/app/features/forecast/domain/models/weather_model.dart';
@@ -11,12 +12,12 @@ import 'package:weather_forecast_app/app/features/weather_details/ui/components/
 import 'package:weather_forecast_app/app/features/weather_details/ui/widgets/extra_data_widget.dart';
 import 'package:weather_forecast_app/app/features/weather_details/ui/widgets/temperature_row_widget.dart';
 import 'package:weather_forecast_app/app/shared/widgets/city_name_widget.dart';
-import 'package:weather_forecast_app/core/extensions/date_time_extension.dart';
 import 'package:weather_forecast_app/core/extensions/string_extension.dart';
 import 'package:weather_forecast_app/core/models/address_model.dart';
 import 'package:weather_forecast_app/design_system/buttons/app_back_button.dart';
 import 'package:weather_forecast_app/design_system/divider/app_divider.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class WeatherDetailsPage extends StatelessWidget {
   final WeatherModel weather;
@@ -59,7 +60,7 @@ class WeatherDetailsPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Text(
-                '${weather.dateTime.dayOfWeek()} ${weather.dateTime.format()}',
+                DateFormat.EEEE().add_yMd().add_Hm().format(weather.dateTime),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
@@ -67,7 +68,9 @@ class WeatherDetailsPage extends StatelessWidget {
             const SizedBox(height: 8),
             TemperatureRowWidget(weatherDetail: weather.detail),
             Text(
-              'Sensação térmica de ${weather.detail.feelsLike.toInt()}°',
+              AppIntl.of(context).temperatureFeelsLike(
+                '${weather.detail.feelsLike.toInt()}°',
+              ),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodySmall,
             ),
@@ -81,7 +84,7 @@ class WeatherDetailsPage extends StatelessWidget {
             ),
             SvgPicture.asset(
               weather.condition.asset,
-              semanticsLabel: 'Condição do clima',
+              semanticsLabel: AppIntl.of(context).weatherCondition,
               fit: BoxFit.fitHeight,
               height: getConditionAssetHeight(context),
             ),
@@ -97,7 +100,7 @@ class WeatherDetailsPage extends StatelessWidget {
                     size: 26,
                   ),
                   data: '${weather.detail.humidity.toInt()}%',
-                  description: 'Umidade',
+                  description: AppIntl.of(context).humidity,
                 ),
                 if (weather.pop != null)
                   ExtraDataWidget(
@@ -109,7 +112,9 @@ class WeatherDetailsPage extends StatelessWidget {
                       size: 24,
                     ),
                     data: '${(weather.pop! * 100).toInt()}%',
-                    description: weather.condition.isSnow ? 'Neve' : 'Chuva',
+                    description: weather.condition.isSnow
+                        ? AppIntl.of(context).snow
+                        : AppIntl.of(context).rain,
                   ),
                 ExtraDataWidget(
                   icon: const Icon(
@@ -118,7 +123,7 @@ class WeatherDetailsPage extends StatelessWidget {
                     size: 26,
                   ),
                   data: '${weather.cloudiness.percent}%',
-                  description: 'Nebulosidade',
+                  description: AppIntl.of(context).cloudiness,
                 ),
               ],
             ),

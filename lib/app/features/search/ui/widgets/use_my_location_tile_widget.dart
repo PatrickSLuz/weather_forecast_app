@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_forecast_app/l10n/internationalization.dart';
 
 class UseMyLocationTileWidget extends StatelessWidget {
   final VoidCallback onTap;
@@ -12,15 +13,15 @@ class UseMyLocationTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         child: Row(
           children: [
-            Icon(Icons.location_on_outlined),
-            SizedBox(width: 12),
+            const Icon(Icons.location_on_outlined),
+            const SizedBox(width: 12),
             Text(
-              'Usar minha localização',
-              style: TextStyle(
+              AppIntl.of(context).useMyLocation,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
