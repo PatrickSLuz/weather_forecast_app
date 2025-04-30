@@ -6,12 +6,7 @@ class AppDivider extends StatelessWidget {
   final double? width;
   final Color? color;
 
-  const AppDivider({
-    super.key,
-    this.height,
-    this.width,
-    this.color,
-  });
+  const AppDivider({super.key, this.height, this.width, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +14,7 @@ class AppDivider extends StatelessWidget {
       height: height ?? 16,
       width: width ?? double.maxFinite,
       decoration: BoxDecoration(
-        color: color ?? AppColors.background.withOpacity(0.5),
+        color: color ?? AppColors.background.withAlpha((255 / 2).toInt()),
       ),
     );
   }

@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_forecast_app/app/app_widget.dart';
+import 'package:weather_forecast_app/l10n/app_localizations.dart';
 
 sealed class AppIntl {
   static AppLocalizations of(BuildContext context) =>

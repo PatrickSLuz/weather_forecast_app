@@ -54,17 +54,15 @@ class AppTheme {
         iconColor: WidgetStatePropertyAll<Color>(AppColors.darkBlue),
       ),
     ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
+    elevatedButtonTheme: const ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: const WidgetStatePropertyAll(AppColors.darkBlue),
-        foregroundColor: const WidgetStatePropertyAll(Colors.white),
-        overlayColor: WidgetStatePropertyAll(Colors.white.withOpacity(0.2)),
-        textStyle: const WidgetStatePropertyAll(TextStyle(fontSize: 16)),
-        shape: const WidgetStatePropertyAll(
+        backgroundColor: WidgetStatePropertyAll(AppColors.darkBlue),
+        foregroundColor: WidgetStatePropertyAll(Colors.white),
+        overlayColor: WidgetStatePropertyAll(Colors.white24),
+        textStyle: WidgetStatePropertyAll(TextStyle(fontSize: 16)),
+        shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(12),
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
         ),
       ),
