@@ -36,7 +36,15 @@ dev_dependencies:
   flutter_localizations:
     sdk: flutter
 
+  flutter_launcher_icons: ^0.14.3
   flutter_lints: ^5.0.0
+
+# dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  image_path_android: "assets/app_icon/icon.png"
+  adaptive_icon_foreground: "assets/app_icon/icon.png"
+  adaptive_icon_background: "assets/app_icon/background.png"
 
 flutter:
   uses-material-design: true
@@ -45,8 +53,9 @@ flutter:
   assets:
     - environment/
     - assets/
-    - assets/icons/
+    - assets/app_icon/
     - assets/fonts/
+    - assets/icons/
     - assets/logos/
 
   fonts:
