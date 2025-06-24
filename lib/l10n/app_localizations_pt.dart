@@ -174,14 +174,18 @@ class AppLocalizationsPt extends AppLocalizations {
   String get defaultErrorTitle => 'Opss!';
 
   @override
-  String get getLocationErrorMessage => 'Não foi possível buscar sua localização. Por favor, tente novamente!';
+  String get getLocationErrorMessage =>
+      'Não foi possível buscar sua localização. Por favor, tente novamente!';
 
   @override
-  String get locationServiceDisbaledTitle => 'Serviço de localização desativada';
+  String get locationServiceDisbaledTitle =>
+      'Serviço de localização desativada';
 
   @override
-  String get locationServiceDisbaledDescription => 'Não foi possível usar a localização atual do dispositivo, pois o serviço de localização esta desativado.\nPara ter uma melhor experiência no App, ative a localização e tente novamente!';
+  String get locationServiceDisbaledDescription =>
+      'Não foi possível usar a localização atual do dispositivo, pois o serviço de localização esta desativado.\nPara ter uma melhor experiência no App, ative a localização e tente novamente!';
 
   @override
-  String get aboutAppDescription => 'Bem-vindo ao App Clima Atual. Este aplicativo é a sua solução para previsões climáticas precisas e em tempo real. Com uma interface intuitiva, você pode facilmente acompanhar as condições meteorológicas atuais e planejar seu dia com confiança.\n\nNossa missão é fornecer informações climáticas precisas e fáceis de entender para facilitar seu dia a dia.\nBuscamos transformar a maneira como você planeja e vive, oferecendo uma ferramenta confiável para todas as suas necessidades meteorológicas.\n\nAgradecemos por usar o App Clima Atual! Seu feedback é importante para nós.';
+  String get aboutAppDescription =>
+      'Bem-vindo ao App Clima Atual. Este aplicativo é a sua solução para previsões climáticas precisas e em tempo real. Com uma interface intuitiva, você pode facilmente acompanhar as condições meteorológicas atuais e planejar seu dia com confiança.\n\nNossa missão é fornecer informações climáticas precisas e fáceis de entender para facilitar seu dia a dia.\nBuscamos transformar a maneira como você planeja e vive, oferecendo uma ferramenta confiável para todas as suas necessidades meteorológicas.\n\nAgradecemos por usar o App Clima Atual! Seu feedback é importante para nós.';
 }

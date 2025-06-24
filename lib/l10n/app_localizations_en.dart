@@ -174,14 +174,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get defaultErrorTitle => 'Opss!';
 
   @override
-  String get getLocationErrorMessage => 'We were unable to search your location. Please try again!';
+  String get getLocationErrorMessage =>
+      'We were unable to search your location. Please try again!';
 
   @override
   String get locationServiceDisbaledTitle => 'Location service disbaled';
 
   @override
-  String get locationServiceDisbaledDescription => 'It was not possible to use the device\'s current location, as the location service is disabled.\nFor a better experience on the App, activate location and try again!';
+  String get locationServiceDisbaledDescription =>
+      'It was not possible to use the device\'s current location, as the location service is disabled.\nFor a better experience on the App, activate location and try again!';
 
   @override
-  String get aboutAppDescription => 'Welcome to the Current Weather App. This app is your solution for accurate, real-time weather forecasts. With an intuitive interface, you can easily track current weather conditions and plan your day with confidence.\n\nOur mission is to provide accurate, easy-to-understand weather information to make your everyday life easier.\nWe aim to transform the way you plan and live by providing a reliable tool for all your weather needs.\n\nThank you for using the Current Weather App! Your feedback is important to us.';
+  String get aboutAppDescription =>
+      'Welcome to the Current Weather App. This app is your solution for accurate, real-time weather forecasts. With an intuitive interface, you can easily track current weather conditions and plan your day with confidence.\n\nOur mission is to provide accurate, easy-to-understand weather information to make your everyday life easier.\nWe aim to transform the way you plan and live by providing a reliable tool for all your weather needs.\n\nThank you for using the Current Weather App! Your feedback is important to us.';
 }

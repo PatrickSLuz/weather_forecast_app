@@ -23,12 +23,6 @@ class ForecastPage extends StatefulWidget {
 class _ForecastPageState extends State<ForecastPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override
-  void dispose() {
-    _scaffoldKey.currentState?.dispose();
-    super.dispose();
-  }
-
   void onSearchPressed(BuildContext context) async {
     final forecastCubit = context.read<ForecastCubit>();
     final result = await Navigator.pushNamed(context, AppRoutes.searchPage);

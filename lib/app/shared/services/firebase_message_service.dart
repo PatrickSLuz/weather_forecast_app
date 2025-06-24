@@ -10,23 +10,30 @@ class FirebaseMessageService {
   final ICache cache;
 
   FirebaseMessageService(this.cache) {
-    handleToken();
-    subscribeToTopic();
+    setup();
+  }
+
+  final _fcm = FirebaseMessaging.instance;
+
+  void setup() async {
+    await _fcm.setAutoInitEnabled(true);
+    await _fcm.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+    await handleToken();
+    await subscribeToTopic();
     handleNotifications();
   }
 
   Future<void> handleToken() async {
     try {
-      String? fcmToken = await cache.getData('fcmToken');
-      log('Firebase Cloud Message - cache token: $fcmToken');
+      final fcmToken = await _fcm.getToken();
+      log('Firebase Cloud Message - getToken: $fcmToken');
+      cache.setData(key: 'fcmToken', value: fcmToken);
 
-      if (fcmToken == null || fcmToken.isEmpty) {
-        fcmToken = await FirebaseMessaging.instance.getToken();
-        log('Firebase Cloud Message - getToken: $fcmToken');
-        cache.setData(key: 'fcmToken', value: fcmToken);
-      }
-
-      FirebaseMessaging.instance.onTokenRefresh.listen(
+      _fcm.onTokenRefresh.listen(
         (fcmTokenRefresh) {
           if (fcmToken != fcmTokenRefresh) {
             log('Firebase Cloud Message - onTokenRefresh: $fcmTokenRefresh');
@@ -45,8 +52,8 @@ class FirebaseMessageService {
     }
   }
 
-  void subscribeToTopic() async {
-    await FirebaseMessaging.instance.subscribeToTopic('app_clima_atual');
+  Future<void> subscribeToTopic() async {
+    await _fcm.subscribeToTopic('app_clima_atual');
   }
 
   void handleNotifications() {
