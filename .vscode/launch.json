@@ -10,7 +10,7 @@
             "type": "dart",
             "program": "lib/main_dev.dart",
             "args": [
-                "--dart-define-from-file=environment/dev.env",
+                "--dart-define-from-file=env/dev.json",
             ],
         },
         {
@@ -19,7 +19,16 @@
             "type": "dart",
             "program": "lib/main.dart",
             "args": [
-                "--dart-define-from-file=environment/prod.env",
+                "--dart-define-from-file=env/prod.json",
+            ],
+        },
+        {
+            "name": "Prod Old",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/old/main.dart",
+            "args": [
+                "--dart-define-from-file=env/prod.json",
             ],
         },
     ]

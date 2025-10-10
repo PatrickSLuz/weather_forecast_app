@@ -1,0 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:weather_forecast_app/old/design_system/assets/app_assets.dart';
+
+Future<void> precacheImages(BuildContext context) async {
+  const assetPaths = [
+    AppAssets.appLogo,
+  ];
+
+  for (final path in assetPaths) {
+    await precacheImage(AssetImage(path), context);
+  }
+}

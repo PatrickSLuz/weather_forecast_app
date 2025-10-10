@@ -21,7 +21,7 @@
                 "apk",
                 "-t",
                 "lib/main.dart",
-                "--dart-define-from-file=environment/prod.env",
+                "--dart-define-from-file=env/prod.json",
                 "--split-per-abi",
             ],
         },
@@ -36,7 +36,7 @@
                 "appbundle",
                 "-t",
                 "lib/main.dart",
-                "--dart-define-from-file=environment/prod.env",
+                "--dart-define-from-file=env/prod.json",
             ],
         }
     ]
