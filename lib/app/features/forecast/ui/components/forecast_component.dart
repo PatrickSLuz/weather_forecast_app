@@ -79,9 +79,9 @@ class ForecastComponent extends StatelessWidget {
                   child: Text(
                     AppIntl.of(context).forecastNextHours,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -90,7 +90,7 @@ class ForecastComponent extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: forecast.weathers.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 8),
+                    separatorBuilder: (_, _) => const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       return WeatherForecastCardWidget(
                         weather: forecast.weathers[index],

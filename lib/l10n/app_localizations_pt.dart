@@ -171,18 +171,18 @@ class AppLocalizationsPt extends AppLocalizations {
   String get unknownPageMessage => 'Página desconhecida.';
 
   @override
-  String get defaultErrorTitle => 'Opss!';
+  String get defaultErrorTitle => 'Ops!';
 
   @override
   String get getLocationErrorMessage =>
       'Não foi possível buscar sua localização. Por favor, tente novamente!';
 
   @override
-  String get locationServiceDisbaledTitle =>
+  String get locationServiceDisabledTitle =>
       'Serviço de localização desativada';
 
   @override
-  String get locationServiceDisbaledDescription =>
+  String get locationServiceDisabledDescription =>
       'Não foi possível usar a localização atual do dispositivo, pois o serviço de localização esta desativado.\nPara ter uma melhor experiência no App, ative a localização e tente novamente!';
 
   @override

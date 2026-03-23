@@ -1,3 +1,3 @@
 part of '../cubits/splash_cubit.dart';
 
-final class LocationServiceDisbaledState implements BaseState {}
+final class LocationServiceDisabledState implements BaseState {}

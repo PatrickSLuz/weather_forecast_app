@@ -63,7 +63,7 @@ import 'app_localizations_pt.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -86,16 +86,16 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('pt')
+    Locale('pt'),
   ];
 
   /// No description provided for @locale.
@@ -377,7 +377,7 @@ abstract class AppLocalizations {
   /// No description provided for @defaultErrorTitle.
   ///
   /// In en, this message translates to:
-  /// **'Opss!'**
+  /// **'Ops!'**
   String get defaultErrorTitle;
 
   /// No description provided for @getLocationErrorMessage.
@@ -386,17 +386,17 @@ abstract class AppLocalizations {
   /// **'We were unable to search your location. Please try again!'**
   String get getLocationErrorMessage;
 
-  /// No description provided for @locationServiceDisbaledTitle.
+  /// No description provided for @locationServiceDisabledTitle.
   ///
   /// In en, this message translates to:
-  /// **'Location service disbaled'**
-  String get locationServiceDisbaledTitle;
+  /// **'Location service disabled'**
+  String get locationServiceDisabledTitle;
 
-  /// No description provided for @locationServiceDisbaledDescription.
+  /// No description provided for @locationServiceDisabledDescription.
   ///
   /// In en, this message translates to:
   /// **'It was not possible to use the device\'s current location, as the location service is disabled.\nFor a better experience on the App, activate location and try again!'**
-  String get locationServiceDisbaledDescription;
+  String get locationServiceDisabledDescription;
 
   /// No description provided for @aboutAppDescription.
   ///
@@ -432,8 +432,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

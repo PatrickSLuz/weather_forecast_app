@@ -171,17 +171,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unknownPageMessage => 'Unknown page.';
 
   @override
-  String get defaultErrorTitle => 'Opss!';
+  String get defaultErrorTitle => 'Ops!';
 
   @override
   String get getLocationErrorMessage =>
       'We were unable to search your location. Please try again!';
 
   @override
-  String get locationServiceDisbaledTitle => 'Location service disbaled';
+  String get locationServiceDisabledTitle => 'Location service disabled';
 
   @override
-  String get locationServiceDisbaledDescription =>
+  String get locationServiceDisabledDescription =>
       'It was not possible to use the device\'s current location, as the location service is disabled.\nFor a better experience on the App, activate location and try again!';
 
   @override

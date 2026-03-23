@@ -13,10 +13,8 @@ class SplashCubit extends Cubit<BaseState> {
   final IGeolocation geolocation;
   final CheckUpdateAppService checkUpdateAppService;
 
-  SplashCubit(
-    this.geolocation,
-    this.checkUpdateAppService,
-  ) : super(InitialState());
+  SplashCubit(this.geolocation, this.checkUpdateAppService)
+    : super(InitialState());
 
   Future<bool> checkVersion() async {
     try {
@@ -36,7 +34,7 @@ class SplashCubit extends Cubit<BaseState> {
       final isServiceEnabled = await geolocation.isLocationServiceEnabled;
 
       if (!isServiceEnabled) {
-        return emit(LocationServiceDisbaledState());
+        return emit(LocationServiceDisabledState());
       }
 
       GeolocationPermissionTypeEnum permission;

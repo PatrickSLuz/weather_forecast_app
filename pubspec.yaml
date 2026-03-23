@@ -4,29 +4,29 @@ publish_to: 'none'
 version: 0.2.8+19
 
 environment:
-  sdk: ^3.6.1
+  sdk: ^3.11.0
 
 dependencies:
   flutter:
     sdk: flutter
 
-  bloc: ^9.0.1
+  bloc: ^9.2.0
   cupertino_icons: ^1.0.8
-  dio: ^5.9.0
-  firebase_analytics: ^12.0.2
-  firebase_core: ^4.1.1
-  firebase_crashlytics: ^5.0.2
-  firebase_messaging: ^16.0.2
+  dio: ^5.9.2
+  firebase_analytics: ^12.1.3
+  firebase_core: ^4.5.0
+  firebase_crashlytics: ^5.0.8
+  firebase_messaging: ^16.1.2
   flutter_bloc: ^9.1.1
-  flutter_svg: ^2.2.1
+  flutter_svg: ^2.2.4
   geocoding: ^4.0.0
-  geolocator: ^14.0.1
-  get_it: ^8.2.0
-  google_mobile_ads: ^6.0.0
+  geolocator: ^14.0.2
+  get_it: ^9.2.1
+  google_mobile_ads: ^7.0.0
   intl: ^0.20.2
   package_info_plus: ^9.0.0
-  shared_preferences: ^2.5.3
-  share_plus: ^12.0.0
+  shared_preferences: ^2.5.4
+  share_plus: ^12.0.1
   sqflite: ^2.4.2
   url_launcher: ^6.3.2
 
@@ -37,7 +37,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_launcher_icons: ^0.14.4
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 # dart run flutter_launcher_icons
 flutter_launcher_icons:

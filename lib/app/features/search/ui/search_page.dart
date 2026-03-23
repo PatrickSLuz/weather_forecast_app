@@ -4,15 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_forecast_app/app/features/ad/banner_ad_widget.dart';
 import 'package:weather_forecast_app/app/features/search/domain/cubits/search_cubit.dart';
 import 'package:weather_forecast_app/app/features/search/domain/models/city_model.dart';
-import 'package:weather_forecast_app/core/helpers/debouncer.dart';
+import 'package:weather_forecast_app/app/features/search/ui/widgets/city_tile_widget.dart';
+import 'package:weather_forecast_app/app/features/search/ui/widgets/use_my_location_tile_widget.dart';
 import 'package:weather_forecast_app/app_routes.dart';
+import 'package:weather_forecast_app/core/helpers/debounce.dart';
 import 'package:weather_forecast_app/core/states/base_state.dart';
+import 'package:weather_forecast_app/design_system/dialogs/app_confirmation_dialog.dart';
+import 'package:weather_forecast_app/design_system/dialogs/app_information_dialog.dart';
 import 'package:weather_forecast_app/design_system/loadings/app_loading.dart';
 import 'package:weather_forecast_app/design_system/theme/app_colors.dart';
-import 'package:weather_forecast_app/design_system/dialogs/app_information_dialog.dart';
-import 'package:weather_forecast_app/app/features/search/ui/widgets/city_tile_widget.dart';
-import 'package:weather_forecast_app/design_system/dialogs/app_confirmation_dialog.dart';
-import 'package:weather_forecast_app/app/features/search/ui/widgets/use_my_location_tile_widget.dart';
 import 'package:weather_forecast_app/design_system/widgets/error_text_widget.dart';
 import 'package:weather_forecast_app/l10n/internationalization.dart';
 
@@ -27,7 +27,7 @@ class _SearchPageState extends State<SearchPage> {
   late SearchCubit searchCubit;
   late bool canUseLocation;
 
-  final _debouncer = Debouncer();
+  final _debounce = Debounce();
   final _focusNode = FocusNode();
 
   @override
@@ -42,7 +42,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void dispose() {
-    _debouncer.dispose();
+    _debounce.dispose();
     _focusNode.dispose();
     super.dispose();
   }
@@ -55,20 +55,14 @@ class _SearchPageState extends State<SearchPage> {
 
     if (navigator.canPop()) {
       return navigator.pop(
-        CityModel.coordinate(
-          lat: location.latitude,
-          lng: location.longitude,
-        ),
+        CityModel.coordinate(lat: location.latitude, lng: location.longitude),
       );
     }
 
     navigator.pushNamedAndRemoveUntil(
       AppRoutes.forecastPage,
       (route) => false,
-      arguments: {
-        'lat': location.latitude,
-        'lng': location.longitude,
-      },
+      arguments: {'lat': location.latitude, 'lng': location.longitude},
     );
   }
 
@@ -82,10 +76,7 @@ class _SearchPageState extends State<SearchPage> {
     Navigator.of(context).pushNamedAndRemoveUntil(
       AppRoutes.forecastPage,
       (route) => false,
-      arguments: {
-        'lat': city.lat,
-        'lng': city.lng,
-      },
+      arguments: {'lat': city.lat, 'lng': city.lng},
     );
   }
 
@@ -130,7 +121,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             onChanged: (value) {
               final searchCubit = context.read<SearchCubit>();
-              _debouncer.run(() => searchCubit.searchCity(value));
+              _debounce.run(() => searchCubit.searchCity(value));
             },
             onFieldSubmitted: (value) {
               final searchCubit = context.read<SearchCubit>();
@@ -174,9 +165,7 @@ class _SearchPageState extends State<SearchPage> {
                 children: [
                   const SizedBox(height: 8),
                   if (state is SavedCitiesLoadedState && canUseLocation)
-                    UseMyLocationTileWidget(
-                      onTap: onUseMyLocationTap,
-                    ),
+                    UseMyLocationTileWidget(onTap: onUseMyLocationTap),
                   ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -205,7 +194,7 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  void _listener(context, state) {
+  void _listener(BuildContext context, BaseState state) {
     if (state is SavedCitiesLoadedState) {
       if (state.savedCities.isEmpty) {
         Future.delayed(

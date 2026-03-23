@@ -1,8 +1,8 @@
 import 'dart:developer';
 
+import 'package:sqflite/sqflite.dart';
 import 'package:weather_forecast_app/core/local_database/i_local_database.dart';
 import 'package:weather_forecast_app/core/local_database/sqflite_helper.dart';
-import 'package:sqflite/sqflite.dart';
 
 class SqfliteLocalDatabaseImpl implements ILocalDatabase {
   Future<Database> get _database => SqfliteHelper.database;
